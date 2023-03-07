@@ -9,6 +9,13 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 import auth from '../../Firebase/firebase';
 import { useNavigate } from 'react-router';
 
+import { ThemeContext } from '@emotion/react';
+import { Box } from '@mui/material';
+
+
+
+
+
 const Header = () => {
   const [authUser, setAuthUser] = useState(null);
   const navigate = useNavigate();
@@ -37,13 +44,13 @@ const Header = () => {
     } )
 }
 
-  
+
   return (
        
-   
-
-  <AppBar position='static' >
-<Toolbar sx={{ my: 2, color: 'black'}}>
+  
+<Box  >
+  <AppBar position='center' >
+<Toolbar >
   
   <Typography sx={{ my: 2, color: 'black'}} variant="h6" component="h4" >
      Sportsbook
@@ -51,19 +58,22 @@ const Header = () => {
  
    { authUser ? 
    <>
-  <Typography sx={{ my: 2, color: 'black'}} variant="h9" >
+  <Typography  justifyContent="center">
     Your login: {authUser.email.split('@')[0]}
   </Typography>
-
-<LogoutIcon sx={{ my: 2, color: 'black'}}></LogoutIcon>
-  <Button onClick={userSignOut} sx={{ my: 2, color: 'black', display: 'block' }}  >log out</Button>
-  <IconButton sx={{ my: 2, color: 'black'}} edge="start"   aria-label="logout">
+ 
+<LogoutIcon  sx={{  my: 2, color: 'black'}}  justifyContent="flex-end"></LogoutIcon>
+  <Button  onClick={userSignOut} sx={{ my: 2, color: 'black', display: 'block' }}  >log out</Button>
+  <IconButton aria-label="logout">
  
   </IconButton>
+   
   </>
   : null}
 </Toolbar>
 </AppBar>
+</Box>
+
 )
 }
 

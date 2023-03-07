@@ -1,4 +1,4 @@
-import getName from '../../store/useTeam';
+import getName from '../../store/express';
 import React from 'react';
 
 

@@ -1,5 +1,18 @@
-.coupon{
+.error{
+    color: brown;
+text-shadow: coral;
 
-    background: #fc0; 
-    border: 3px solid black; 
+
+}
+.field{
+    background-color: bisque;
+}
+
+.err{
+    border: solid red 2px;
+}
+
+.coupon {
+    background-color:rgb(241, 199, 220);
+    color: darkslategrey;
 }

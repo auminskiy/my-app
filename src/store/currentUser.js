@@ -5,7 +5,7 @@ import auth from '../Firebase/firebase';
 
 const currentUser = (set, get) => ({
 user: [],
-getUser:  async () => {
+useUser:  async () => {
     const [authUser, setAuthUser] = useState(null);
     
   useEffect(() => {

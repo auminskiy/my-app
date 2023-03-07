@@ -2,15 +2,17 @@ import { create } from "zustand";
 
 
 
-const useTeam = create(set => ({
+const express = create(set => ({
   
    oddsInfo: [],
     addTeam: (name, price) => set(state => {
       const newTeam = {name, price}
-      return { oddsInfo: [...state.oddsInfo, newTeam]}
+      return { oddsInfo: [ newTeam]}
     }),
     
   })
   )
+export default express
+
  
-  export default useTeam
+   

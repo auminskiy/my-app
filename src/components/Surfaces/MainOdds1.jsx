@@ -9,9 +9,11 @@ import { Alert, Divider, Stack, Typography} from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { create } from 'zustand';
-import getName from '../../store/useTeam';
+import getName from '../../store/express';
 import { SettingsInputAntennaTwoTone } from '@mui/icons-material';
-import useTeam from '../../store/useTeam';
+import express from '../../store/express';
+import ordinar from '../../store/ordinar';
+import useStore from '../../store/useStore';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -34,7 +36,7 @@ const MainOdds1 = () => {
       dateFormat: 'iso'
     },
     headers: {
-      'X-RapidAPI-Key': 'd4586a76f2mshcdf7d1057829a1ep158b28jsn2e41181c391c',
+      'X-RapidAPI-Key': 'fbe24cc43dmsh015584980782e3ep1bd677jsn4e3515cba58f',
       'X-RapidAPI-Host': 'odds.p.rapidapi.com'
     }
    })
@@ -78,10 +80,10 @@ console.log(sportKeyLoc);
     setSportKeyLocation(sportKeyLoc)
   }, [sportKeyLoc]);
 
-  const addTeam = useTeam((state) => state.addTeam);
-
+  //const addTeam = ordinar((state) => state.addTeam);
+const addToMarketInfoList = useStore((state) => state.addToMarketInfoList);
   const handleAddTeam = (e) => {
-    addTeam(e.target.getAttribute('data'), e.target.getAttribute('value') )
+    addToMarketInfoList(e.target.getAttribute('data'), e.target.getAttribute('value') )
     console.log("value: ", e.target.getAttribute('data'), e.target.getAttribute('value') );
   }
  
@@ -94,16 +96,19 @@ const handleChange = (e) => {
   console.log("value: ", name, price );
   
  }
-
+ console.log(items);
   return ( 
   <div> 
     
     <Item>Top matches</Item>
+    { 
+    <Item>{[...new Set(items.map(el => el.sport_title))]}</Item>}
      {items.map(key => {
-    return <div key={key.id} variant="inherit">
+    return <div>
+    <div key={key.id} variant="inherit">
     <Box sx={{ width: '100%' }}>
     <Stack spacing={2}>
-  <Item>{key.sport_title}</Item>
+  
   <Item>{key.home_team}{'  ' }vs{ '  '}{key.away_team}</Item>
   <Stack
   direction="row"
@@ -123,7 +128,7 @@ const handleChange = (e) => {
  
   </Box>
     </div>
-
+    </div>
   })}
     </div>
   )

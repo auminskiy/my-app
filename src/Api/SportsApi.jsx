@@ -10,7 +10,7 @@ const options = {
   url: 'https://odds.p.rapidapi.com/v4/sports',
   params: {all: 'true'},
   headers: {
-    'X-RapidAPI-Key': 'd4586a76f2mshcdf7d1057829a1ep158b28jsn2e41181c391c',
+    'X-RapidAPI-Key': 'fbe24cc43dmsh015584980782e3ep1bd677jsn4e3515cba58f',
     'X-RapidAPI-Host': 'odds.p.rapidapi.com'
   }
 };
@@ -39,7 +39,7 @@ const upcomingOdds = {
       dateFormat: 'iso'
     },
     headers: {
-      'X-RapidAPI-Key': 'd4586a76f2mshcdf7d1057829a1ep158b28jsn2e41181c391c',
+      'X-RapidAPI-Key': 'fbe24cc43dmsh015584980782e3ep1bd677jsn4e3515cba58f',
       'X-RapidAPI-Host': 'odds.p.rapidapi.com'
     }
   };
@@ -66,7 +66,7 @@ export const upcomingOddsApi = () => {
     dateFormat: 'iso'
   },
   headers: {
-    'X-RapidAPI-Key': 'd4586a76f2mshcdf7d1057829a1ep158b28jsn2e41181c391c',
+    'X-RapidAPI-Key': 'fbe24cc43dmsh015584980782e3ep1bd677jsn4e3515cba58f',
     'X-RapidAPI-Host': 'odds.p.rapidapi.com'
   }
  })

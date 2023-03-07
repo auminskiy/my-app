@@ -1,4 +1,4 @@
-import { Button, Typography } from '@mui/material';
+import { Button, Switch, Typography } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import React, { useState, useEffect } from 'react';
 import DataService from '../../Firebase/firestore';
@@ -14,12 +14,13 @@ import { collection, getDocs, getFirestore,
 import auth from '../../Firebase/firebase';
 import { useNavigate } from 'react-router';
 import useStore from '../../store/useStore';
-import getName from '../../store/useTeam';
+import getName from '../../store/express';
 import CouponName from './CouponName';
-import useTeam from '../../store/useTeam';
-
-
- 
+import express from '../../store/express';
+import  ordinar  from '../../store/ordinar';
+import couponFormShema from './couponFormShema';
+import * as Yup from "yup";
+import classnames from 'classnames';
 
  const firebaseConfig = {
    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -69,19 +70,19 @@ React.useEffect(() => {
     console.log(authUser)
     
 
-    const [match, setMatch] = useState('');
+    const [stake, setStake] = useState('');
     const [market, setMarket] = useState('');
     const [time, setTime] = useState('');
-   const [message, setMessage] = useState({error: false, msg: ''})
+   const [message, setMessage] = useState({error: false, msg: 'oh no, error'})
 const handleSubmit = async (e) => {
     
     setMessage('');
-    if (match === '' || market === '') {
+    if (stake === '' || market === '') {
         setMessage({error: true, msg: 'what a fuck?'});
         return;
     }
 
-   const newBet = {match, market, createdAt: serverTimestamp(), user: authUser.email}
+   const newBet = {stake, market, createdAt: serverTimestamp(), user: authUser.email}
    console.log(newBet)
 
    try {
@@ -91,7 +92,7 @@ const handleSubmit = async (e) => {
     setMessage({error: true, msg: err.message});
    }
    setMarket('');
-   setMatch('');
+   setStake('');
    setTime('');
    }
 
@@ -99,42 +100,81 @@ const handleSubmit = async (e) => {
 const addBet = (newBet) => {
     return addDoc(colRef, newBet)
 }
+//const single = ordinar((state) => state.oddsInfo)
+//console.log(single);
+//const name = ordinar((state) => state.oddsInfo)
+const marketInfoList = useStore((state) => state.marketInfoList)
+console.log(marketInfoList);
 
-const name = useTeam((state) => state.oddsInfo)
-console.log(name);
+const removeToMarketInfoList = useStore((state) => state.removeToMarketInfoList)
 
 
 
+/*
+let [singleMode, setSingleMode] = useState(true);
+
+const activateSingleMode = () => {
+    setSingleMode(true)
+}
+
+const deactivateSingleMode = () => {
+    setSingleMode(false)
+}
+*/
 
     return (
         <div className={s.coupon}>
             Coupon
             <div> {
-              name == 0 
+              marketInfoList == 0 
                 ?  <div>Choose the market</div>
                 : <div>
-                <div>{name.map((key) => (
-                <div key={key.id}>
-                    <Typography>{key.price}</Typography>
-                    <Typography>{key.name}</Typography>
+        
+<div>
+                 
+                   
+                <div>{marketInfoList.map((market) => (
+                <div key={market.name}>
+                    <div>
+                    
+                    <Typography >{market.price}{' '}{market.name}
+                    <button onClick={() => removeToMarketInfoList(market.name)}>x</button>
+                    </Typography>
+                    </div>{ 
+                    <Typography>Overall price: {}</Typography>
+}
                 </div>
                ))}
+
+               
+</div>  
             </div>
+  
             <div>
                <Formik onSubmit={handleSubmit}
-               initialValues={{ match: "", market: "" }}
-               >
+               initialValues={{stake: ''}}
+               
+               validationSchema={couponFormShema}
+               > 
+           
                 <Form>
-                    <Field value={match} type='text' name='match' 
-                onChange={(e) => setMatch(e.target.value)}></Field>
-                    <Field value={market} type='text' name='market' 
-                onChange={(e) => setMarket(e.target.value)}></Field>
+                    <Field id='stake'  min="1"   value={stake} placeholder={'Stake'} type={'number'} name={'stake'} 
+                
+                onChange={e => {
+                  
+                setStake(e.target.value)}
+                
+              }
+          
+               ></Field>
+                    
+                
                     <Button type='submit'
                    onChange={(e) => setTime(e.target.value)} 
                     >make bet</Button>
-                </Form>
+                </Form> 
                </Formik>
-             
+                
 </div>
 </div>
                 
