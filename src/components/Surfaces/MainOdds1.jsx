@@ -103,13 +103,14 @@ const handleChange = (e) => {
     <Item>Top matches</Item>
     { 
     <Item>{[...new Set(items.map(el => el.sport_title))]}</Item>}
+   
      {items.map(key => {
     return <div>
     <div key={key.id} variant="inherit">
     <Box sx={{ width: '100%' }}>
     <Stack spacing={2}>
   
-  <Item>{key.home_team}{'  ' }vs{ '  '}{key.away_team}</Item>
+  <Item>{'key.home_team'}{'  ' }vs{ '  '}{'key.away_team'}</Item>
   <Stack
   direction="row"
   divider={<Divider orientation="vertical" flexItem />}
@@ -120,7 +121,7 @@ const handleChange = (e) => {
 
     
     return <Item onClick={handleAddTeam} data={key.name} value={key.price}  key={key.id} > 
-      {key.name}{' '}{key.price}
+      {'spartek'}{' '}{'1.44'}
      </Item>
   })}
   </Stack>

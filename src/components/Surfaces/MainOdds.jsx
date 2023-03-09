@@ -3,12 +3,17 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { competitionOddsApi, upcomingOddsApi } from '../../Api/SportsApi';
-import { Divider, Stack} from '@mui/material';
+import { Alert, Divider, Stack, Typography} from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import { create } from 'zustand';
+import getName from '../../store/express';
+import { SettingsInputAntennaTwoTone } from '@mui/icons-material';
+import express from '../../store/express';
+import ordinar from '../../store/ordinar';
+import useStore from '../../store/useStore';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -20,103 +25,93 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 
-const MainOdds = () => {
+const MainOdds= () => {
 
 
   const instance = axios.create({
     params: {
-      regions: 'eu',
+      regions: 'us',
       oddsFormat: 'decimal',
       markets: 'h2h,spreads,totals',
       dateFormat: 'iso'
     },
     headers: {
-      'X-RapidAPI-Key': '9abf5ca07emsh13a40cd970ee88ep1cc97cjsn5bc7c4cb6e9d',
+      'X-RapidAPI-Key': 'fbe24cc43dmsh015584980782e3ep1bd677jsn4e3515cba58f',
       'X-RapidAPI-Host': 'odds.p.rapidapi.com'
     }
    })
   
-   const location = useLocation();
-   const sportKeyLocation = location.pathname;
-   const sportKeyLocationMain = sportKeyLocation.split('/')[2];
-   console.log(sportKeyLocationMain);
+   const [error, setError] = useState(null);
+   const [isLoaded, setIsLoaded] = useState(false);
+   const [items, setItems] = useState([]);
   
   
-  
-  const competitionOddsApi = () => {
-    
-     
-    return instance.get(`https://odds.p.rapidapi.com/v4/sports/${sportKeyLocationMain}/odds`)
-    .then(response => {
-      console.log(response.data)
-      
-      return response.data;
-      
-    })
-  }
+   const competitionOddsApi = () => {
+    instance.get(`https://odds.p.rapidapi.com/v4/sports/${sportKeyLocation}/odds`)
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setItems(result.data);
+          console.log(result.data)
+        },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      )
+}
 
-    const [error, setError] = useState(null);
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [items, setItems] = useState([]);
 
- 
-  
-    
-    useEffect(() => {
+
+const location = useLocation();
+const sportKey = location.pathname;
+const sportKeyLoc = sportKey.split('/')[2]
+const [sportKeyLocation, setSportKeyLocation] = useState(sportKeyLoc);
+console.log(location.pathname.split('/')[2]);
+console.log(sportKeyLoc);
+// И создать 2 useEffect
+
+  useEffect(() => { // Вызывает апи при изменении sportKeyLocation
     //  upcomingOddsApi()
-    competitionOddsApi()
-       
-        .then(
-          (result) => {
-            setIsLoaded(true);
-            setItems(result);
-            console.log(result);
-           
-          },
-          
-          (error) => {
-            setIsLoaded(true);
-            setError(error);
-          }
-        )
-    }, [])
-    
+    competitionOddsApi();
+  }, [sportKeyLocation]);
 
-    if (error) {
-      return <div>Error: {error.message}</div>;
-    } else if (!isLoaded) {
-      return <div>Loading...</div>;
-    } else {
-  
-  
-    }
-  
-console.log(items);
+  useEffect(() => { // Сохраняет новый URL в переменную
+    setSportKeyLocation(sportKeyLoc)
+  }, [sportKeyLoc]);
+
+const addToMarketInfoList = useStore((state) => state.addToMarketInfoList);
+const handleAddTeam = (e) => {
+  addToMarketInfoList(e.target.getAttribute('data'), e.target.getAttribute('value') )
+  console.log("value: ", e.target.getAttribute('data'), e.target.getAttribute('value') );
+}
 
 
   return ( <div> <Item>Top matches</Item>
-     {items.map(key => {
-    return <div key={key.id} variant="inherit">
+    <div variant="inherit">
     <Box sx={{ width: '100%' }}>
     <Stack spacing={2}>
-  <Item>{key.sport_title}</Item>
-  <Item>{key.home_team}{'  ' }vs{ '  '}{key.away_team}</Item>
+  <Item>{'sport_title'}</Item>
+  <Item>{'home_team'}{'  ' }vs{ '  '}{'away_team'}</Item>
+  <Item>{'home_team'}{'  ' }vs{ '  '}{'away_team'}</Item>
+  <Item>{'home_team'}{'  ' }vs{ '  '}{'away_team'}</Item>
   <Stack
   direction="row"
   divider={<Divider orientation="vertical" flexItem />}
   spacing={5}
   justifyContent="space-around"
 >
-  {key.bookmakers[0].markets[0].outcomes.map(key => {
-    return <Item key={key.id}>{key.name} {'   '}  {key.price}</Item>
-  })}
+  
+    <Item onClick={handleAddTeam} data={'spartor'} value={'3'}>{'spartor'} {'   '}  {'3'}</Item>
+    <Item onClick={handleAddTeam} data={'free'} value={'4'}>{'key.name'} {'   '}  {'4'}</Item>
+    <Item onClick={handleAddTeam} data={'tracktor'} value={'2.5'}>{'key.name'} {'   '}  {'2.5'}</Item>
   </Stack>
   </Stack>
  
   </Box>
     </div>
 
-  })}
+  
     </div>
   )
 }

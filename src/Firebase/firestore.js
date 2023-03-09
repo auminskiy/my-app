@@ -41,7 +41,7 @@ class DataService {
 
 
 //realtime data
-/*
+
 dataBets = onSnapshot(q, (snapshot) => {
   let bookmaker = []
   snapshot.docs.forEach((doc) => {

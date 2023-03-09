@@ -40,7 +40,7 @@ import classnames from 'classnames';
  const colRef = collection(db, 'bookmaker');
 
 
-const Coupon = (props) => {
+const Coupon1 = (props) => {
 
    
     const [authUser, setAuthUser] = useState(null);
@@ -117,46 +117,29 @@ console.log(overallPrice)
             <div> {
               marketInfoList == 0 
                 ?  <div>Choose the market</div>
-                : <div onSubmit={( name) => {
-console.log(name)
-                }}>
+                : <div >
         
 <div>
                  
-                   
-                <div>{marketInfoList.map((market) => (
-                <div key={market.name}>
-                    <div>
-                    
-                    <Typography onChange={e => {setMarket(e.target.value)}} name='market'>{market.price}{' '}{market.name}
-                    <button onClick={() => removeToMarketInfoList(market.name)}>x</button>
-                    </Typography>
-                    </div>
-                    
-
-                </div>
-               ))}
-           {overallPrice == 1 
-           ? <Typography >Overall price: {''}</Typography>
-           : <Typography onChange={e => {setPrice(e.target.value)}} name='price'>Overall price:  {overallPrice}</Typography>
-           }
-</div>  
+               
             </div>
   
             <div>
                <Formik 
                initialValues={{stake: ''}}
-               
+               onSubmit={handleSubmit}
                validationSchema={couponFormShema}
                > 
-           
+               
+          
                 <Form>
                     <Field id='stake'  min="1"   value={stake} placeholder='Stake' 
                     type='number' name='stake' 
                 onChange={e => {setStake(e.target.value)}}
                ></Field>
-                    <Button   type={'submit'}>make bet</Button>
+                    
                 </Form> 
+                <Button   type={'submit'}>make bet</Button>
                </Formik>
                 
 </div>
@@ -170,4 +153,4 @@ console.log(name)
     );
 }
 
-export default Coupon;
+export default Coupon1;
