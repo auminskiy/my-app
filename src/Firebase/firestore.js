@@ -26,6 +26,13 @@ const colRef = collection(db, 'bookmaker')
 const q = query(colRef, orderBy('createdAt'))
 
 class DataService {
+
+//test getData
+addBets = (newBet) => {
+  return addDoc(colRef, newBet)
+}
+
+
 //data
  getDataBets = getDocs(colRef)
 .then((snapshot) => {
@@ -41,6 +48,8 @@ class DataService {
 
 
 //realtime data
+
+
 
 dataBets = onSnapshot(q, (snapshot) => {
   let bookmaker = []
@@ -65,4 +74,4 @@ addBetForm.addEventListener('submit', (e) => {
     addBet.reset()
   })*/
 }
-  export default new DataService
+  export default new DataService();

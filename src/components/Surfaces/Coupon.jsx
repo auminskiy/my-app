@@ -1,4 +1,4 @@
-import { Button, Switch, Typography } from '@mui/material';
+import { Alert, Button, Switch, Typography, List } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import React, { useState, useEffect } from 'react';
 import DataService from '../../Firebase/firestore';
@@ -73,10 +73,14 @@ React.useEffect(() => {
     const [stake, setStake] = useState('');
     const [market, setMarket] = useState('');
     const [price, setPrice] = useState('');
-   const [message, setMessage] = useState({error: false, msg: 'oh no, error'})
+   const [message, setMessage] = useState({error: false, msg: ''})
 const handleSubmit = async (e) => {
-    e.preventDefault();
+   e.preventDefault();
+ 
+    
+    console.log(price, stake, market);
     setMessage('');
+    console.log(price, stake, market);
     if (stake === '' || market === '') {
         setMessage({error: true, msg: 'what a fuck?'});
         return;
@@ -86,7 +90,7 @@ const handleSubmit = async (e) => {
    console.log(newBet)
 
    try {
-    await addBet(newBet);
+    await DataService.addBets(newBet);
     setMessage({error: false, msg: "bet accepted succesfully!"});
    } catch (err) {
     setMessage({error: true, msg: err.message});
@@ -96,10 +100,12 @@ const handleSubmit = async (e) => {
    setPrice('');
    }
  
-   
+   /*
 const addBet = (newBet) => {
     return addDoc(colRef, newBet)
 }
+*/
+
 
 const marketInfoList = useStore((state) => state.marketInfoList)
 console.log(marketInfoList);
@@ -111,15 +117,32 @@ console.log(result)
 let overallPrice = result.reduce((acc, rec) => acc * rec, 1)
 console.log(overallPrice)
 
+
+const handleChange = (e) => {
+    let elem = document.querySelector('#market');
+    let value = elem.getAttribute('value');
+    
+    console.log(value);
+};
+
+
     return (
         <div className={s.coupon}>
             Coupon
+            <div>{
+            message?.msg && (<Alert variant={message?.error ? 'danger':'success'}
+             onClose={() => setMessage('')}>
+                
+                {message?.msg}
+            </Alert>)
+            }</div>
             <div> {
               marketInfoList == 0 
                 ?  <div>Choose the market</div>
-                : <div onSubmit={( name) => {
-console.log(name)
-                }}>
+                : <div  
+                initialValues={{stake: '', market: ''}}
+                onSubmit={handleSubmit}
+                >
         
 <div>
                  
@@ -127,9 +150,9 @@ console.log(name)
                 <div>{marketInfoList.map((market) => (
                 <div key={market.name}>
                     <div>
-                    
-                    <Typography onChange={e => {setMarket(e.target.value)}} name='market'>{market.price}{' '}{market.name}
                     <button onClick={() => removeToMarketInfoList(market.name)}>x</button>
+                    <Typography setMarket id='market' name='market' value={market.name}>{market.price}{' '}{market.name}
+                    
                     </Typography>
                     </div>
                     
@@ -138,15 +161,15 @@ console.log(name)
                ))}
            {overallPrice == 1 
            ? <Typography >Overall price: {''}</Typography>
-           : <Typography onChange={e => {setPrice(e.target.value)}} name='price'>Overall price:  {overallPrice}</Typography>
+           : <Typography setPrice name='price' value={overallPrice} id='price'>Overall price:  {overallPrice}</Typography>
            }
 </div>  
             </div>
   
             <div>
                <Formik 
-               initialValues={{stake: ''}}
-               
+               initialValues={{stake: '', market: '', price: '',}}
+               onSubmit={handleSubmit}
                validationSchema={couponFormShema}
                > 
            
@@ -155,7 +178,7 @@ console.log(name)
                     type='number' name='stake' 
                 onChange={e => {setStake(e.target.value)}}
                ></Field>
-                    <Button   type={'submit'}>make bet</Button>
+                    <Button   onClick={handleSubmit} variant="primary"  type='submit'>make bet</Button>
                 </Form> 
                </Formik>
                 

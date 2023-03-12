@@ -1,4 +1,4 @@
-import { Button, Switch, Typography } from '@mui/material';
+import { Alert, Button, Switch, Typography } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import React, { useState, useEffect } from 'react';
 import DataService from '../../Firebase/firestore';
@@ -21,6 +21,7 @@ import  ordinar  from '../../store/ordinar';
 import couponFormShema from './couponFormShema';
 import * as Yup from "yup";
 import classnames from 'classnames';
+import UseTeam from '../../store/UseTeam';
 
  const firebaseConfig = {
    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -69,87 +70,103 @@ React.useEffect(() => {
 */
     console.log(authUser)
     
-
+    const [flag, setFlag] = useState(true);
     const [stake, setStake] = useState('');
-    const [market, setMarket] = useState('');
+    let [market, setMarket] = useState('');
     const [price, setPrice] = useState('');
    const [message, setMessage] = useState({error: false, msg: 'oh no, error'})
 const handleSubmit = async (e) => {
-    e.preventDefault();
+    let elem = document.querySelector('#market')
+    let marketValue = elem.getAttribute('value');
+    console.log(marketValue);
+    let market = marketValue;
+    
     setMessage('');
     if (stake === '' || market === '') {
         setMessage({error: true, msg: 'what a fuck?'});
         return;
     }
 
-   const newBet = {price, stake, market, createdAt: serverTimestamp(), user: authUser.email}
+   const newBet = {stake, market, createdAt: serverTimestamp(), user: authUser.email}
    console.log(newBet)
 
    try {
-    await addBet(newBet);
+    await DataService.addBets(newBet);
     setMessage({error: false, msg: "bet accepted succesfully!"});
    } catch (err) {
     setMessage({error: true, msg: err.message});
    }
-   setMarket('');
+   setMarket('')
    setStake('');
    setPrice('');
    }
  
-   
+  /* 
 const addBet = (newBet) => {
     return addDoc(colRef, newBet)
-}
+}*/
 
 const marketInfoList = useStore((state) => state.marketInfoList)
 console.log(marketInfoList);
-
+/*
 const removeToMarketInfoList = useStore((state) => state.removeToMarketInfoList)
 
 let result = marketInfoList.map(item => item.price);
 console.log(result)
 let overallPrice = result.reduce((acc, rec) => acc * rec, 1)
 console.log(overallPrice)
-
+*/
+//const marketInfoList = UseTeam((state) => state.oddsInfo)
     return (
         <div className={s.coupon}>
             Coupon
-            <div> {
-              marketInfoList == 0 
-                ?  <div>Choose the market</div>
-                : <div >
-        
-<div>
-                 
-               
-            </div>
-  
-            <div>
+           <div>{
+            message?.msg && (<Alert variant={message?.error ? 'danger':'success'}
+            dismissible onClose={() => setMessage('')}>
+                
+                {message?.msg}
+            </Alert>)
+            }</div>
                <Formik 
-               initialValues={{stake: ''}}
+               initialValues={{stake: '', market: ''}}
                onSubmit={handleSubmit}
                validationSchema={couponFormShema}
                > 
-               
+             
           
                 <Form>
-                    <Field id='stake'  min="1"   value={stake} placeholder='Stake' 
-                    type='number' name='stake' 
-                onChange={e => {setStake(e.target.value)}}
-               ></Field>
+                <div>{marketInfoList.map((market) => (
+                <div key={market.name}>
+                    <div>
+                    <button /*onClick={() => removeToMarketInfoList(market.name)}*/>x</button>
+                    <label id='market' name='market' value={market.name}>{market.price}{' '}{market.name}
                     
+                    </label>
+                    </div>
+                    
+
+                </div>
+               ))}
+               </div>
+                    <Field id='stake'    placeholder='stake' 
+                    type='text' name='stake' value={stake}
+                onChange={e => {setStake(e.target.value)}}
+               >
+                
+               </Field>
+              
+                
                 </Form> 
-                <Button   type={'submit'}>make bet</Button>
+                
                </Formik>
-                
+               <Button onClick={handleSubmit} variant="primary"  type='submit'>make bet</Button>
 </div>
-</div>
+
                 
                
-                }
+                
                
-            </div>
-        </div>
+       
     );
 }
 
