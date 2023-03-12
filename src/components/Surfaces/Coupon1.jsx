@@ -86,7 +86,7 @@ const handleSubmit = async (e) => {
         setMessage({error: true, msg: 'what a fuck?'});
         return;
     }
-
+  console.log(elem)
    const newBet = {stake, market, createdAt: serverTimestamp(), user: authUser.email}
    console.log(newBet)
 
