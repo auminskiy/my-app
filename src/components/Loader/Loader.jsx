@@ -3,7 +3,7 @@ import React from 'react';
 function Loader(props) {
     return (
         <div>
-            321312312
+            3213123122321312
         </div>
     );
 }
