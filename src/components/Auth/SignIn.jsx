@@ -1,3 +1,5 @@
+import { Button, TextField, IconButton, Container, Typography } from '@mui/material';
+import Fingerprint from '@mui/icons-material/Fingerprint'
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -30,19 +32,54 @@ const SignIn = () => {
 
     }
   return (
+    
+    <Container 
+    sx={{
+      width: 'auto',
+      height: 'auto',
+      color: 'palette.salat.main',
+      }} 
+      style={{ 
+        backgroundColor: '#027b5b',
+        opacity: '0.9',
+        padding: 20,
+        
+        
+      }} 
+      fixed 
+      disableGutters maxWidth={false}>
     <div>
-        <form onSubmit={signIn}>
+        <form 
+       
+        onSubmit={signIn}>
         
             <h1>Hey, Log In</h1>
-            <input type='email' placeholder='enter email' value={email} onChange={(e) => setEmail(e.target.value)}></input>
-            <input type='password' placeholder='enter pass' value={password} onChange={(e) => setPassword(e.target.value)}></input>
+            <TextField style={{ 
+          marginRight: 20,
+          
+          
+        }} label="email" variant="filled" type='email' placeholder='enter email' value={email} onChange={(e) => setEmail(e.target.value)}></TextField>
+            <TextField label="password" variant="filled" type='password' placeholder='enter pass' value={password} onChange={(e) => setPassword(e.target.value)}></TextField>
             
            <div>{errorCodes}</div>
+          
+            <Button   sx={{marginTop:'2rem', backgroundColor: '#004e32'}} variant="contained" size="small" type='submit'>
+            <IconButton aria-label="fingerprint" color="salat">
+              <Fingerprint />
+            </IconButton>
+              Push to login</Button>
+              
+            <h2 sx={{marginTop:'2rem'}}>or 
+              
+                <Link component='button' sx={{backgroundColor: 'salat', paddingLeft:20}} underline="none" to="/register"> Register</Link>
+                     
+                </h2>
             
-            <button type='submit'>Push to login</button>
-            <p>or <Link to="/register">register</Link></p>
+            
         </form>
     </div>
+    </Container>
+  
   )
 }
 

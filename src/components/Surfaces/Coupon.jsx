@@ -73,16 +73,24 @@ React.useEffect(() => {
     const [stake, setStake] = useState('');
     const [market, setMarket] = useState('');
     const [price, setPrice] = useState('');
-   const [message, setMessage] = useState({error: false, msg: ''})
-const handleSubmit = async (e) => {
-   e.preventDefault();
- 
+    const [message, setMessage] = useState({error: false})
     
-    console.log(price, stake, market);
+   const handleSubmit = async (e) => {
+   
+   e.preventDefault();
+    let market = marketInfoList;
+    console.log(marketInfoList);
+    let priceSelector = document.querySelector('#price')
+    let priceValue = priceSelector.getAttribute('value');
+    console.log(priceValue);
+    let price = priceValue;
+    
+    
+
     setMessage('');
     console.log(price, stake, market);
-    if (stake === '' || market === '') {
-        setMessage({error: true, msg: 'what a fuck?'});
+    if (stake === '' || market === '' || price === '') {
+        setMessage({error: true, msg: 'Please, enter the stake.'});
         return;
     }
 
@@ -91,7 +99,10 @@ const handleSubmit = async (e) => {
 
    try {
     await DataService.addBets(newBet);
-    setMessage({error: false, msg: "bet accepted succesfully!"});
+    reset()
+    
+    setMessage({error: false, msg: "Bet accepted succesfully!"});
+  
    } catch (err) {
     setMessage({error: true, msg: err.message});
    }
@@ -99,7 +110,7 @@ const handleSubmit = async (e) => {
    setStake('');
    setPrice('');
    }
- 
+
    /*
 const addBet = (newBet) => {
     return addDoc(colRef, newBet)
@@ -107,8 +118,10 @@ const addBet = (newBet) => {
 */
 
 
+
 const marketInfoList = useStore((state) => state.marketInfoList)
 console.log(marketInfoList);
+
 
 const removeToMarketInfoList = useStore((state) => state.removeToMarketInfoList)
 
@@ -116,42 +129,36 @@ let result = marketInfoList.map(item => item.price);
 console.log(result)
 let overallPrice = result.reduce((acc, rec) => acc * rec, 1)
 console.log(overallPrice)
-
-
-const handleChange = (e) => {
-    let elem = document.querySelector('#market');
-    let value = elem.getAttribute('value');
-    
-    console.log(value);
-};
+  
+let reset = useStore((state) => state.reset);
 
 
     return (
         <div className={s.coupon}>
             Coupon
             <div>{
-            message?.msg && (<Alert variant={message?.error ? 'danger':'success'}
-             onClose={() => setMessage('')}>
-                
-                {message?.msg}
-            </Alert>)
-            }</div>
+                    message?.msg && (<Alert variant={message?.error ? 'success':'danger'}
+                     onClose={() => setMessage('')}>
+                        
+                        {message?.msg}
+                    </Alert>)
+                    }</div>
+                   
             <div> {
               marketInfoList == 0 
-                ?  <div>Choose the market</div>
+                ?   <Typography>Choose the markets for bet</Typography>
                 : <div  
                 initialValues={{stake: '', market: ''}}
                 onSubmit={handleSubmit}
                 >
         
 <div>
-                 
-                   
+
                 <div>{marketInfoList.map((market) => (
                 <div key={market.name}>
                     <div>
                     <button onClick={() => removeToMarketInfoList(market.name)}>x</button>
-                    <Typography setMarket id='market' name='market' value={market.name}>{market.price}{' '}{market.name}
+                    <Typography  id='market' name='market' value={market.name}>{market.price}{' '}{market.name}
                     
                     </Typography>
                     </div>
@@ -161,14 +168,14 @@ const handleChange = (e) => {
                ))}
            {overallPrice == 1 
            ? <Typography >Overall price: {''}</Typography>
-           : <Typography setPrice name='price' value={overallPrice} id='price'>Overall price:  {overallPrice}</Typography>
+           : <Typography  name='price' value={overallPrice} id='price'>Overall price:  {overallPrice}</Typography>
            }
 </div>  
             </div>
   
             <div>
                <Formik 
-               initialValues={{stake: '', market: '', price: '',}}
+               initialValues={{stake: '', market: '', overalPrice: '',}}
                onSubmit={handleSubmit}
                validationSchema={couponFormShema}
                > 

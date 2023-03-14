@@ -1,3 +1,4 @@
+import { Container } from '@mui/material';
 import React from 'react';
 import { SportsApi } from '../../Api/SportsApi';
 import AuthDetails from '../Auth/AuthDetails';
@@ -10,9 +11,10 @@ const Main = (props) => {
 
     return(
    <div>
-     <Header/>
+     <Header />
+    
     <AuthDetails/>
-  
+    
    
    </div>
     )

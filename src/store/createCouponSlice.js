@@ -1,5 +1,7 @@
 import React from 'react';
 
+
+
 const createCouponSlice = (set, get) =>({
    marketInfoList: [],
    addToMarketInfoList: (name, price) => {
@@ -13,6 +15,12 @@ const createCouponSlice = (set, get) =>({
     marketInfoList: get().marketInfoList.filter(market => market.name != name)
     })
    },
+   reset: () => 
+    set({
+        marketInfoList: [],
+    }),
+    
+ 
 })
 
 export default createCouponSlice;

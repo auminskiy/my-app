@@ -4,16 +4,61 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { StyledEngineProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+
+const theme = createTheme({
+  palette: {
+      primary: { 
+        main: '#165788',
+        contrastText: '#fff',
+      },
+      salat: { 
+        main: '#69BE28',
+        contrastText: '#fff',
+      }, 
+      greenPrimary: {
+          backgroundColor: '#027b5b',
+          color: '#fff',
+      },
+      greenPrimaryLight: { 
+          backgroundColor: '#48ab88',
+          color: '#fff',
+      },
+      greenPrimaryDark: { 
+          backgroundColor: '#004e32', 
+          color: '#fff',
+      },
+      blackSecondary: {
+          backgroundColor: '#252525',
+          color: '#c9c9c9',
+      },
+      blackSL: { 
+          backgroundColor: '#4d4d4d',
+          color: '#c9c9c9',
+      },
+      blackSecondaryDark: { 
+          backgroundColor: '#252525', 
+          color: '#c9c9c9',
+      },
+      yellow: {
+        backgroundColor: '#EBD402',
+        color: '#fff',
+      }
+     
+  },
+});
+
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-    <StyledEngineProvider injectFirst>
+    <ThemeProvider theme={theme} >
     <App />
-    </StyledEngineProvider>
+    </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

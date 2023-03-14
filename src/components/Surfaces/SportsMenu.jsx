@@ -17,6 +17,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useLocation, useNavigate } from 'react-router-dom';
 import MainOdds from './MainOdds';
+import { Grid } from '@mui/material';
 
 
 
@@ -69,7 +70,8 @@ const SportsMenu = (props) => {
 
   
 
-  return (<div>  {sports.map(key => {
+  return (<Grid item xs='2' md='3'> 
+  <div>  {sports.map(key => {
     return <Accordion sx={{ width: 230 }}> 
    
 
@@ -101,6 +103,7 @@ const SportsMenu = (props) => {
     </Accordion>
   })}
     </div>
+    </Grid>
   );
 }
 

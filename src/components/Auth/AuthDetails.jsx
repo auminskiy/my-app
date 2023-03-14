@@ -50,7 +50,7 @@ const AuthDetails = (props) => {
             <Comp/>
            
              : 
-            <div>  
+            <div >  
             <LoginForm/> 
             </div>
             }

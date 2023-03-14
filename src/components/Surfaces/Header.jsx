@@ -8,9 +8,13 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import auth from '../../Firebase/firebase';
 import { useNavigate } from 'react-router';
-
+import logo from '../../img/logo.png'
 import { ThemeContext } from '@emotion/react';
-import { Box } from '@mui/material';
+import { Box, Menu, MenuItem } from '@mui/material';
+import { AccountCircle } from '@mui/icons-material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+
 
 
 
@@ -44,30 +48,68 @@ const Header = () => {
     } )
 }
 
+const [anchorEl, setAnchorEl] = React.useState(null);
+
+
+const handleMenu = (event) => {
+  setAnchorEl(event.currentTarget);
+};
+
+const handleClose = () => {
+  setAnchorEl(null);
+};
 
   return (
        
-  
-<Box  >
-  <AppBar position='center' >
+    <Box sx={{ display: 'flex' }}>
+
+  <AppBar  sx={{  backgroundColor: '#027b5b' }} position='static' >
 <Toolbar >
-  
-  <Typography sx={{ my: 2, color: 'black'}} variant="h6" component="h4" >
-     Sportsbook
-  </Typography>
+<img  width='300' height= '70' src={logo}></img>
+ 
  
    { authUser ? 
    <>
-  <Typography  justifyContent="center">
+   
+  <Typography sx={{ flexGrow: 1, margin: '1rem'}} justifyContent="center">
     Your login: {authUser.email.split('@')[0]}
   </Typography>
- 
-<LogoutIcon  sx={{  my: 2, color: 'black'}}  justifyContent="flex-end"></LogoutIcon>
-  <Button  onClick={userSignOut} sx={{ my: 2, color: 'black', display: 'block' }}  >log out</Button>
-  <IconButton aria-label="logout">
- 
-  </IconButton>
-   
+  <Button  onClick={userSignOut} sx={{  color: 'white'}}  >
+<LogoutIcon  sx={{  color: 'salat'}}  ></LogoutIcon>
+ log out</Button>
+ <div>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                
+                <MenuItem onClick={handleClose}><AccountCircleIcon/> My profile: {authUser.email.split('@')[0]}</MenuItem>
+                <MenuItem onClick={handleClose}><PlayCircleIcon/> Back to the game</MenuItem>
+                <MenuItem onClick={userSignOut}><LogoutIcon  sx={{  color: 'salat'}}  ></LogoutIcon> Log Out</MenuItem>
+              </Menu>
+            </div>
+
   </>
   : null}
 </Toolbar>
