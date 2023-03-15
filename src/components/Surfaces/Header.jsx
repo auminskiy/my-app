@@ -8,8 +8,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import auth from '../../Firebase/firebase';
 import { useNavigate } from 'react-router';
-import logo from '../../img/logo.png'
-import { ThemeContext } from '@emotion/react';
+import logoSvg from '../../img/logoSvg.svg'
 import { Box, Menu, MenuItem } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -20,9 +19,19 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 
 
 
+
 const Header = () => {
   const [authUser, setAuthUser] = useState(null);
   const navigate = useNavigate();
+  
+  const navigateToLc = () => {
+    navigate('/lc/*')
+  }
+  const navigateToMain = () => {
+    navigate('/main/soccer')
+  }
+  
+  
   useEffect(() => {
       const listen = onAuthStateChanged(auth, (user) => {
           if (user) {
@@ -65,7 +74,7 @@ const handleClose = () => {
 
   <AppBar  sx={{  backgroundColor: '#027b5b' }} position='static' >
 <Toolbar >
-<img  width='300' height= '70' src={logo}></img>
+<img  width='300' height= '70' src={logoSvg}></img>
  
  
    { authUser ? 
@@ -104,9 +113,9 @@ const handleClose = () => {
                 onClose={handleClose}
               >
                 
-                <MenuItem onClick={handleClose}><AccountCircleIcon/> My profile: {authUser.email.split('@')[0]}</MenuItem>
-                <MenuItem onClick={handleClose}><PlayCircleIcon/> Back to the game</MenuItem>
-                <MenuItem onClick={userSignOut}><LogoutIcon  sx={{  color: 'salat'}}  ></LogoutIcon> Log Out</MenuItem>
+                <MenuItem onClick={()=>{navigateToLc();handleClose()}}><AccountCircleIcon/>  My profile: {authUser.email.split('@')[0]}</MenuItem>
+                <MenuItem onClick={()=>{navigateToMain();handleClose()}}><PlayCircleIcon/> Back to the game</MenuItem>
+                <MenuItem onClick={userSignOut}><LogoutIcon  sx={{  color: 'salat'}}  ></LogoutIcon>  Log Out</MenuItem>
               </Menu>
             </div>
 

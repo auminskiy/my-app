@@ -3,6 +3,7 @@ import React from 'react';
 import {Routes, Route} from 'react-router-dom';
 
 import Main from '../Pages/Main';
+import Profile from '../Profile/Profile';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
@@ -32,8 +33,10 @@ const LoginForm = (props) => {
       <Route exact path="/login" element={<SignIn/>}/>
       <Route exact path="/register" element={<SignUp/>}/>
       <Route  path="/" element={<SignIn/>}/>
-      <Route  path="/main" element={<Main/>}/>
+      <Route  path="/main/*" element={<Main/>}/>
+      
     </Routes>
+    
     </Container>
     </div>
   );
