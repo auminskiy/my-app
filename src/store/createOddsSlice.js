@@ -1,7 +1,7 @@
 import datas from "../Firebase/firestore"
 
 import { collection, getDocs, getFirestore,
-    addDoc, onSnapshot, orderBy, serverTimestamp } from "firebase/firestore";
+  addDoc, onSnapshot, orderBy, serverTimestamp, query } from "firebase/firestore";
  import { initializeApp } from "firebase/app";
  
  
@@ -43,6 +43,7 @@ getBets: async () => {
      console.log(err.message)
  })
 },
+
 })
 
 
