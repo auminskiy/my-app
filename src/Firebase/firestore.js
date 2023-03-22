@@ -1,8 +1,7 @@
 
 import { collection, getDocs, getFirestore,
-   addDoc, onSnapshot, orderBy, serverTimestamp, query } from "firebase/firestore";
+   addDoc, onSnapshot, orderBy, serverTimestamp, query, where } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
-
 
 
 
@@ -23,9 +22,12 @@ initializeApp(firebaseConfig);
 
 const db = getFirestore();
 const colRef = collection(db, 'bookmaker')
-const q = query(colRef, orderBy('createdAt'))
+//const q = query(colRef, orderBy('createdAt'), where('user', "==", 'tjfox24@yandex.ru'))
 
 class DataService {
+  
+
+
 
 //test getData
 addBets = (newBet) => {
@@ -51,7 +53,7 @@ addBets = (newBet) => {
 
 
 
-dataBets = onSnapshot(q, (snapshot) => {
+dataBets = onSnapshot(colRef, (snapshot) => {
   let bookmaker = []
   snapshot.docs.forEach((doc) => {
     bookmaker.push({...doc.data(), id:doc.id})

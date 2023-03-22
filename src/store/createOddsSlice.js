@@ -1,9 +1,11 @@
 import datas from "../Firebase/firestore"
 
 import { collection, getDocs, getFirestore,
-  addDoc, onSnapshot, orderBy, serverTimestamp, query } from "firebase/firestore";
+  addDoc, onSnapshot, orderBy, serverTimestamp, query, where } from "firebase/firestore";
  import { initializeApp } from "firebase/app";
- 
+import useStore from "./useStore";
+import { onAuthStateChanged} from 'firebase/auth';
+import auth from '../Firebase/firebase';
  
  
  
@@ -23,12 +25,30 @@ import { collection, getDocs, getFirestore,
  
  
  const db = getFirestore();
- const colRef = collection(db, 'bookmaker')
+const colRef = collection(db, 'bookmaker')
+//const colRef = db.collection('bookmaker').where('user', '==', 'tjfox24@ggg.com')
+ const filterByUser = query(colRef, where('user', '===', 'tjfox24@ggg.com'))
  
+
 
 const createOddsSlice = (set, get) => ({
     bets: [],
-getBets: async () => {
+    getsBets: async () => {
+      await getDocs(filterByUser)
+     .then((snapshot) => {
+       let bookmaker = []
+       snapshot.docs.forEach((doc) => {
+         bookmaker.push({...doc.data(), id:doc.id})
+         set({bets: bookmaker})
+       })
+       
+       console.log(bookmaker)
+     })
+     .catch(err => {
+         console.log(err.message)
+     })
+    },
+/*getBets: async () => {
   await getDocs(colRef)
  .then((snapshot) => {
    let bookmaker = []
@@ -43,6 +63,7 @@ getBets: async () => {
      console.log(err.message)
  })
 },
+*/
 
 })
 

@@ -14,6 +14,10 @@ import useStore from '../../store/useStore';
 import { Timestamp } from '@firebase/firestore';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import auth from '../../Firebase/firebase';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import CurrencyExchange from '@mui/icons-material/CurrencyExchange';
+
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -38,21 +42,17 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
 const Bets = () => {
 
-    
+  
+
+ const auth = getAuth();
+ const user = auth.currentUser;
+
+  
+ console.log(user.email)
+
+
     const getBets = useStore((state) => state.getBets)
     const bets = useStore((state) => state.bets)
  
@@ -60,22 +60,26 @@ const Bets = () => {
         getBets();
     }, [getBets])
    console.log(bets)
+
+   let userBets =  bets.filter(function(userBet) {
+    return userBet.user == `${user.email}`;
+});
+console.log(userBets)
  
-  const betsWithDate = bets.map((el) => ({
+  const betsWithDate = userBets.map((el) => ({
     ...el,
     createdAt: el.createdAt.toDate()
   }));
   console.log(betsWithDate);
 
- // let posts = betsWithDate.sort((a,b) => new Date(betsWithDate.createdAt.a.replace(/(\d{2})-(\d{2})/, '$2-$1')) - new Date(betsWithDate.createdAt.a.replace(/(\d{2})-(\d{2})/, '$2-$1')));
+
   
   let sortByDate = betsWithDate.sort(function(a, b) {
     return b.createdAt - a.createdAt;
   });
   console.log(sortByDate);
 
-  let bet = Object.keys(betsWithDate)
-  console.log(bet)
+ 
   //pagination
 
   const [page, setPage] = React.useState(0);
@@ -97,7 +101,8 @@ const Bets = () => {
 
   return (
     <Box sx={{width:'100%'}}>
-        <Typography sx={{marginBottom: 3, marginLeft: 3, marginTop: 3, }}>Bets</Typography>
+        <Typography sx={{display: 'flex',
+    flexWrap: 'wrap', marginBottom: 3, marginLeft: 3, marginTop: 3, }}><CurrencyExchange />&nbsp;Bets</Typography>
         <Divider sx={{marginBottom: 3, width:'100%'}}/>
     <TableContainer component={Paper} >
     <Table sx={{justifyContent: "center", minWidth: 500,}} aria-label="customized table">
@@ -131,7 +136,7 @@ const Bets = () => {
               </StyledTableCell>
               
             <StyledTableCell align="right">{row.price}</StyledTableCell>
-            <StyledTableCell align="right">{row.stake}</StyledTableCell>
+            <StyledTableCell align="right">{parseFloat(row.stake).toFixed(2)}</StyledTableCell>
             <StyledTableCell >
           <IconButton
             aria-label="expand row"
@@ -151,6 +156,7 @@ const Bets = () => {
                  <Typography variant="h6" gutterBottom component="div">
                    bet info
                  </Typography>
+                 <Divider/>
                  <Table size="small" aria-label="purchases">
                    <TableHead>
                      <TableRow>
@@ -170,16 +176,16 @@ const Bets = () => {
                          { row.market.map((type, index) => {
                          
                               return(
-                                <div key={index}>
+                                <span key={index}>
                          <TableCell>{type.name}</TableCell>
                          <TableCell align="right">{type.price}</TableCell>
-                              </div>
+                              </span>
                               )})}
                            </TableCell> 
                         
                         
                         <TableCell align="right">
-                           {row.stake}
+                           {parseFloat(row.stake).toFixed(2)}
                          </TableCell>
                        </TableRow>
                        

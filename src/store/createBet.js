@@ -1,7 +1,25 @@
 import { collection, getDocs, getFirestore,
-    addDoc, onSnapshot, orderBy, serverTimestamp } from "firebase/firestore";
+    addDoc, onSnapshot, orderBy, serverTimestamp, query, where  } from "firebase/firestore";
  import { initializeApp } from "firebase/app";
+ import { getAuth } from "firebase/auth";
+
+ const auth = getAuth();
+ const user = auth.currentUser;
+ /*if (user !== null) {
+   // The user object has basic properties such as display name, email, etc.
+   const displayName = user.displayName;
+   const email = user.email;
+   const photoURL = user.photoURL;
+   const emailVerified = user.emailVerified;
  
+   // The user's ID, unique to the Firebase project. Do NOT use
+   // this value to authenticate with your backend server, if
+   // you have one. Use User.getToken() instead.
+   const uid = user.uid;
+   console.log(user.displayName)
+ }
+*/
+
  
  
  
@@ -15,6 +33,12 @@ import { collection, getDocs, getFirestore,
    appId: process.env.REACT_APP_FIREBASE_APP_ID
  };
  
+ const app = initializeApp(firebaseConfig);
+
+ 
+ 
+
+ 
  
  
  initializeApp(firebaseConfig);
@@ -22,8 +46,15 @@ import { collection, getDocs, getFirestore,
  
  const db = getFirestore();
  const colRef = collection(db, 'bookmaker')
- 
+ //const q = query(colRef, orderBy('createdAt'), where('user', "==", `${user.email}`))
 
+/*
+ const querySnapshot = await getDocs(filterByUser);
+ querySnapshot.forEach((doc) => {
+   // doc.data() is never undefined for query doc snapshots
+   console.log(doc.id, " => ", doc.data());
+ });
+*/
 const createBet = (set, get) => ({
     bets: [],
 getBets: async () => {
