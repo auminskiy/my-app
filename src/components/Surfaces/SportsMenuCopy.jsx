@@ -17,11 +17,10 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useLocation, useNavigate } from 'react-router-dom';
 import MainOdds from './MainOdds';
-import { Grid } from '@mui/material';
+import { CssBaseline, Divider, Grid } from '@mui/material';
 
 
-
-const SportsMenu = (props) => {
+const SportsMenuCopy = (props) => {
     
 
 
@@ -50,7 +49,7 @@ const SportsMenu = (props) => {
           }
         )
     }, [])
-    
+   /* 
     let sports = [...new Set(items.map(el => el.group))];
     console.log(sports);
    
@@ -67,44 +66,61 @@ const SportsMenu = (props) => {
 
 
   }
+*/
+const clickSport = () => {
+  navigate(`/main/${'id'}`)}
 
-  
-
-  return (<Grid item xs='2' md='3'> 
-  <div>  {sports.map(key => {
-    return <Accordion disableGutters sx={{ width: 230 }}> 
+  return (
+    
+    
+  <div> 
+    <CssBaseline/>
+    <Accordion sx={{backgroundColor:'blackSecondaryDark.backgroundColor', color:'blackSecondaryDark.color'}} disableGutters   > 
    
 
-     <AccordionSummary expandIcon={<ExpandMoreIcon />}
+     <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color:'yellow.backgroundColor'}}/>}
           aria-controls="panel1a-content"
           > 
     
-    <Typography key={key.id} variant="inherit">{key}</Typography>
+    <Typography  variant="inherit">sport htudlkf</Typography>
           
 
  </AccordionSummary>
- {items.filter(elem=>elem.group===key).map(id => {
-  const clickSport = () => {
-    navigate(`/main/${id.key}`)
-  }
-        return  <AccordionDetails>
+ 
+        <AccordionDetails>
             <MenuList>
+        <MenuItem color="salat">
+          <ListItemIcon>
+            <SendIcon fontSize="small" />
+          </ListItemIcon>
+        <Typography onClick={()=>{clickSport()}}   variant="inherit">soccer</Typography>
+         
+        </MenuItem>
+        <Divider sx={{color:'yellow.color'}}/>
         <MenuItem>
           <ListItemIcon>
             <SendIcon fontSize="small" />
           </ListItemIcon>
-        <Typography onClick={()=>{clickSport()}} id={id}  variant="inherit">{id.title}</Typography>
+        <Typography onClick={()=>{clickSport()}}  variant="inherit">basketball</Typography>
+         
+        </MenuItem>
+        <MenuItem>
+          <ListItemIcon>
+            <SendIcon fontSize="small" />
+          </ListItemIcon>
+        <Typography onClick={()=>{clickSport()}}   variant="inherit">water badminton</Typography>
          
         </MenuItem>
         </MenuList>
           </AccordionDetails>
-         })} 
+         
   
     </Accordion>
-  })}
+  
     </div>
-    </Grid>
+    
+   
   );
 }
 
-export default SportsMenu;
+export default SportsMenuCopy;

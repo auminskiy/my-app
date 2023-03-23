@@ -5,7 +5,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useState, useEffect, useRef } from 'react';
 import { competitionOddsApi, upcomingOddsApi } from '../../Api/SportsApi';
-import { Alert, Divider, Stack, Typography} from '@mui/material';
+import { Alert, Divider, ImageListItem, Stack, Typography} from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { create } from 'zustand';
@@ -13,6 +13,8 @@ import { create } from 'zustand';
 import { SettingsInputAntennaTwoTone } from '@mui/icons-material';
 
 import useStore from '../../store/useStore';
+import CarouselItem from './Carousel/CarouselItem';
+
 
  
 const Item = styled(Paper)(({ theme }) => ({
@@ -86,24 +88,40 @@ const handleAddTeam = (e) => {
 }
 
 
-  return ( <div> <Item>Top matches</Item>
+  return ( 
     <div variant="inherit">
     <Box sx={{ width: '100%' }}>
-    <Stack spacing={2}>
-  <Item>{'sport_title'}</Item>
-  <Item>{'home_team'}{'  ' }vs{ '  '}{'away_team'}</Item>
-  <Item>{'home_team'}{'  ' }vs{ '  '}{'away_team'}</Item>
+    {/* <Box  component="img"
+        sx={{
+          height: '18em',
+          width: '100%',
+         
+        }} 
+      src={'https://www.minnpost.com/wp-content/uploads/2022/08/SportsBettingBoard940.png?fit=940%2C482&strip=all'}></Box>
+*/}
+<CarouselItem  sx={{
+          height: '40vh',
+          width: '100%',
+         
+        }}/>
+      <Item sx={{display: 'flex', justifyContent:'flex-start',
+      backgroundColor:'greenPrimary.backgroundColor', color:'greenPrimary.color', borderRadius: 0, textTransform: 'capitalize'}}>{sportKeyLocation}</Item>
+    <Stack spacing={2} sx={{borderRadius: 0}}>
+      
+  <Item sx={{backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0}}>{'sport_title'}</Item>
+  <Item sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0}}>{'home_team'}{'  ' }vs{ '  '}{'away_team'}</Item>
+  <Item sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0}}>{'home_team'}{'  ' }vs{ '  '}{'away_team'}</Item>
   <Item>{'home_team'}{'  ' }vs{ '  '}{'away_team'}</Item>
   <Stack
   direction="row"
   divider={<Divider orientation="vertical" flexItem />}
-  spacing={5}
+  
   justifyContent="space-around"
 >
   
-    <Item onClick={handleAddTeam} data={'spartor'} value={'3'}>{'spartor'} {'   '}  {'3'}</Item>
-    <Item onClick={handleAddTeam} data={'free'} value={'4'}>{'key.name'} {'   '}  {'4'}</Item>
-    <Item onClick={handleAddTeam} data={'tracktor'} value={'2.5'}>{'key.name'} {'   '}  {'2.5'}</Item>
+    <Item sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0}} onClick={handleAddTeam} data={'spartor'} value={'3'}>{'spartor'} {'   '}  {'3'}</Item>
+    <Item sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0}} onClick={handleAddTeam} data={'free'} value={'4'}>{'key.name'} {'   '}  {'4'}</Item>
+    <Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0}}onClick={handleAddTeam} data={'tracktor'} value={'2.5'}>{'key.name'} {'   '}  {'2.5'}</Item>
   </Stack>
   </Stack>
  
@@ -111,7 +129,7 @@ const handleAddTeam = (e) => {
     </div>
 
   
-    </div>
+    
   )
 }
 

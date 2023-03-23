@@ -1,4 +1,4 @@
-import { Alert, Button, Switch, Typography, List } from '@mui/material';
+import { Alert, Button, Stack, Typography, List, Paper, CssBaseline, Box, Divider } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import React, { useState, useEffect } from 'react';
 import DataService from '../../Firebase/firestore';
@@ -133,9 +133,15 @@ let reset = useStore((state) => state.reset);
 
 
     return (
-        <div className={s.coupon}>
-            Coupon
-            <div>{
+        <Box sx={{display: 'flex',
+        flexWrap: 'wrap', width: '100%', justifyContent: 'center', alignItems: 'center'}} >
+          
+            <Paper sx={{backgroundColor:'greenPrimaryDark.backgroundColor',
+             color:'greenPrimaryDark.color', borderRadius: 0,
+             height: '5vh', width: '100%', display: 'flex',
+             flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}>Coupon</Paper>
+            
+            <div >{
                     message?.msg && (<Alert variant={message?.error ? 'success':'danger'}
                      onClose={() => setMessage('')}>
                         
@@ -143,21 +149,32 @@ let reset = useStore((state) => state.reset);
                     </Alert>)
                     }</div>
                    
-            <div> {
+            <div style={{width: '100%'}}> {
               marketInfoList == 0 
-                ?   <Typography>Choose the markets for bet</Typography>
-                : <div  
+                ?   <Paper sx={{backgroundColor:'blackSL.backgroundColor',
+                color:'blackSL.color', borderRadius: 0,
+                height: '10vh', display: 'flex',
+                flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}> 
+                    <Typography sx={{ display: 'flex',
+                flexWrap: 'wrap', justifyContent: 'center',
+                 alignItems: 'center', fontSize: '0.8rem'}}>Click a market for a bet</Typography>
+                    </Paper>
+                : <Paper  sx={{backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0}}
                 initialValues={{stake: '', market: ''}}
                 onSubmit={handleSubmit}
                 >
         
-<div>
+<div >
 
-                <div>{marketInfoList.map((market) => (
-                <div key={market.name}>
-                    <div>
-                    <button onClick={() => removeToMarketInfoList(market.name)}>x</button>
-                    <Typography  id='market' name='market' value={market.name}>{market.price}{' '}{market.name}
+                <div >{marketInfoList.map((market) => (
+                <div  key={market.name}>
+                    <div style={{display: 'flex',
+                flexWrap: 'wrap', flexDirection: 'row',
+                height: '100%',}}>
+                    <Button sx={{color: 'yellow.backgroundColor'}} variant="text" onClick={() => removeToMarketInfoList(market.name)}>x</Button>
+                    <Typography sx={{display: 'flex',
+                flexWrap: 'wrap', justifyContent: 'center',
+                 alignItems: 'center', fontWeight: 'bold'}}  id='market' name='market' value={market.name}>{market.name}{' '}{market.price}
                     
                     </Typography>
                     </div>
@@ -189,13 +206,81 @@ let reset = useStore((state) => state.reset);
                </Formik>
                 
 </div>
-</div>
+</Paper>
                 
                
                 }
-               
+                <Paper sx={{display: 'flex',
+                        flexDirection: 'column',
+                        height: '100%'}}>
+                <Divider sx={{ backgroundColor: 'greenPrimaryDark.backgroundColor', height: '0.5em' }} variant='fullWidth'/>
+               <Paper sx={{backgroundColor:'blackSL.backgroundColor',
+                color:'blackSL.color', borderRadius: 0,
+                height: '25vh', display: 'block', fontSize: '0.9rem',
+                
+               }}> 
+              
+               <div style={{display: 'flex',
+                flexWrap: 'wrap', alignItems: 'center'}}>
+                    <Typography sx={{ margin: '0.6rem',
+                    }}>Play with your favorite atheletes.</Typography>
+                    <img style={{
+                height: '100%', width: '100%', display: 'flex',
+                flexWrap: 'wrap',}}src='https://www.gannett-cdn.com/presto/2019/12/19/USAT/68072d0d-5890-45ed-a424-15709e6ad9a4-decade-illo-sheet.jpg?crop=2462,1385,x2401,y2347&width=2462&height=1385&format=pjpg&auto=webp'/>
+                   </div>
+                    </Paper>
+                    <Divider sx={{ backgroundColor: 'yellow.backgroundColor', height: '0.2em' }} variant='fullWidth'/>  
+               <Paper sx={{backgroundColor:'blackSL.backgroundColor',
+                color:'blackSL.color', borderRadius: 0,
+                height: '25vh', display: 'block', fontSize: '0.9rem',
+                
+               }}> 
+               <Typography sx={{marginLeft: '0.4rem'}}>American football</Typography>
+               <div style={{display: 'flex',
+                flexWrap: 'wrap', alignItems: 'center'}}>
+                    <Typography sx={{fontSize: '0.8rem', marginLeft: '0.2rem',
+                    }}>is a team sport played by two teams of eleven players on a rectangular field with goalposts at each end.</Typography>
+                    <img style={{
+                height: '100%', width: '100%', display: 'flex',
+                flexWrap: 'wrap',}}src='https://images.daznservices.com/di/library/DAZN_News/99/46/nfl-line-of-scrimmage_1r88qyqf60ada1wl7t2bzdodga.jpg?t=2046415169&quality=60&w=1280&h=720'/>
+                   </div>
+                    </Paper>
+                    <Divider sx={{ backgroundColor: 'yellow.backgroundColor', height: '0.2em' }} variant='fullWidth'/>  
+               <Paper sx={{backgroundColor:'blackSL.backgroundColor',
+                color:'blackSL.color', borderRadius: 0,
+                height: '25vh', display: 'block', fontSize: '0.9rem',
+                
+               }}> 
+               <Typography sx={{marginLeft: '0.4rem'}}>Baseball</Typography>
+               <div style={{display: 'flex',
+                flexWrap: 'wrap', alignItems: 'center'}}>
+                    <Typography sx={{fontSize: '0.8rem', marginLeft: '0.2rem',
+                    }}>is a bat-and-ball sport played between two teams of nine players each, taking turns batting and fielding.</Typography>
+                    <img style={{
+                height: '100%', width: '100%', display: 'flex',
+                flexWrap: 'wrap',}}src='https://images.sidearmdev.com/crop?url=https%3a%2f%2fdxbhsrqyrr690.cloudfront.net%2fsidearm.nextgen.sites%2fgatorzone.com%2fimages%2f2023%2f3%2f21%2fSproat_NCBWA_Cover.jpg&height=576&width=1024&type=jpeg&gravity=smart'/>
+                   </div>
+                    </Paper>
+                    <Divider sx={{ backgroundColor: 'yellow.backgroundColor', height: '0.2em' }} variant='fullWidth'/>
+               <Paper sx={{backgroundColor:'blackSL.backgroundColor',
+                color:'blackSL.color', borderRadius: 0,
+                height: '25vh', display: 'block', fontSize: '0.9rem',
+                
+               }}> 
+               <Typography sx={{marginLeft: '0.4rem'}}>Basketball</Typography>
+               <div style={{display: 'flex',
+                flexWrap: 'wrap', alignItems: 'center'}}>
+                    <Typography sx={{fontSize: '0.8rem', marginLeft: '0.2rem',
+                    }}>is a team sport in which two teams, most commonly of five players each, opposing one another on a rectangular court.</Typography>
+                    <img style={{
+                height: '100%', width: '100%', display: 'flex',
+                flexWrap: 'wrap',}}src='https://blog.playo.co/wp-content/uploads/2017/12/shooting-techniques-in-basketball.jpg'/>
+                   </div>
+                    </Paper>
+                    </Paper>
             </div>
-        </div>
+           
+        </Box>
     );
 }
 

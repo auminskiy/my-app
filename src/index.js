@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material';
 
 
 const theme = createTheme({
@@ -27,7 +27,7 @@ const theme = createTheme({
       },
       greenPrimaryDark: { 
           backgroundColor: '#004e32', 
-          color: '#fff',
+          color: '#EBD402',
       },
       blackSecondary: {
           backgroundColor: '#252525',
@@ -41,6 +41,10 @@ const theme = createTheme({
           backgroundColor: '#252525', 
           color: '#c9c9c9',
       },
+      greyPrimary:{
+        backgroundColor: '#999999', 
+        color: '#111111',
+      },
       yellow: {
         backgroundColor: '#EBD402',
         color: '#fff',
@@ -48,6 +52,8 @@ const theme = createTheme({
      
   },
 });
+
+
 
 
 

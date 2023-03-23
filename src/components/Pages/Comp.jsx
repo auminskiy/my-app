@@ -4,31 +4,34 @@ import { useNavigate } from 'react-router';
 import auth from '../../Firebase/firebase';
 import SportsMenu from '../Surfaces/SportsMenu';
 import MainOdds1 from '../Surfaces/MainOdds1';
-import { Box, Grid} from '@mui/material';
+import { Box, CssBaseline, Grid} from '@mui/material';
 import Coupon from '../Surfaces/Coupon';
 import Coupon1 from '../Surfaces/Coupon1';
 import { Routes, Switch, Route, NavLink, Router } from "react-router-dom";
 import TestOdds from '../Surfaces/TestOdds';
 import MainOdds from '../Surfaces/MainOdds';
+import SportsMenuCopy from '../Surfaces/SportsMenuCopy';
+
 
 function Comp(props) {
     return (
-        <div >
+      
+        <div style={{height:'100%'}}>
            
-             <Box >
-                <Grid container spacing={0.5}>
-             <Grid xs={2.8}>
+             <Box sx={{backgroundColor:'blackSecondary.backgroundColor', color:'blackSecondary.color', }}>
+                <Grid container spacing={0}>
+             <Grid xs={2.5} >
               
-             <SportsMenu/>
+             <SportsMenuCopy />
              
              </Grid>
-             <Grid xs={6}>
+             <Grid xs={7}>
               
            {/*<MainOdds1/>*/}  
-           <MainOdds/>
+           <MainOdds />
            
              </Grid>
-             <Grid xs={2}>
+             <Grid xs={2.5}>
              
              <Coupon/>
            
@@ -39,7 +42,7 @@ function Comp(props) {
           
         </div>
 
-
+       
 
     );
 }
