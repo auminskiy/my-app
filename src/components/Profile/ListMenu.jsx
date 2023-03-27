@@ -35,23 +35,23 @@ const ListMenu = () => {
   }
 
   
-
   return (
-    <Box sx={{ width: '100%', maxWidth: 200, bgcolor: 'background.paper' }}>
+    <Box sx={{ width: '100%', maxWidth: 200, }}>
     
       <List>
-        <ListItem onClick={()=>{navigateToProfileInfo()}} disablePadding>
+        <ListItem  onClick={()=>{navigateToProfileInfo()}} disablePadding
+          >
           <ListItemButton>
             <ListItemIcon>
-              <AccountCircleIcon />
+              <AccountCircleIcon sx={{color:'greenPrimary.backgroundColor'}}/>
             </ListItemIcon>
-            <ListItemText primary="Profile" />
+            <ListItemText  primary="Profile" />
           </ListItemButton>
         </ListItem>
         <ListItem  onClick={()=>{navigateToBets()}}  disablePadding>
           <ListItemButton>
             <ListItemIcon>
-              <CurrencyExchangeIcon />
+              <CurrencyExchangeIcon sx={{color:'greenPrimary.backgroundColor'}}/>
             </ListItemIcon>
             <ListItemText primary="Bets" />
           </ListItemButton>
@@ -64,7 +64,7 @@ const ListMenu = () => {
         <ListItem onClick={userSignOut} disablePadding>
           <ListItemButton>
           <ListItemIcon>
-          <MeetingRoomIcon/>
+          <MeetingRoomIcon sx={{color:'greenPrimary.backgroundColor'}}/>
           </ListItemIcon>
             <ListItemText primary="Log Out" />
           </ListItemButton>

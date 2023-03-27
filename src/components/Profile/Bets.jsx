@@ -100,14 +100,15 @@ console.log(userBets)
   
 
   return (
-    <Box sx={{width:'100%'}}>
+    <Box sx={{width:'100%', backgroundColor:'blackSL.color',
+    color:'blackSL.backgroundColor', minHeight: '100vh'}}>
         <Typography sx={{display: 'flex',
     flexWrap: 'wrap', marginBottom: 3, marginLeft: 3, marginTop: 3, }}><CurrencyExchange />&nbsp;Bets</Typography>
         <Divider sx={{marginBottom: 3, width:'100%'}}/>
-    <TableContainer component={Paper} >
-    <Table sx={{justifyContent: "center", minWidth: 500,}} aria-label="customized table">
+    <TableContainer  component={Paper} >
+    <Table size='small' sx={{justifyContent: "center", minWidth: 500,}} aria-label="customized table">
       <TableHead>
-        <TableRow>
+        <TableRow >
           <StyledTableCell>ID</StyledTableCell>
           <StyledTableCell align="right">Date</StyledTableCell>
           <StyledTableCell align="right">Type</StyledTableCell>

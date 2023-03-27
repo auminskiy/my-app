@@ -73,7 +73,7 @@ const clickSport = () => {
   return (
     
     
-  <div> 
+  <Paper > 
     <CssBaseline/>
     <Accordion sx={{backgroundColor:'blackSecondaryDark.backgroundColor', color:'blackSecondaryDark.color'}} disableGutters   > 
    
@@ -117,7 +117,7 @@ const clickSport = () => {
   
     </Accordion>
   
-    </div>
+    </Paper>
     
    
   );

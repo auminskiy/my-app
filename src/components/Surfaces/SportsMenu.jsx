@@ -17,7 +17,8 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useLocation, useNavigate } from 'react-router-dom';
 import MainOdds from './MainOdds';
-import { Grid } from '@mui/material';
+import { CssBaseline, Divider, Grid } from '@mui/material';
+import SimpleBar from 'simplebar-react';
 
 
 
@@ -70,14 +71,15 @@ const SportsMenu = (props) => {
 
   
 
-  return (<Grid item xs='2' md='3'> 
-  <div>  {sports.map(key => {
-    return <Accordion disableGutters sx={{ width: 230 }}> 
+  return (<Paper> 
+    
+  <CssBaseline/>  {sports.map(key => {
+    return <Accordion sx={{backgroundColor:'blackSecondaryDark.backgroundColor', color:'blackSecondaryDark.color'}} disableGutters   >  
    
-
-     <AccordionSummary expandIcon={<ExpandMoreIcon />}
+  
+   <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color:'yellow.backgroundColor'}}/>}
           aria-controls="panel1a-content"
-          > 
+          >
     
     <Typography key={key.id} variant="inherit">{key}</Typography>
           
@@ -87,23 +89,22 @@ const SportsMenu = (props) => {
   const clickSport = () => {
     navigate(`/main/${id.key}`)
   }
-        return  <AccordionDetails>
-            <MenuList>
-        <MenuItem>
-          <ListItemIcon>
-            <SendIcon fontSize="small" />
-          </ListItemIcon>
-        <Typography onClick={()=>{clickSport()}} id={id}  variant="inherit">{id.title}</Typography>
-         
+        return  <AccordionDetails sx={{backgroundColor: 'blackSL.backgroundColor', color:'blackSL.color' }}>
+            <MenuList >
+        <MenuItem sx={{maxHeight: '0.5em', borderColor: 'red', border: '1em'}}>
+          
+        <Typography  sx={{fontSize: '0.9em'}}onClick={()=>{clickSport()}} id={id}  variant="inherit">{id.title}</Typography>
+       
         </MenuItem>
+      
         </MenuList>
           </AccordionDetails>
          })} 
-  
+ 
     </Accordion>
   })}
-    </div>
-    </Grid>
+    
+    </Paper>
   );
 }
 

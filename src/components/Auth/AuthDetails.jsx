@@ -6,7 +6,7 @@ import auth from '../../Firebase/firebase';
 import SportsMenu from '../Surfaces/SportsMenu';
 import MainOdds from '../Surfaces/MainOdds';
 import { Box, Grid } from '@mui/material';
-import Coupon from '../Surfaces/Coupon';
+import Coupon from '../Surfaces/Coupon/Coupon';
 import { BrowserRouter, Switch, Route, NavLink, Router } from "react-router-dom";
 import Comp from '../Pages/Comp';
 import Profile from '../Profile/Profile';

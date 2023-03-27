@@ -40,10 +40,11 @@ const theme = createTheme({
       blackSecondaryDark: { 
           backgroundColor: '#252525', 
           color: '#c9c9c9',
+          backgroundColorSecondary: '#252524',
       },
       greyPrimary:{
         backgroundColor: '#999999', 
-        color: '#111111',
+        color: '#252525',
       },
       yellow: {
         backgroundColor: '#EBD402',

@@ -32,14 +32,15 @@ const ProfileInfo = () => {
 
   return (
    
-    <Box color='secondary' sx={{ width: '100%',  }}>
+    <Box color='secondary' sx={{ width: '100%', backgroundColor:'blackSL.color',
+    color:'blackSL.backgroundColor', borderRadius: 0, }}>
           <Typography sx={{display: 'flex',
     flexWrap: 'wrap', marginBottom: 3, marginLeft: 3, marginTop: 3, }}><InfoIcon/>&nbsp;Profile information</Typography>
         <Divider sx={{marginBottom: 3, width:'100%'}}/>
-      <Stack  spacing={2}>
+      <Stack marginLeft={3} spacing={2}>
      
       <Typography sx={{display: 'flex',
-    flexWrap: 'wrap',
+    flexWrap: 'wrap', 
     }}><PermIdentityIcon/>&nbsp;
          ID: {auth.currentUser.uid} </Typography>
         <Typography sx={{display: 'flex',

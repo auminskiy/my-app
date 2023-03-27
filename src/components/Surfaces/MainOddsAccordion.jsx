@@ -5,12 +5,13 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useState, useEffect, useRef } from 'react';
 import { competitionOddsApi, upcomingOddsApi } from '../../Api/SportsApi';
-import { Alert, Divider, Stack, Typography} from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Alert, Collapse, Divider, List, ListItemButton, Stack, Typography} from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import axios from 'axios';
 import { create } from 'zustand';
 
-import { SettingsInputAntennaTwoTone } from '@mui/icons-material';
+import { ExpandLess, ExpandMore, SettingsInputAntennaTwoTone } from '@mui/icons-material';
 
 import useStore from '../../store/useStore';
 import CarouselItem from './Carousel/CarouselItem';
@@ -25,7 +26,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 
-const MainOdds1 = () => {
+const MainOddsAccordion = () => {
 
 
   const instance = axios.create({
@@ -97,6 +98,13 @@ const handleChange = (e) => {
   
  }
  console.log(items);
+
+ const [open, setOpen] = React.useState(false);
+
+ const handleClick = () => {
+   setOpen(!open);
+ };
+
  return ( 
   <div variant="inherit">
   <Box sx={{ width: '100%', minHeight: '100vh' }}>
@@ -114,12 +122,24 @@ const handleChange = (e) => {
    
     <div>
      <div  variant="inherit">
-  <Stack spacing={0.2} sx={{borderRadius: 0}}>
+  <Stack spacing={0.2} sx={{borderRadius: 0}} >
+  <Item sx={{backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0}}>Germany championship</Item>
+            <List>
+            <Stack sx={{ width: '100%',}}>
+              <Stack direction="row"
+sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, }}
+justifyContent="center"
+alignItems="center"
+>
+    <Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', width: '100%', borderRadius: 0}}>{'key.home_team'}{'  ' }vs{ '  '}{'key.away_team'}
     
-<Item sx={{backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0}}>Germany championship</Item>
-<Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0}}>{'key.home_team'}{'  ' }vs{ '  '}{'key.away_team'}</Item>
-
-<Stack
+    </Item>
+    <ListItemButton sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, }} onClick={handleClick}>
+        {open ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+    
+    </Stack>
+    <Stack
 direction="row"
 divider={<Divider orientation="vertical" flexItem />}
 justifyContent="center"
@@ -141,6 +161,13 @@ alignItems="center"
   </Item>
 
 </Stack>
+</Stack>
+
+
+
+<Collapse in={open} timeout="auto" unmountOnExit>
+<List component="div" disablePadding>
+
 <Item  sx={{backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} /*data={key.name} value={key.price}  key={key.name}*/ >
   <Typography sx={{fontSize:'0.9em', textOverflow: 'ellipsis' }}>handicap</Typography>
   </Item>
@@ -172,6 +199,7 @@ justifyContent="center"
 alignItems="center"
 
 >
+ 
 <Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} /*data={key.name} value={key.price}  key={key.name}*/ >
   
   <Typography sx={{fontSize:'0.9em' }}>under</Typography>
@@ -183,6 +211,9 @@ alignItems="center"
   <Typography sx={{color:'yellow.backgroundColor'}}>&nbsp;1.88</Typography>
   </Item>
 </Stack>
+</List>
+</Collapse>
+</List>
 </Stack>
 
 </div>
@@ -197,4 +228,4 @@ alignItems="center"
 }
 
 
-export default MainOdds1
+export default MainOddsAccordion

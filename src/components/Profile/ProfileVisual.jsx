@@ -11,7 +11,7 @@ const ProfileRoutes = () => {
 <Routes>
 
 <Route  path="profile" element={<ProfileInfo/>}/>
-        <Route  path="bets" element={<Bets/>}/>
+ <Route  path="bets" element={<Bets/>}/>
         
         </Routes>
    

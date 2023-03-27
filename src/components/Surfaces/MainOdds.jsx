@@ -37,7 +37,7 @@ const MainOdds= () => {
       dateFormat: 'iso'
     },
     headers: {
-      'X-RapidAPI-Key': 'fbe24cc43dmsh015584980782e3ep1bd677jsn4e3515cba58f',
+      'X-RapidAPI-Key': 'd4586a76f2mshcdf7d1057829a1ep158b28jsn2e41181c391c',
       'X-RapidAPI-Host': 'odds.p.rapidapi.com'
     }
    })
@@ -86,19 +86,19 @@ const handleAddTeam = (e) => {
   addToMarketInfoList(e.target.getAttribute('data'), e.target.getAttribute('value') )
   console.log("value: ", e.target.getAttribute('data'), e.target.getAttribute('value') );
 }
+/*
+const [open, setOpen] = React.useState(true);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+*/
 
 
   return ( 
     <div variant="inherit">
-    <Box sx={{ width: '100%' }}>
-    {/* <Box  component="img"
-        sx={{
-          height: '18em',
-          width: '100%',
-         
-        }} 
-      src={'https://www.minnpost.com/wp-content/uploads/2022/08/SportsBettingBoard940.png?fit=940%2C482&strip=all'}></Box>
-*/}
+    <Box sx={{ width: '100%', minHeight: '100vh' }}>
+   
 <CarouselItem  sx={{
           height: '40vh',
           width: '100%',
@@ -106,25 +106,45 @@ const handleAddTeam = (e) => {
         }}/>
       <Item sx={{display: 'flex', justifyContent:'flex-start',
       backgroundColor:'greenPrimary.backgroundColor', color:'greenPrimary.color', borderRadius: 0, textTransform: 'capitalize'}}>{sportKeyLocation}</Item>
-    <Stack spacing={2} sx={{borderRadius: 0}}>
+      { /*
+    <Item>{[...new Set(items.map(el => el.sport_title))]}</Item>*/}
+   
+     {items.map(key => {
+       return <div>
+       <div key={key.id} variant="inherit">
+    <Stack spacing={0.2} sx={{borderRadius: 0}}>
       
-  <Item sx={{backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0}}>{'sport_title'}</Item>
-  <Item sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0}}>{'home_team'}{'  ' }vs{ '  '}{'away_team'}</Item>
-  <Item sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0}}>{'home_team'}{'  ' }vs{ '  '}{'away_team'}</Item>
-  <Item>{'home_team'}{'  ' }vs{ '  '}{'away_team'}</Item>
+  <Item sx={{backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0}}>{key.sport_title}</Item>
+  <Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0}}>{key.home_team}{'  ' }vs{ '  '}{key.away_team}</Item>
+  
   <Stack
   direction="row"
   divider={<Divider orientation="vertical" flexItem />}
+  justifyContent="center"
+  alignItems="center"
   
-  justifyContent="space-around"
 >
+{key.bookmakers[0].markets[0].outcomes.map(key => {
+   return <Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} data={key.name} value={key.price}  key={key.name} >
+    <Typography sx={{fontSize:'0.9em', textOverflow: 'ellipsis' }}>{key.name}</Typography>
+    <Typography sx={{color:'yellow.backgroundColor'}}>&nbsp;{key.price}</Typography>
+    </Item>
+  })}
   
-    <Item sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0}} onClick={handleAddTeam} data={'spartor'} value={'3'}>{'spartor'} {'   '}  {'3'}</Item>
-    <Item sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0}} onClick={handleAddTeam} data={'free'} value={'4'}>{'key.name'} {'   '}  {'4'}</Item>
-    <Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0}}onClick={handleAddTeam} data={'tracktor'} value={'2.5'}>{'key.name'} {'   '}  {'2.5'}</Item>
+  {key.bookmakers[0].markets[1].outcomes.map(key => {
+   return <Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} data={key.name} value={key.price}  key={key.name} >
+    <Typography sx={{fontSize:'0.9em', textOverflow: 'ellipsis' }}>{key.name}</Typography>
+    <Typography sx={{fontSize:'0.9em' }}>{key.point}</Typography>
+    <Typography sx={{color:'yellow.backgroundColor'}}>&nbsp;{key.price}</Typography>
+    </Item>
+  })}
   </Stack>
   </Stack>
  
+  
+  </div>
+   </div> 
+  })}
   </Box>
     </div>
 
