@@ -29,8 +29,9 @@ function Comp(props) {
              <Grid xs={7}>
              {/* 
            <MainOdds1/> 
-           <MainOdds />*/} 
-           <MainOddsAccordion/>
+           <MainOdds />
+           <MainOddsAccordion/>*/} 
+            <MainOdds />
              </Grid>
              <Grid xs={2.5}>
              

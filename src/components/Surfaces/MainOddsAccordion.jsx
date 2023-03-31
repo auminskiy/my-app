@@ -37,7 +37,7 @@ const MainOddsAccordion = () => {
       dateFormat: 'iso'
     },
     headers: {
-      'X-RapidAPI-Key': 'fbe24cc43dmsh015584980782e3ep1bd677jsn4e3515cba58f',
+      'X-RapidAPI-Key': 'c4fcd901cbmsh7783f382610b146p17eaf3jsnd14a9715a708',
       'X-RapidAPI-Host': 'odds.p.rapidapi.com'
     }
    })
@@ -84,8 +84,8 @@ console.log(sportKeyLoc);
   //const addTeam = ordinar((state) => state.addTeam);
 const addToMarketInfoList = useStore((state) => state.addToMarketInfoList);
   const handleAddTeam = (e) => {
-    addToMarketInfoList(e.target.getAttribute('data'), e.target.getAttribute('value') )
-    console.log("value: ", e.target.getAttribute('data'), e.target.getAttribute('value') );
+    addToMarketInfoList(e.target.getAttribute('data'), e.target.getAttribute('value'), e.target.getAttribute('match') )
+    console.log("value: ", e.target.getAttribute('data'), e.target.getAttribute('value'), e.target.getAttribute('match'), );
   }
  
 
@@ -97,13 +97,29 @@ const handleChange = (e) => {
   console.log("value: ", name, price );
   
  }
- console.log(items);
+ console.log(items); 
+
+ const book =  items.filter((arr) => {
+  let newBookmaker = arr.bookmakers.filter(
+    (bookmaker) => bookmaker.key == "bovada"
+  );
+  if (newBookmaker.length > 0) {
+    arr.bookmakers = newBookmaker;
+    return arr;
+  }
+});
+
+console.log(book);
 
  const [open, setOpen] = React.useState(false);
 
  const handleClick = () => {
    setOpen(!open);
  };
+const val = 'bovada';
+ const result = items.filter(el => el.bookmakers.key===val)
+
+console.log(result);
 
  return ( 
   <div variant="inherit">
@@ -115,62 +131,63 @@ const handleChange = (e) => {
        
       }}/>
     <Item sx={{display: 'flex', justifyContent:'flex-start',
-    backgroundColor:'greenPrimary.backgroundColor', color:'greenPrimary.color', borderRadius: 0, textTransform: 'capitalize'}}>{sportKeyLocation}</Item>
+    backgroundColor:'greenPrimary.backgroundColor', color:'greenPrimary.color', borderRadius: 0, textTransform: 'capitalize'}}>{sportKeyLoc}</Item>
     { /*
   <Item>{[...new Set(items.map(el => el.sport_title))]}</Item>*/}
  
-   
-    <div>
-     <div  variant="inherit">
+ {book.map(key => {
+    return <div>
+     <div key={key.id} variant="inherit">
   <Stack spacing={0.2} sx={{borderRadius: 0}} >
-  <Item sx={{backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0}}>Germany championship</Item>
-            <List>
+  <Item sx={{backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0}}>{key.sport_title}</Item>
+            
             <Stack sx={{ width: '100%',}}>
               <Stack direction="row"
 sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, }}
 justifyContent="center"
 alignItems="center"
 >
-    <Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', width: '100%', borderRadius: 0}}>{'key.home_team'}{'  ' }vs{ '  '}{'key.away_team'}
+  
+  <Typography sx={{color:'yellow.backgroundColor', fontSize:'0.8em', width: '12em', marginLeft: '1em' }}>{key.commence_time}</Typography>
+  
+    <Typography  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', width: '100%',
+    alignItems:"center", display:'flex', justifyContent:'flex-start', borderRadius: 0}}>{key.home_team}{'  ' }vs{ '  '}{key.away_team}
     
-    </Item>
-    <ListItemButton sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, }} onClick={handleClick}>
-        {open ? <ExpandLess /> : <ExpandMore />}
+    </Typography>
+    <ListItemButton sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, }} 
+    onClick={() => setOpen((prev) => ({...prev, [key.id]: !prev[key.id]}))}>
+        {open ? <ExpandLess /> : <ExpandMore><Typography>&nbsp;+{key.bookmakers[0].markets.length}</Typography></ExpandMore> }
       </ListItemButton>
     
     </Stack>
+    
     <Stack
-direction="row"
-divider={<Divider orientation="vertical" flexItem />}
-justifyContent="center"
-alignItems="center"
-
->
-
- <Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} /*data={key.name} value={key.price}  key={key.name}*/ >
-  <Typography sx={{fontSize:'0.9em', textOverflow: 'ellipsis' }}>Shalke 034234 fc</Typography>
-  <Typography sx={{color:'yellow.backgroundColor'}}>&nbsp;1.89</Typography>
-  </Item>
-  <Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} /*data={key.name} value={key.price}  key={key.name}*/ >
-  <Typography sx={{fontSize:'0.9em', textOverflow: 'ellipsis' }}>Shalke 034234 fc</Typography>
-  <Typography sx={{color:'yellow.backgroundColor'}}>&nbsp;1.89</Typography>
-  </Item>
-  <Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} /*data={key.name} value={key.price}  key={key.name}*/ >
-  <Typography sx={{fontSize:'0.9em', textOverflow: 'ellipsis' }}>Shalke 034234 fc</Typography>
-  <Typography sx={{color:'yellow.backgroundColor'}}>&nbsp;1.89</Typography>
+   direction="row"
+   divider={<Divider orientation="vertical" flexItem />}
+   justifyContent="center"
+   alignItems="center"
+   marginTop={'0.1em'}
+   >
+{key.bookmakers[0].markets[0] == undefined ? null : key.bookmakers[0].markets[0].outcomes.map(key => {
+   return <Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} match={key.commence_time} data={key.name} value={key.price}  key={key.name} >
+  <Typography sx={{fontSize:'0.9em', textOverflow: 'ellipsis' }}data={'name'} value={'price'} match={'29.11.2323 Spartachek - Tracktor'}>{key.name}</Typography>
+  <Typography sx={{color:'yellow.backgroundColor'}}data={'name'} value={'price'}>&nbsp;{key.price}</Typography>
   </Item>
 
-</Stack>
+ })}
+ </Stack>
 </Stack>
 
 
 
-<Collapse in={open} timeout="auto" unmountOnExit>
-<List component="div" disablePadding>
+<Collapse key={key.id} in={open[key.id]} timeout="auto" unmountOnExit>
+<List component="div" disablePadding >
 
-<Item  sx={{backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} /*data={key.name} value={key.price}  key={key.name}*/ >
-  <Typography sx={{fontSize:'0.9em', textOverflow: 'ellipsis' }}>handicap</Typography>
+{key.bookmakers[0].markets[1] == undefined ? null : key.bookmakers[0].markets[1].outcomes.map((key) => {
+<Item  sx={{ backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0, alignItems:"center", display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} data={key.name} value={key.price}  key={key.name} >
+  <Typography sx={{fontSize:'0.9em', textOverflow: 'ellipsis', }}>{key.key}</Typography>
   </Item>
+})}
   <Stack
 direction="row"
 divider={<Divider orientation="vertical" flexItem />}
@@ -178,47 +195,43 @@ justifyContent="center"
 alignItems="center"
 
 >
-<Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} /*data={key.name} value={key.price}  key={key.name}*/ >
-  <Typography sx={{fontSize:'0.9em', textOverflow: 'ellipsis' }}>handicap</Typography>
-  <Typography sx={{fontSize:'0.9em' }}>-0.5</Typography>
-  <Typography sx={{color:'yellow.backgroundColor'}}>&nbsp;1.34</Typography>
+{key.bookmakers[0].markets[1] == undefined ? null : key.bookmakers[0].markets[1].outcomes.map((k) => {
+<Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} data={k.name} value={k.price}  key={k.name} >
+  <Typography sx={{fontSize:'0.9em', textOverflow: 'ellipsis' }}>{k.name}</Typography>
+  <Typography sx={{fontSize:'0.9em' }}>&nbsp;{k.point}</Typography>
+  <Typography sx={{color:'yellow.backgroundColor'}}>&nbsp;{k.price}</Typography>
   </Item>
-  <Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} /*data={key.name} value={key.price}  key={key.name}*/ >
-
-  <Typography sx={{fontSize:'0.9em' }}>+0.5</Typography>
-  <Typography sx={{color:'yellow.backgroundColor'}}>&nbsp;1.34</Typography>
-  </Item>
+})}
 </Stack>
-<Item  sx={{backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} /*data={key.name} value={key.price}  key={key.name}*/ >
-  <Typography sx={{fontSize:'0.9em', textOverflow: 'ellipsis' }}>total</Typography>
+
+<Item  sx={{backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0, alignItems:"center", display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} data={key.name} value={key.price}  key={key.name} >
+  <Typography sx={{fontSize:'0.9em', textOverflow: 'ellipsis' }}>{key.key}</Typography>
   </Item>
 <Stack
 direction="row"
 divider={<Divider orientation="vertical" flexItem />}
 justifyContent="center"
 alignItems="center"
-
 >
- 
-<Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} /*data={key.name} value={key.price}  key={key.name}*/ >
+{key.bookmakers[0].markets[2] == undefined ? null : key.bookmakers[0].markets[2].outcomes.map((key) => {
+<Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} data={key.name} value={key.price}  key={key.name} >
   
-  <Typography sx={{fontSize:'0.9em' }}>under</Typography>
-  <Typography sx={{color:'yellow.backgroundColor'}}>&nbsp;1.99</Typography>
+  <Typography sx={{fontSize:'0.9em' }}>{key.name}</Typography>
+  <Typography sx={{fontSize:'0.9em' }}>&nbsp;{key.point}</Typography>
+  <Typography sx={{color:'yellow.backgroundColor'}}>&nbsp;{key.price}</Typography>
   </Item>
-  <Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} /*data={key.name} value={key.price}  key={key.name}*/ >
-
-  <Typography sx={{fontSize:'0.9em' }}>over</Typography>
-  <Typography sx={{color:'yellow.backgroundColor'}}>&nbsp;1.88</Typography>
-  </Item>
+})}
 </Stack>
+
 </List>
 </Collapse>
-</List>
+
+
 </Stack>
 
 </div>
  </div> 
-
+})}
 </Box>
   </div>
 

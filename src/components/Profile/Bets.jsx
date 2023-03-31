@@ -136,7 +136,7 @@ console.log(userBets)
               }
               </StyledTableCell>
               
-            <StyledTableCell align="right">{row.price}</StyledTableCell>
+            <StyledTableCell align="right">{parseFloat(row.price).toFixed(2)}</StyledTableCell>
             <StyledTableCell align="right">{parseFloat(row.stake).toFixed(2)}</StyledTableCell>
             <StyledTableCell >
           <IconButton
@@ -162,30 +162,33 @@ console.log(userBets)
                    <TableHead>
                      <TableRow>
                        <TableCell>Date</TableCell>
-                       <TableCell>Market / Price</TableCell>
-                       <TableCell align="right">Stake</TableCell>
+                       <TableCell>Bet information: Match, Market, Price</TableCell>
+                       
+                       <TableCell  align="right">Stake</TableCell>
                      </TableRow>
                    </TableHead>
                    <TableBody>
                      
-                       <TableRow key={row.market.name}>
-                         <TableCell component="th" scope="row">
+                       <TableRow  key={row.market.name}>
+                         <TableCell sx={{ border: 'none'}} component="th" scope="row">
                          {row.createdAt.toString().split('G')[0]}
                          </TableCell>
-                         <TableCell >
+                         
 
                          { row.market.map((type, index) => {
                          
                               return(
-                                <span key={index}>
-                         <TableCell>{type.name}</TableCell>
-                         <TableCell align="right">{type.price}</TableCell>
-                              </span>
+                                <Box sx={{ border: 'none'}} key={index}>
+                                  <TableCell sx={{ border: 'none'}} >{type.match}</TableCell>
+                         <TableCell sx={{ border: 'none'}}>{type.name}</TableCell>
+                         <TableCell sx={{ border: 'none'}}>{type.point}</TableCell>
+                         <TableCell sx={{ border: 'none'}} align="right">{type.price}</TableCell>
+                              </Box>
                               )})}
-                           </TableCell> 
+                           
                         
                         
-                        <TableCell align="right">
+                        <TableCell sx={{ border: 'none'}}  align="right">
                            {parseFloat(row.stake).toFixed(2)}
                          </TableCell>
                        </TableRow>

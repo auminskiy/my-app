@@ -20,7 +20,7 @@ const SignIn = () => {
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             console.log(userCredential);
-            navigate('/main/upcoming')
+            navigate('/main/soccer')
         })
         .catch((error) => {
             setErrorCode(error.code)

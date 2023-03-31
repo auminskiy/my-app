@@ -32,8 +32,8 @@ const LoginForm = (props) => {
         
       <Route exact path="/login" element={<SignIn/>}/>
       <Route exact path="/register" element={<SignUp/>}/>
-      <Route  path="/" element={<SignIn/>}/>
-      <Route  path="/main/*" element={<Main/>}/>
+      <Route  path="/main/soccer" element={<SignIn/>}/>
+      <Route  path="/main/soccer" element={<Main/>}/>
       
     </Routes>
     

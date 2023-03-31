@@ -15,7 +15,7 @@ const SignUp = () => {
         e.preventDefault();
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            navigate('/main')
+            navigate('/main/soccer')
             console.log(userCredential);
         })
         .catch((error) => {

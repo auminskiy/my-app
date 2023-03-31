@@ -1,9 +1,9 @@
 import React from 'react';
-
+import SoccerBall from './../../img/SoccerBall.gif'
 function Loader(props) {
     return (
         <div>
-            3213123122321312
+            <img src={SoccerBall}/>
         </div>
     );
 }

@@ -17,8 +17,9 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useLocation, useNavigate } from 'react-router-dom';
 import MainOdds from './MainOdds';
-import { CssBaseline, Divider, Grid } from '@mui/material';
+import { CircularProgress, CssBaseline, Divider, Grid } from '@mui/material';
 import SimpleBar from 'simplebar-react';
+import Loader from '../Loader/Loader';
 
 
 
@@ -63,7 +64,7 @@ const SportsMenu = (props) => {
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
-    return <div>Loading...</div>;
+    return <div><CircularProgress sx={{color: 'yellow', display: 'flex', justifyContent: 'center', alignItems:'center'}}/></div>;
   } else {
 
 
@@ -71,8 +72,9 @@ const SportsMenu = (props) => {
 
   
 
-  return (<Paper> 
+  return (
     
+    <Paper> 
   <CssBaseline/>  {sports.map(key => {
     return <Accordion sx={{backgroundColor:'blackSecondaryDark.backgroundColor', color:'blackSecondaryDark.color'}} disableGutters   >  
    
@@ -91,7 +93,7 @@ const SportsMenu = (props) => {
   }
         return  <AccordionDetails sx={{backgroundColor: 'blackSL.backgroundColor', color:'blackSL.color' }}>
             <MenuList >
-        <MenuItem sx={{maxHeight: '0.5em', borderColor: 'red', border: '1em'}}>
+        <MenuItem sx={{maxHeight: '1em', borderColor: 'red', border: '1em'}}>
           
         <Typography  sx={{fontSize: '0.9em'}}onClick={()=>{clickSport()}} id={id}  variant="inherit">{id.title}</Typography>
        
@@ -103,8 +105,9 @@ const SportsMenu = (props) => {
  
     </Accordion>
   })}
-    
+
     </Paper>
+
   );
 }
 

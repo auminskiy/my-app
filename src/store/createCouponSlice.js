@@ -4,8 +4,8 @@ import React from 'react';
 
 const createCouponSlice = (set, get) =>({
    marketInfoList: [],
-   addToMarketInfoList: (name, price) => {
-    const newTeam = {name, price}
+   addToMarketInfoList: (name, price, point, match) => {
+    const newTeam = {name, price, point, match}
     set({
         marketInfoList: Array.from(new Set(([...get().marketInfoList, newTeam]).map(item => JSON.stringify(item)))).map(item => JSON.parse(item))
     })

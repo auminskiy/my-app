@@ -1,4 +1,4 @@
-import { Alert, Button, Stack, Typography, List, Paper, CssBaseline, Box, Divider, TextField, Collapse, Zoom, Snackbar } from '@mui/material';
+import { Alert, Button, Stack, Typography, List, Paper, CssBaseline, Box, Divider, TextField, Collapse, Zoom, Snackbar, IconButton } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import React, { useState, useEffect } from 'react';
 import DataService from '../../../Firebase/firestore';
@@ -15,6 +15,7 @@ import couponFormShema from '../couponFormShema';
 import * as Yup from "yup";
 import classnames from 'classnames';
 import CouponImages from './CouponImages';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
  const firebaseConfig = {
    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -78,11 +79,13 @@ React.useEffect(() => {
     let priceValue = priceSelector.getAttribute('value');
     console.log(priceValue);
     let price = priceValue;
+
+    
     
     
 
     setMessage('');
-    console.log(price, stake, market);
+    console.log(price, stake, market,);
     if (stake === '' || market === '' || price === '') {
         setMessage({error: true, msg: 'Please, enter the stake.'})
         setTimeout(() => {
@@ -156,7 +159,7 @@ useEffect(() => {
             <div >{ 
                     message?.msg && (
                        
-                    <Alert  sx={{width:'100%', backgroundColor:'blackSecondaryDark.backgroundColor', color:'blackSecondaryDark.color'}} 
+                    <Alert  sx={{ backgroundColor:'blackSecondaryDark.backgroundColor', color:'blackSecondaryDark.color'}} 
                     severity={message?.error ? 'error':'success'}
                     onClose={() =>  setMessage('') }> 
                         {message?.msg}
@@ -187,12 +190,20 @@ useEffect(() => {
                     <div style={{display: 'flex',
                 flexWrap: 'wrap', flexDirection: 'row',
                 height: '3rem',}}>
-                    <Button sx={{justifyContent:'flex-start', color: 'yellow.backgroundColor', height: '2rem', width: '2rem'}} variant="text" onClick={() => removeToMarketInfoList(market.name)}>x</Button>
-                    <Typography sx={{display: 'flex',
-                flexWrap: 'wrap', justifyContent: 'center',
-                 alignItems: 'center', fontWeight: 'bold'}}  id='market' name='market' value={market.name}>{market.name}{' '}{market.price}
-                    
+
+                    <IconButton size="small" sx={{justifyContent:'center', color: 'yellow.backgroundColor', height: '2rem', width: '2rem',}} variant="text" onClick={() => removeToMarketInfoList(market.name)}><HighlightOffIcon/></IconButton>
+                   <div style={{
+                 alignItems: 'center', flexDirection: 'row', backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', }}>
+                    <div style={{display: 'flex',
+                 alignItems: 'center', justifyContent:'space-between', flexWrap: 'wrap', backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0, }}>
+                    <Typography sx={{ flexDirection: 'row', justifyContent: 'flex-start', fontWeight: 'bold',backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0,}}  id='market' name='market' value={market.name}>{market.name}&nbsp;{market.point}
                     </Typography>
+                    <Typography sx={{ flexDirection: 'row', justifyContent: 'flex-end', fontWeight: 'bold', marginRight: '0' }}>{market.price}</Typography>
+                    </div>
+                    
+                    <Typography sx={{ dataTooltip:"" ,display: 'flex', alignItems: 'center', flexDirection: 'column', justifyContent: 'flex-start', fontSize:'0.7em',
+                whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}  id='match' name='match' value={market.match}>{market.match.slice( 0, 57).length < market.match.length ? market.match.slice( 0, 57)+'...' : market.match}</Typography>
+                    </div>
                     </div>
                     <Divider/>
 

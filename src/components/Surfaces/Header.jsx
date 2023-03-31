@@ -8,8 +8,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import auth from '../../Firebase/firebase';
 import { useNavigate } from 'react-router';
-import logoSvg from '../../img/logoSvg.svg'
-import { Box, Menu, MenuItem } from '@mui/material';
+import logasterTop from '../../img/logasterTop.svg'
+import { Box, Menu, MenuItem, MenuList } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
@@ -25,7 +25,7 @@ const Header = () => {
   const navigate = useNavigate();
   
   const navigateToLc = () => {
-    navigate('/lc/*')
+    navigate('/lc/profile')
   }
   const navigateToMain = () => {
     navigate('/main/soccer')
@@ -74,30 +74,30 @@ const handleClose = () => {
 
   <AppBar  sx={{  backgroundColor: '#027b5b' }} position='static' >
 <Toolbar >
-<img  width='300' height= '70' src={logoSvg}></img>
+<img  /*width='400em' height= '110em'*/ src={logasterTop}></img>
  
  
    { authUser ? 
-   <>
+   <div style={{display: 'flex',
+   alignItems: 'center', flexDirection: 'row', flexGrow: 1 }}>
    
-  <Typography sx={{ flexGrow: 1, margin: '1rem'}} justifyContent="center">
-    Your login: {authUser.email.split('@')[0]}
-  </Typography>
-  <Button  onClick={userSignOut} sx={{  color: 'white'}}  >
+ 
+  <Button  onClick={userSignOut} sx={{ flexGrow: 1, margin: '1rem', color: '#027b5b'}}  >
 <LogoutIcon  sx={{  color: 'salat'}}  ></LogoutIcon>
- log out</Button>
- <div>
+ log out</Button> 
+ <div >
               <IconButton
                 size="large"
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleMenu}
-                color="inherit"
+                
               >
-                <AccountCircle />
+                <AccountCircle  sx={{  color: 'yellow.backgroundColor'}} />
               </IconButton>
               <Menu
+              sx={{ padding: 0}}
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
@@ -111,15 +111,25 @@ const handleClose = () => {
                 }}
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
+                PaperProps={{
+                  elevation: 2,
+                  sx: {
+                    overflow: 'visible',
+                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                    mt: 0,
+                    backgroundColor: 'greyPrimary.backgroundColor',
+                  },
+                }}
               >
                 
-                <MenuItem onClick={()=>{navigateToLc();handleClose()}}><AccountCircleIcon/>  My profile: {authUser.email.split('@')[0]}</MenuItem>
-                <MenuItem onClick={()=>{navigateToMain();handleClose()}}><PlayCircleIcon/> Back to the game</MenuItem>
-                <MenuItem onClick={userSignOut}><LogoutIcon  sx={{  color: 'salat'}}  ></LogoutIcon>  Log Out</MenuItem>
+                <MenuItem sx={{ color: 'greyPrimary.color', backgroundColor: 'greyPrimary.backgroundColor'}} onClick={()=>{navigateToLc();handleClose()}}><AccountCircleIcon/>  My profile: {authUser.email.split('@')[0]}</MenuItem>
+                <MenuItem sx={{ color: 'greyPrimary.color', backgroundColor: 'greyPrimary.backgroundColor'}} onClick={()=>{navigateToMain();handleClose()}}><PlayCircleIcon/> Back to the game</MenuItem>
+                <MenuItem sx={{ color: 'greyPrimary.color', backgroundColor: 'greyPrimary.backgroundColor'}} onClick={userSignOut}><LogoutIcon  sx={{  color: 'salat'}}  ></LogoutIcon>  Log Out</MenuItem>
+                
               </Menu>
             </div>
 
-  </>
+  </div>
   : null}
 </Toolbar>
 </AppBar>

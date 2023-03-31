@@ -5,7 +5,7 @@ const Items = ({item}) => {
     return (
         <Paper sx={{backgroundColor:'blackSecondary.backgroundColor', color:'blackSecondary.color'}}>
             <img src={item.image} alt={item.title}  style={{
-          height: '25vh',
+          height: '30vh',
           width: '100%',
           }} />
             <h2 style={{display: 'flex', justifyContent:'flex-end', marginTop: 2, marginRight: 10}}>{item.title}</h2>  
