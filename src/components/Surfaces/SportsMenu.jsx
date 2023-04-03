@@ -70,7 +70,11 @@ const SportsMenu = (props) => {
 
   }
 
-  
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+
+  const handleListItemClick = (event, index) => {
+    setSelectedIndex(index);
+  };
 
   return (
     
@@ -92,10 +96,11 @@ const SportsMenu = (props) => {
     navigate(`/main/${id.key}`)
   }
         return  <AccordionDetails sx={{backgroundColor: 'blackSL.backgroundColor', color:'blackSL.color' }}>
-            <MenuList >
-        <MenuItem sx={{maxHeight: '1em', borderColor: 'red', border: '1em'}}>
+            <MenuList component="nav">
+        <MenuItem selected={selectedIndex === id} onClick={(event) => handleListItemClick(event, id)}
+        sx={{maxHeight: '1em', borderColor: 'red', border: '1em'}}>
           
-        <Typography  sx={{fontSize: '0.9em'}}onClick={()=>{clickSport()}} id={id}  variant="inherit">{id.title}</Typography>
+        <Typography  sx={{fontSize: '0.9em', color: selectedIndex===0 ? 'yellow.backgroundColor': 'red' }}onClick={()=>{clickSport()}} id={id}  variant="inherit">{id.title}</Typography>
        
         </MenuItem>
       

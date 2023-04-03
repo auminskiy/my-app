@@ -13,6 +13,10 @@ const theme = createTheme({
         main: '#165788',
         contrastText: '#fff',
       },
+      secondary: { 
+        main: '#004e32',
+        contrastText: '#fff',
+      },
       salat: { 
         main: '#69BE28',
         contrastText: '#fff',
