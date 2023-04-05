@@ -1,4 +1,4 @@
-import { Button, TextField, IconButton, Container, Typography } from '@mui/material';
+import { Button, TextField, IconButton, Container } from '@mui/material';
 import Fingerprint from '@mui/icons-material/Fingerprint'
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, {useState} from 'react';

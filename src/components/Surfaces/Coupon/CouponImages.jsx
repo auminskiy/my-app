@@ -17,11 +17,11 @@ const CouponImages = () => {
               
                <div style={{display: 'flex',
                 flexWrap: 'wrap', alignItems: 'center'}}>
-                    <Typography sx={{ margin: '0.6rem',
+                    <Typography sx={{ margin: '0.8rem',
                     }}>Play with your favorite atheletes.</Typography>
                     <img style={{
-                height: '100%', width: '100%', display: 'flex',
-                flexWrap: 'wrap',}}src='https://www.gannett-cdn.com/presto/2019/12/19/USAT/68072d0d-5890-45ed-a424-15709e6ad9a4-decade-illo-sheet.jpg?crop=2462,1385,x2401,y2347&width=2462&height=1385&format=pjpg&auto=webp'/>
+                height: '20vh', width: '100%', display: 'flex',
+                flexWrap: 'wrap', marginTop: '1rem'}}src='https://www.gannett-cdn.com/presto/2019/12/19/USAT/68072d0d-5890-45ed-a424-15709e6ad9a4-decade-illo-sheet.jpg?crop=2462,1385,x2401,y2347&width=2462&height=1385&format=pjpg&auto=webp'/>
                    </div>
                     </Paper>
                     <Divider sx={{ backgroundColor: 'yellow.backgroundColor', height: '0.2em' }} variant='fullWidth'/>  
@@ -33,11 +33,11 @@ const CouponImages = () => {
                <Typography sx={{marginLeft: '0.4rem'}}>American football</Typography>
                <div style={{display: 'flex',
                 flexWrap: 'wrap', alignItems: 'center'}}>
-                    <Typography sx={{fontSize: '0.8rem', marginLeft: '0.2rem',
+                    <Typography sx={{fontSize: '0.8rem', marginLeft: '0.2rem', marginBottom: '0.7rem'
                     }}>is a team sport played by two teams of eleven players on a rectangular field with goalposts at each end.</Typography>
                     <img style={{
-                height: '100%', width: '100%', display: 'flex',
-                flexWrap: 'wrap',}}src='https://images.daznservices.com/di/library/DAZN_News/99/46/nfl-line-of-scrimmage_1r88qyqf60ada1wl7t2bzdodga.jpg?t=2046415169&quality=60&w=1280&h=720'/>
+                height: '20vh', width: '100%', display: 'flex',
+                flexWrap: 'wrap', }}src='https://images.daznservices.com/di/library/DAZN_News/99/46/nfl-line-of-scrimmage_1r88qyqf60ada1wl7t2bzdodga.jpg?t=2046415169&quality=60&w=1280&h=720'/>
                    </div>
                     </Paper>
                     <Divider sx={{ backgroundColor: 'yellow.backgroundColor', height: '0.2em' }} variant='fullWidth'/>  
@@ -49,11 +49,11 @@ const CouponImages = () => {
                <Typography sx={{marginLeft: '0.4rem'}}>Baseball</Typography>
                <div style={{display: 'flex',
                 flexWrap: 'wrap', alignItems: 'center'}}>
-                    <Typography sx={{fontSize: '0.8rem', marginLeft: '0.2rem',
+                    <Typography sx={{fontSize: '0.8rem', marginLeft: '0.2rem', marginBottom: '0.7rem'
                     }}>is a bat-and-ball sport played between two teams of nine players each, taking turns batting and fielding.</Typography>
                     <img style={{
-                height: '100%', width: '100%', display: 'flex',
-                flexWrap: 'wrap',}}src='https://images.sidearmdev.com/crop?url=https%3a%2f%2fdxbhsrqyrr690.cloudfront.net%2fsidearm.nextgen.sites%2fgatorzone.com%2fimages%2f2023%2f3%2f21%2fSproat_NCBWA_Cover.jpg&height=576&width=1024&type=jpeg&gravity=smart'/>
+                height: '20vh', width: '100%', display: 'flex',
+                flexWrap: 'wrap', }}src='https://images.sidearmdev.com/crop?url=https%3a%2f%2fdxbhsrqyrr690.cloudfront.net%2fsidearm.nextgen.sites%2fgatorzone.com%2fimages%2f2023%2f3%2f21%2fSproat_NCBWA_Cover.jpg&height=576&width=1024&type=jpeg&gravity=smart'/>
                    </div>
                     </Paper>
                     <Divider sx={{ backgroundColor: 'yellow.backgroundColor', height: '0.2em' }} variant='fullWidth'/>
@@ -65,10 +65,10 @@ const CouponImages = () => {
                <Typography sx={{marginLeft: '0.4rem'}}>Basketball</Typography>
                <div style={{display: 'flex',
                 flexWrap: 'wrap', alignItems: 'center'}}>
-                    <Typography sx={{fontSize: '0.8rem', marginLeft: '0.2rem',
+                    <Typography sx={{fontSize: '0.8rem', marginLeft: '0.2rem', marginBottom: '0.7rem'
                     }}>is a team sport in which two teams, most commonly of five players each, opposing one another on a rectangular court.</Typography>
                     <img style={{
-                height: '100%', width: '100%', display: 'flex',
+                height: '20vh', width: '100%', display: 'flex',
                 flexWrap: 'wrap',}}src='https://blog.playo.co/wp-content/uploads/2017/12/shooting-techniques-in-basketball.jpg'/>
                    
                    </div>

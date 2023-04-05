@@ -1,26 +1,23 @@
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import React, {useState, useEffect} from 'react';
 import { Routes, useNavigate } from 'react-router';
 import LoginForm from './LoginForm';
 import auth from '../../Firebase/firebase';
-import SportsMenu from '../Surfaces/SportsMenu';
-import MainOdds from '../Surfaces/MainOdds';
-import { Box, Grid } from '@mui/material';
-import Coupon from '../Surfaces/Coupon/Coupon';
-import { BrowserRouter, Switch, Route, NavLink, Router } from "react-router-dom";
+import {Route,} from "react-router-dom";
 import Comp from '../Pages/Comp';
 import Profile from '../Profile/Profile';
-import Bets from '../Profile/Bets';
-import ProfileInfo from '../Profile/ProfileInfo';
+
 
 const AuthDetails = (props) => {
   
     const [authUser, setAuthUser] = useState(null);
+    const navigate = useNavigate();
     
     useEffect(() => {
         const listen = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setAuthUser(user)
+                navigate('/main/soccer')
             }
             else {
                 setAuthUser(null);
@@ -32,6 +29,7 @@ const AuthDetails = (props) => {
         }
     }, []);
    
+ 
    
     return (
         <div>
@@ -39,11 +37,12 @@ const AuthDetails = (props) => {
            <Routes>
             <Route  path="/main/*" element={<Comp/>}/>
       <Route  path="/lc/*" element={<Profile/>}/>
-     
             </Routes>
              : 
-            <div >  
-            <LoginForm/> 
+            <div > 
+                <Routes>
+            <Route path="/*" element={<LoginForm/>}/>
+            </Routes>
             </div>
             }
         </div>

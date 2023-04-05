@@ -27,7 +27,11 @@ const SportsMenuCopy = (props) => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
-   
+    const [selectedIndex, setSelectedIndex] = React.useState(0);
+
+    const handleListItemClick = (event, index) => {
+      setSelectedIndex(index);
+    };
     const navigate = useNavigate();
     // Примечание: пустой массив зависимостей [] означает, что
     // этот useEffect будет запущен один раз
@@ -89,26 +93,49 @@ const clickSport = () => {
  
         <AccordionDetails>
             <MenuList>
-        <MenuItem color="salat">
-          <ListItemIcon>
+        <MenuItem   
+          color="salat" sx={{fontSize: '0.9em', color: selectedIndex===0 ? 'yellow.backgroundColor': 'blackSL.color',
+         backgroundColor: selectedIndex===0 ? 'yellow.backgroundColor': null,
+     
+     }}  
+    >
+          <ListItemIcon selected={selectedIndex === 0}
+          onClick={(event) => handleListItemClick(event, 0)} >
             <SendIcon fontSize="small" />
           </ListItemIcon>
-        <Typography onClick={()=>{clickSport()}}   variant="inherit">soccer</Typography>
+        <Typography onClick={()=>{clickSport()}}  
+         sx={{fontSize: '0.9em', color: selectedIndex===0 ? 'yellow.backgroundColor': 'blackSL.color',
+         backgroundColor: selectedIndex===0 ? 'yellow.backgroundColor': null,
+     
+     }}   
+        variant="inherit">soccer</Typography>
          
         </MenuItem>
         <Divider sx={{color:'yellow.color'}}/>
-        <MenuItem>
+        <MenuItem selected={selectedIndex === 1}
+          onClick={(event) => handleListItemClick(event, 1)}>
           <ListItemIcon>
             <SendIcon fontSize="small" />
           </ListItemIcon>
-        <Typography onClick={()=>{clickSport()}}  variant="inherit">basketball</Typography>
+        <Typography onClick={()=>{clickSport()}}  
+         sx={{fontSize: '0.9em', color: selectedIndex===1 ? 'yellow.backgroundColor': 'blackSL.color',
+         backgroundColor: selectedIndex===1 ? 'yellow.backgroundColor': null,
+     
+     }} 
+        variant="inherit">basketball</Typography>
          
         </MenuItem>
-        <MenuItem>
+        <MenuItem  selected={selectedIndex === 2}
+          onClick={(event) => handleListItemClick(event, 2)} >
           <ListItemIcon>
             <SendIcon fontSize="small" />
           </ListItemIcon>
-        <Typography onClick={()=>{clickSport()}}   variant="inherit">water badminton</Typography>
+        <Typography onClick={()=>{clickSport()}}  
+         sx={{fontSize: '0.9em', color: selectedIndex===2 ? 'yellow.backgroundColor': 'blackSL.color',
+         backgroundColor: selectedIndex===2 ? 'yellow.backgroundColor': null,
+     
+     }} 
+        variant="inherit">water badminton</Typography>
          
         </MenuItem>
         </MenuList>

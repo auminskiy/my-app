@@ -3,23 +3,14 @@ import { useState, useEffect } from 'react';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import Paper from '@mui/material/Paper';
-import ListItemIcon from '@mui/material/ListItemIcon';
-
-import DraftsIcon from '@mui/icons-material/Drafts';
-import SendIcon from '@mui/icons-material/Send';
-import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import { SportsApi } from '../../Api/SportsApi';
-import CompetitionMenu from './CompetitionMenu';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useLocation, useNavigate } from 'react-router-dom';
-import MainOdds from './MainOdds';
-import { CircularProgress, CssBaseline, Divider, Grid } from '@mui/material';
-import SimpleBar from 'simplebar-react';
-import Loader from '../Loader/Loader';
+import { CircularProgress, CssBaseline, ListItemButton, } from '@mui/material';
 
 
 
@@ -30,6 +21,12 @@ const SportsMenu = (props) => {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
+    const [selectedIndex, setSelectedIndex] = React.useState(0);
+
+    const handleListItemClick = (event, index) => {
+      setSelectedIndex(index);
+    };
+  
    
     const navigate = useNavigate();
     // Примечание: пустой массив зависимостей [] означает, что
@@ -70,12 +67,7 @@ const SportsMenu = (props) => {
 
   }
 
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
-
-  const handleListItemClick = (event, index) => {
-    setSelectedIndex(index);
-  };
-
+ 
   return (
     
     <Paper> 
@@ -97,13 +89,20 @@ const SportsMenu = (props) => {
   }
         return  <AccordionDetails sx={{backgroundColor: 'blackSL.backgroundColor', color:'blackSL.color' }}>
             <MenuList component="nav">
-        <MenuItem selected={selectedIndex === id} onClick={(event) => handleListItemClick(event, id)}
-        sx={{maxHeight: '1em', borderColor: 'red', border: '1em'}}>
-          
-        <Typography  sx={{fontSize: '0.9em', color: selectedIndex===0 ? 'yellow.backgroundColor': 'red' }}onClick={()=>{clickSport()}} id={id}  variant="inherit">{id.title}</Typography>
-       
-        </MenuItem>
+              
+        <MenuItem onClick={()=>{clickSport()}} id={id}
+        sx={{maxHeight: '1em', borderColor: 'red', border: '1em', "&.Mui-selected": { backgroundColor: "red", }}}>
+          <ListItemButton selected={selectedIndex === id.title} onClick={(event) => handleListItemClick(event, id.title)} 
+          sx={{fontSize: '0.9em', color: selectedIndex===id.title ? 'yellow.backgroundColor': 'blackSL.color',
+          backgroundColor: selectedIndex===id.title ? 'yellow.backgroundColor': null,
       
+      }}   >
+        <Typography  sx={{fontSize: '0.9em', color: selectedIndex===id.title ? 'yellow.backgroundColor': 'blackSL.color',
+      
+      }}>{id.title}</Typography>
+       </ListItemButton>
+        </MenuItem>
+        
         </MenuList>
           </AccordionDetails>
          })} 

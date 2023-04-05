@@ -1,9 +1,8 @@
-import { Container, Paper } from '@mui/material';
+import { Container } from '@mui/material';
 import React from 'react';
 import {Routes, Route} from 'react-router-dom';
 
 import Main from '../Pages/Main';
-import Profile from '../Profile/Profile';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
@@ -32,7 +31,7 @@ const LoginForm = (props) => {
         
       <Route exact path="/login" element={<SignIn/>}/>
       <Route exact path="/register" element={<SignUp/>}/>
-      <Route  path="/main/soccer" element={<SignIn/>}/>
+      <Route  path="/*" element={<SignIn/>}/>
       <Route  path="/main/soccer" element={<Main/>}/>
       
     </Routes>

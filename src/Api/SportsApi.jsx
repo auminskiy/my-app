@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+
 
 
 
@@ -10,7 +10,7 @@ const options = {
   url: 'https://odds.p.rapidapi.com/v4/sports',
   params: {all: 'true'},
   headers: {
-    'X-RapidAPI-Key': 'c4fcd901cbmsh7783f382610b146p17eaf3jsnd14a9715a708',
+    'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_API_KEY,
     'X-RapidAPI-Host': 'odds.p.rapidapi.com'
   }
 };
@@ -29,6 +29,19 @@ export const SportsApi = () => {
   })
 }
 
+/*
+export const competitionOddsApi = (sportKeyLocationMain) => {
+  
+   
+  return instance.get(`https://odds.p.rapidapi.com/v4/sports/${sportKeyLocationMain}/odds`)
+  .then(response => {
+    console.log(response.data)
+    
+    return response.data;
+    
+  })
+}
+/*
 const upcomingOdds = {
     method: 'GET',
     url: 'https://odds.p.rapidapi.com/v4/sports/upcoming/odds',
@@ -39,7 +52,7 @@ const upcomingOdds = {
       dateFormat: 'iso'
     },
     headers: {
-      'X-RapidAPI-Key': 'c4fcd901cbmsh7783f382610b146p17eaf3jsnd14a9715a708',
+      'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_API_KEY,
       'X-RapidAPI-Host': 'odds.p.rapidapi.com'
     }
   };
@@ -66,13 +79,13 @@ export const upcomingOddsApi = () => {
     dateFormat: 'iso'
   },
   headers: {
-    'X-RapidAPI-Key': 'c4fcd901cbmsh7783f382610b146p17eaf3jsnd14a9715a708',
+    'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_API_KEY,
     'X-RapidAPI-Host': 'odds.p.rapidapi.com'
   }
  })
 
 
-  /*
+  
 const competitionOdds = {
   method: 'GET',
   url: `https://odds.p.rapidapi.com/v4/sports/${sportKeyLocationMain}/odds`,
@@ -83,20 +96,9 @@ const competitionOdds = {
     dateFormat: 'iso'
   },
   headers: {
-    'X-RapidAPI-Key': '9abf5ca07emsh13a40cd970ee88ep1cc97cjsn5bc7c4cb6e9d',
+    'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_API_KEY,
     'X-RapidAPI-Host': 'odds.p.rapidapi.com'
   }
 };
-*/
 
-export const competitionOddsApi = (sportKeyLocationMain) => {
-  
-   
-  return instance.get(`https://odds.p.rapidapi.com/v4/sports/${sportKeyLocationMain}/odds`)
-  .then(response => {
-    console.log(response.data)
-    
-    return response.data;
-    
-  })
-}
+*/

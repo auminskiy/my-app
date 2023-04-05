@@ -2,21 +2,13 @@ import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import { Divider, Typography } from '@mui/material';
-import auth from '../../Firebase/firebase';
 import { getAuth } from 'firebase/auth';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import EmailIcon from '@mui/icons-material/Email';
 import BadgeIcon from '@mui/icons-material/Badge';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import InfoIcon from '@mui/icons-material/Info';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
-import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+ 
 const ProfileInfo = () => {
 
    

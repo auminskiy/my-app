@@ -1,4 +1,4 @@
-import { InterpreterModeSharp } from '@mui/icons-material';
+
 import React from 'react';
 import Carousel from 'react-material-ui-carousel'
 import Items from './Items';
