@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/my-app/static/js/main.569b6b7a.js",
+    "static/media/logasterTop.svg": "/my-app/static/media/logasterTop.316b6820f8e65e5d1e64148d3bbe19fa.svg",
+    "index.html": "/my-app/index.html",
+    "main.569b6b7a.js.map": "/my-app/static/js/main.569b6b7a.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.569b6b7a.js"
+  ]
+}
