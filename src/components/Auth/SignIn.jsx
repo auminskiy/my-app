@@ -1,4 +1,4 @@
-import { Button, TextField, IconButton, Container } from '@mui/material';
+import { Button, TextField, IconButton, Container, Typography } from '@mui/material';
 import Fingerprint from '@mui/icons-material/Fingerprint'
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, {useState} from 'react';
@@ -33,53 +33,24 @@ const SignIn = () => {
     }
   return (
     
-    <Container 
-    sx={{
-      width: 'auto',
-      height: 'auto',
-      color: 'palette.salat.main',
-      }} 
-      style={{ 
-        backgroundColor: '#027b5b',
-        opacity: '0.9',
-        padding: 20,
-        
-        
-      }} 
-      fixed 
-      disableGutters maxWidth={false}>
-    <div>
-        <form 
-       
-        onSubmit={signIn}>
-        
-            <h1>Hey, Log In</h1>
-            <TextField style={{ 
-          marginRight: 20,
-          
-          
-        }} label="email" variant="filled" type='email' placeholder='enter email' value={email} onChange={(e) => setEmail(e.target.value)}></TextField>
+    <div  style={{width: 'auto', height: 'auto', backgroundColor: '#027b5b', color: 'yellow.backgroundColor', opacity: '0.92',padding: '3em',}} 
+    fixed disableGutters maxWidth={false}>
+        <form onSubmit={signIn}>
+ <Typography sx={{ fontSize: "2em", fontWeight: 'bold', marginBottom: '1em', color: 'yellow.backgroundColor'}}>Hey, Log In</Typography>
+            <TextField style={{ marginRight: 20,}} label="email" variant="filled" type='email' placeholder='enter email' value={email} onChange={(e) => setEmail(e.target.value)}></TextField>
             <TextField label="password" variant="filled" type='password' placeholder='enter pass' value={password} onChange={(e) => setPassword(e.target.value)}></TextField>
-            
-           <div>{errorCodes}</div>
-          
-            <Button   sx={{marginTop:'2rem', backgroundColor: '#004e32'}} variant="contained" size="small" type='submit'>
+           <Typography sx={{color: 'orange', fontWeight: 'bold', }}>{errorCodes}</Typography>
+            <Button   sx={{marginTop:'2rem', backgroundColor: '#004e32', }} variant="contained" size="small" type='submit'>
             <IconButton aria-label="fingerprint" color="salat">
               <Fingerprint />
             </IconButton>
               Push to login</Button>
-              
-            <h2 sx={{marginTop:'2rem'}}>or 
-              
-                <Link component='button' sx={{backgroundColor: 'salat', paddingLeft:20}} underline="none" to="/register"> Register</Link>
-                     
-                </h2>
-            
-            
+            <Typography sx={{marginTop:'2rem',  fontSize: "1em", fontWeight: 'bold', color: 'yellow.backgroundColor'}}>or 
+                <Link component='button' sx={{backgroundColor: 'salat', fontWeight: 'bold'}} underline="none" to="/register"> Register</Link>     
+                </Typography> 
         </form>
     </div>
-    </Container>
-  
+   
   )
 }
 

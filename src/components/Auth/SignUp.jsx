@@ -1,4 +1,4 @@
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, Typography } from '@mui/material';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -26,31 +26,16 @@ const SignUp = () => {
 
     }
   return (
-    <div sx={{
-        width: 'auto',
-        height: 'auto',
-        color: 'palette.salat.main',
-        }} 
-        style={{ 
-          backgroundColor: '#027b5b',
-          opacity: '0.95',
-          padding: 20,
-          
-          
-        }} 
-        fixed 
-        disableGutters maxWidth={false}>
+    <div 
+        style={{width: 'auto', height: 'auto', backgroundColor: '#027b5b', color: 'yellow.backgroundColor', opacity: '0.92',padding: '3em',}} 
+      fixed disableGutters maxWidth={false}>
         <form onSubmit={signUp}>
-            <h1>Sign up</h1>
-            <TextField sx={{ 
-          marginRight: 5,
-          
-          
-        }} label="email" variant="filled" type='email' placeholder='enter email' value={email} onChange={(e) => setEmail(e.target.value)}></TextField>
+            <Typography sx={{ fontSize: "2em", fontWeight: 'bold', marginBottom: '1em', color: 'yellow.backgroundColor',}}>Sign up</Typography>
+            <TextField sx={{ marginRight: 5, }} label="email" variant="filled" type='email' placeholder='enter email' value={email} onChange={(e) => setEmail(e.target.value)}></TextField>
             <TextField label="password" variant="filled" type='password' placeholder='enter pass' value={password} onChange={(e) => setPassword(e.target.value)}></TextField>
-            <p>{errorCodes}</p>
+            <Typography sx={{color:'orange', fontWeight: 'bold'}}>{errorCodes}</Typography>
             <Button sx={{marginTop:'2rem', backgroundColor: '#004e32'}} variant="contained" size="small" type='submit'> <CreateIcon/> Create account</Button>
-            <h2>Already have account?   <Link to="/login">sign in</Link></h2>
+            <Typography sx={{marginTop:'2rem',  fontSize: "1em", fontWeight: 'bold', color: 'yellow.backgroundColor',}}>Already have account?   <Link to="/login">sign in</Link></Typography>
         </form>
     </div>
   )

@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -36,7 +37,7 @@ const MainOdds1 = () => {
       dateFormat: 'iso'
     },
     headers: {
-      'X-RapidAPI-Key': 'fbe24cc43dmsh015584980782e3ep1bd677jsn4e3515cba58f',
+      'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_API_KEY,
       'X-RapidAPI-Host': 'odds.p.rapidapi.com'
     }
    })
@@ -108,8 +109,7 @@ const handleChange = (e) => {
       }}/>
     <Item sx={{display: 'flex', justifyContent:'flex-start',
     backgroundColor:'greenPrimary.backgroundColor', color:'greenPrimary.color', borderRadius: 0, textTransform: 'capitalize'}}>{sportKeyLocation}</Item>
-    { /*
-  <Item>{[...new Set(items.map(el => el.sport_title))]}</Item>*/}
+    
  
    
     <div>
@@ -197,4 +197,4 @@ alignItems="center"
 }
 
 
-export default MainOdds1
+export default MainOdds1 

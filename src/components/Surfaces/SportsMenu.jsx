@@ -29,9 +29,7 @@ const SportsMenu = (props) => {
   
    
     const navigate = useNavigate();
-    // Примечание: пустой массив зависимостей [] означает, что
-    // этот useEffect будет запущен один раз
-    // аналогично componentDidMount()
+    
     useEffect(() => {
       SportsApi()
        
@@ -90,16 +88,14 @@ const SportsMenu = (props) => {
         return  <AccordionDetails sx={{backgroundColor: 'blackSL.backgroundColor', color:'blackSL.color' }}>
             <MenuList component="nav">
               
-        <MenuItem onClick={()=>{clickSport()}} id={id}
-        sx={{maxHeight: '1em', borderColor: 'red', border: '1em', "&.Mui-selected": { backgroundColor: "red", }}}>
-          <ListItemButton selected={selectedIndex === id.title} onClick={(event) => handleListItemClick(event, id.title)} 
+        <MenuItem 
+        sx={{maxHeight: '1em',}}>
+          <ListItemButton id={id} selected={selectedIndex === id.title} onClick={(event) => {handleListItemClick(event, id.title); clickSport()} }
           sx={{fontSize: '0.9em', color: selectedIndex===id.title ? 'yellow.backgroundColor': 'blackSL.color',
-          backgroundColor: selectedIndex===id.title ? 'yellow.backgroundColor': null,
+          
       
       }}   >
-        <Typography  sx={{fontSize: '0.9em', color: selectedIndex===id.title ? 'yellow.backgroundColor': 'blackSL.color',
-      
-      }}>{id.title}</Typography>
+        {id.title}
        </ListItemButton>
         </MenuItem>
         

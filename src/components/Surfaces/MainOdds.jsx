@@ -31,8 +31,8 @@ const MainOdds= () => {
       dateFormat: 'iso'
     },
     headers: {
-      'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_API_KEY,
-      'X-RapidAPI-Host': 'odds.p.rapidapi.com'
+      'X-RapidAPI-Key': process.env.REACT_APP_API_KEY,
+      'X-RapidAPI-Host': process.env.REACT_APP_API_HOST
     }
    })
   
@@ -66,14 +66,13 @@ const sportKeyLoc = sportKey.split('/')[2]
 const [sportKeyLocation, setSportKeyLocation] = useState(sportKeyLoc);
 console.log(location.pathname.split('/')[2]);
 console.log(sportKeyLoc);
-// И создать 2 useEffect
 
-  useEffect(() => { // Вызывает апи при изменении sportKeyLocation
-    //  upcomingOddsApi()
+
+  useEffect(() => {
     competitionOddsApi();
   }, [sportKeyLocation]);
 
-  useEffect(() => { // Сохраняет новый URL в переменную
+  useEffect(() => { 
     setSportKeyLocation(sportKeyLoc)
   }, [sportKeyLoc]);
 
@@ -82,13 +81,7 @@ const handleAddTeam = (e) => {
   addToMarketInfoList(e.target.getAttribute('data'), e.target.getAttribute('value'), e.target.getAttribute('point'), e.target.getAttribute('match'))
   console.log("value: ", e.target.getAttribute('data'), e.target.getAttribute('value'), e.target.getAttribute('point'), e.target.getAttribute('match') );
 }
-/*
-const [open, setOpen] = React.useState(true);
 
-  const handleClick = () => {
-    setOpen(!open);
-  };
-*/
 const book =  items.filter((arr) => {
   let newBookmaker = arr.bookmakers.filter(
     (bookmaker) => bookmaker.key == "bovada"
@@ -118,8 +111,7 @@ const [open, setOpen] = React.useState(false);
         }}/>
       <Item sx={{display: 'flex', justifyContent:'flex-start',
       backgroundColor:'greenPrimary.backgroundColor', color:'greenPrimary.color', borderRadius: 0, textTransform: 'capitalize'}}>{sportKeyLocation.replace(/[^a-zа-яё\s]/gi, ' ')}</Item>
-      { /*
-    <Item>{[...new Set(items.map(el => el.sport_title))]}</Item>*/}
+      
    {
     book.length===0 ? <div>no upcoming matches</div> :
    <div>
@@ -155,10 +147,10 @@ const [open, setOpen] = React.useState(false);
    
  >
 {key.bookmakers[0].markets[0] == undefined ? null : key.bookmakers[0].markets[0].outcomes.map((k, index) => {
-   return <Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={k.name} value={k.price} point={k.point} key={index} >
-    <Typography sx={{fontSize:'0.9em', textOverflow: 'ellipsis' }}match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={k.name} value={k.price} point={k.point} >{k.name}</Typography>
-    <Typography sx={{color:'yellow.backgroundColor'}}match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={k.name} value={k.price} point={k.point} >&nbsp;{k.price}</Typography>
-    <Typography sx={{color:'yellow.backgroundColor'}}match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={k.name} value={k.price} point={k.point} >&nbsp;{k.point}</Typography>
+   return <Item  sx={{ cursor: 'pointer', backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={k.name} value={k.price} point={k.point} key={index} >
+    <Typography sx={{ cursor: 'pointer', fontSize:'0.9em', textOverflow: 'ellipsis' }}match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={k.name} value={k.price} point={k.point} >{k.name}</Typography>
+    <Typography sx={{ cursor: 'pointer', color:'yellow.backgroundColor'}}match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={k.name} value={k.price} point={k.point} >&nbsp;{k.price}</Typography>
+    <Typography sx={{ cursor: 'pointer', color:'yellow.backgroundColor'}}match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={k.name} value={k.price} point={k.point} >&nbsp;{k.point}</Typography>
     </Item>
     
   })}
@@ -177,10 +169,10 @@ const [open, setOpen] = React.useState(false);
   
 >
      {key.bookmakers[0].markets[1] == undefined ? null : key.bookmakers[0].markets[1].outcomes.map((q, index) => {
-   return <Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={q.name} value={q.price} point={q.point} key={index} >
-    <Typography sx={{fontSize:'0.9em', textOverflow: 'ellipsis' }} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={q.name} value={q.price} point={q.point} >{q.name}</Typography>
-    <Typography sx={{fontSize:'0.9em' }} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={q.name} value={q.price} point={q.point} >&nbsp;{q.point}</Typography>
-    <Typography sx={{color:'yellow.backgroundColor'}} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={q.name} value={q.price} point={q.point} >&nbsp;{q.price}</Typography>
+   return <Item  sx={{ cursor: 'pointer', backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={q.name} value={q.price} point={q.point} key={index} >
+    <Typography sx={{ cursor: 'pointer', fontSize:'0.9em', textOverflow: 'ellipsis' }} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={q.name} value={q.price} point={q.point} >{q.name}</Typography>
+    <Typography sx={{ cursor: 'pointer', fontSize:'0.9em' }} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={q.name} value={q.price} point={q.point} >&nbsp;{q.point}</Typography>
+    <Typography sx={{ cursor: 'pointer', color:'yellow.backgroundColor'}} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={q.name} value={q.price} point={q.point} >&nbsp;{q.price}</Typography>
     </Item>
     
      })}
@@ -198,10 +190,10 @@ const [open, setOpen] = React.useState(false);
   
 >
      {key.bookmakers[0].markets[2] == undefined ? null : key.bookmakers[0].markets[2].outcomes.map((u, index) => {
-   return <Item  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam}match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={u.name} value={u.price}  key={index} >
-    <Typography sx={{fontSize:'0.9em', textOverflow: 'ellipsis' }} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={u.name} value={u.price} point={u.point} >{u.name}</Typography>
-    <Typography sx={{fontSize:'0.9em' }} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={u.name} value={u.price} point={u.point} >&nbsp;{u.point}</Typography>
-    <Typography sx={{color:'yellow.backgroundColor'}} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={u.name} value={u.price} point={u.point}>&nbsp;{u.price}</Typography>
+   return <Item  sx={{ cursor: 'pointer', backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam}match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={u.name} point={u.point} value={u.price}  key={index} >
+    <Typography sx={{ cursor: 'pointer', fontSize:'0.9em', textOverflow: 'ellipsis' }} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={u.name} value={u.price} point={u.point} >{u.name}</Typography>
+    <Typography sx={{ cursor: 'pointer', fontSize:'0.9em' }} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={u.name} value={u.price} point={u.point} >&nbsp;{u.point}</Typography>
+    <Typography sx={{ cursor: 'pointer', color:'yellow.backgroundColor'}} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={u.name} value={u.price} point={u.point}>&nbsp;{u.price}</Typography>
     </Item>
     
      })}

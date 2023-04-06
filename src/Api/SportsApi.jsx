@@ -10,8 +10,8 @@ const options = {
   url: 'https://odds.p.rapidapi.com/v4/sports',
   params: {all: 'true'},
   headers: {
-    'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_API_KEY,
-    'X-RapidAPI-Host': 'odds.p.rapidapi.com'
+    'X-RapidAPI-Key': process.env.REACT_APP_API_KEY,
+      'X-RapidAPI-Host': process.env.REACT_APP_API_HOST
   }
 };
 
