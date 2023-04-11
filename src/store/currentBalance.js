@@ -21,8 +21,7 @@ import { collection, getDocs, getFirestore,
  
  
  const db = getFirestore();
- const colRef = collection(db, 'bookmaker')
- const colBal = collection(db, 'transactions')
+const colBal = collection(db, 'transactions')
  //const q = query(colRef, orderBy('createdAt'), where('user', "==", `${user.email}`))
 
 /*
@@ -32,41 +31,31 @@ import { collection, getDocs, getFirestore,
    console.log(doc.id, " => ", doc.data());
  });
 */
-const createBet = (set, get) => ({
-    bets: [],
-getBets: async () => {
-  await getDocs(colRef)
+const currentBalance = (set, get) => ({
+    transactions: [],
+getBalance: async () => {
+  await getDocs(colBal)
  .then((snapshot) => {
-   let bookmaker = []
+   let transactions = []
    snapshot.docs.forEach((doc) => {
-     bookmaker.push({...doc.data(), id:doc.id})
-     set({bets: bookmaker})
+    transactions.push({...doc.data(), id:doc.id})
+     set({transactions: transactions})
    })
    
-   console.log(bookmaker)
+   console.log(transactions)
  })
  .catch(err => {
      console.log(err.message)
  })
 },
-})
-
-/*
-const addBetForm = document.querySelector('.add')
-addBetForm.addEventListener('submit', (e) => {
-  e.preventDefault()
-
-  addDoc(colRef, orderBy('createdAt'), {
-    market: addBetForm.market.value,
-    match: addBetForm.match.value,
-    odds: addBetForm.odds.value,
-    createdAt: serverTimestamp(),
-  })
-  .then(() => {
-    addBetForm.reset()
+snapBalance: onSnapshot(colBal, (snapshot) => {
+    let transactions = []
+    snapshot.docs.forEach((doc) => {
+        transactions.push({...doc.data(), id:doc.id})
+    })
+    console.log(transactions)
   })
 })
-*/
 
-export default createBet;
 
+export default currentBalance;

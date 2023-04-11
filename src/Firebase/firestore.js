@@ -21,9 +21,9 @@ initializeApp(firebaseConfig);
 
 
 const db = getFirestore();
-const colRef = collection(db, 'bookmaker')
+const colRef = collection(db, 'bookmaker');
 //const q = query(colRef, orderBy('createdAt'), where('user', "==", 'tjfox24@yandex.ru'))
-
+const colUser = collection(db, 'transactions');
 class DataService {
   
 
@@ -32,6 +32,11 @@ class DataService {
 //test getData
 addBets = (newBet) => {
   return addDoc(colRef, newBet)
+}
+
+//add new user
+addUser = (newUser) => {
+  return addDoc(colUser, newUser)
 }
 
 

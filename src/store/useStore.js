@@ -4,6 +4,7 @@ import createBet from "./createBet";
 import createCouponSlice from "./createCouponSlice";
 import createOddsSlice from "./createOddsSlice";
 import currentUser from "./currentUser";
+import currentBalance from "./currentBalance";
 
 
 const useStore = create((set, get) => ({
@@ -11,6 +12,7 @@ const useStore = create((set, get) => ({
     ...createBet(set, get),
     ...currentUser(set, get),
     ...createCouponSlice(set, get),
+    ...currentBalance(set, get),
 }));
 
 export default useStore;

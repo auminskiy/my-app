@@ -10,7 +10,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { CircularProgress, CssBaseline, ListItemButton, } from '@mui/material';
+import { Button, CircularProgress, CssBaseline, ListItemButton, } from '@mui/material';
 
 
 
@@ -68,12 +68,12 @@ const SportsMenu = (props) => {
  
   return (
     
-    <Paper> 
+    <Paper > 
   <CssBaseline/>  {sports.map(key => {
-    return <Accordion sx={{backgroundColor:'blackSecondaryDark.backgroundColor', color:'blackSecondaryDark.color'}} disableGutters   >  
+    return <Accordion sx={{backgroundColor:'blackSecondaryDark.backgroundColor', color:'blackSecondaryDark.color',  }} disableGutters  >  
    
   
-   <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color:'yellow.backgroundColor'}}/>}
+   <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color:'yellow.backgroundColor', }}/>}
           aria-controls="panel1a-content"
           >
     
@@ -81,28 +81,27 @@ const SportsMenu = (props) => {
           
 
  </AccordionSummary>
+ <div style={{maxHeight: '30vh', overflow:'auto'}}>
  {items.filter(elem=>elem.group===key).map(id => {
   const clickSport = () => {
     navigate(`/main/${id.key}`)
   }
-        return  <AccordionDetails sx={{backgroundColor: 'blackSL.backgroundColor', color:'blackSL.color' }}>
-            <MenuList component="nav">
-              
-        <MenuItem 
-        sx={{maxHeight: '1em',}}>
-          <ListItemButton id={id} selected={selectedIndex === id.title} onClick={(event) => {handleListItemClick(event, id.title); clickSport()} }
-          sx={{fontSize: '0.9em', color: selectedIndex===id.title ? 'yellow.backgroundColor': 'blackSL.color',
+        return  <AccordionDetails sx={{backgroundColor: 'blackSL.backgroundColor', color:'blackSL.color', boxShadow: "none", border: 'none'}}  elevation={0}>
+           
+         
+          <Button id={id} selected={selectedIndex === id.title} onClick={(event) => {handleListItemClick(event, id.title); clickSport()} }
+          sx={{fontSize: '0.7em', display:'flex', justifyContent:'start', color: selectedIndex===id.title ? 'yellow.backgroundColor': 'blackSL.color',
           
       
       }}   >
         {id.title}
-       </ListItemButton>
-        </MenuItem>
+       </Button>
         
-        </MenuList>
+       
           </AccordionDetails>
+          
          })} 
- 
+ </div>
     </Accordion>
   })}
 

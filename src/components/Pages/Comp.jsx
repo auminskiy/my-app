@@ -4,7 +4,7 @@ import { Box, Grid, Paper} from '@mui/material';
 import Coupon from '../Surfaces/Coupon/Coupon';
 import MainOdds from '../Surfaces/MainOdds';
 import SportsMenuCopy from '../Surfaces/SportsMenuCopy';
-
+import MainOdds1 from '../Surfaces/MainOdds1';
 
 
 function Comp(props) {
@@ -19,14 +19,14 @@ function Comp(props) {
              <SportsMenu />
              
              </Grid>
-             <Grid xs={7}>
+             <Grid xs={7} >
              {/* 
            <MainOdds1/> 
            <MainOdds />
            */} 
-            <MainOdds />
+            <MainOdds1 />
              </Grid>
-             <Grid xs={2.5}>
+             <Grid xs={2.5} >
              
              <Coupon/>
            

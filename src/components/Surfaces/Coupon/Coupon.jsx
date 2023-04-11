@@ -11,6 +11,7 @@ import useStore from '../../../store/useStore';
 import couponFormShema from '../couponFormShema';
 import CouponImages from './CouponImages';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { getAuth } from "firebase/auth";
 
  const firebaseConfig = {
    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -60,10 +61,50 @@ React.useEffect(() => {
     console.log(authUser)
     
 
+    
+    const auth = getAuth();
+ const user = auth.currentUser;
+    const getBalance = useStore((state) => state.getBalance)
+    const transactions = useStore((state) => state.transactions)
+ 
+    useEffect(() => {
+        getBalance();
+    }, [getBalance])
+   console.log(transactions)
+
+   let userBets =  transactions.filter(function(userBet) {
+    return userBet.email == `${user.email}`;
+});
+console.log(userBets)
+ 
+  const betsWithDate = userBets.map((el) => ({
+    ...el,
+    createdAt: el.createdAt.toDate()
+  }));
+  console.log(betsWithDate);
+
+
+  
+  const sortByDate = betsWithDate.sort(function(a, b) {
+    return b.createdAt - a.createdAt;
+  });
+  console.log(sortByDate);
+  
+
+ 
+
+
+
+
+
+
+
     const [stake, setStake] = useState('');
     const [market, setMarket] = useState('');
     const [price, setPrice] = useState('');
     const [message, setMessage] = useState({error: false})
+
+    const newUser = {createdAt: serverTimestamp(), email: sortByDate[0].email, balance: sortByDate[0].balance-stake}
     
    const handleSubmit = async (e) => {
    
@@ -96,7 +137,7 @@ React.useEffect(() => {
    try {
     await DataService.addBets(newBet);
     reset()
-    
+    DataService.addUser(newUser)
     setMessage({error: false, msg: "Bet accepted succesfully!"});
     setTimeout(() => {
         setMessage('');

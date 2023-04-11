@@ -4,6 +4,8 @@ import React, {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../Firebase/firebase';
 import CreateIcon from '@mui/icons-material/Create';
+import { serverTimestamp } from '@firebase/firestore';
+import DataService from '../../Firebase/firestore';
 
 const SignUp = () => {
     const [email, setEmail] = useState('');
@@ -11,11 +13,14 @@ const SignUp = () => {
     const [errorCodes, setErrorCode] = useState('');
     const navigate = useNavigate();
 
+    const newUser = {createdAt: serverTimestamp(), email: email, balance: 1000}
+
     const signUp = (e) => {
         e.preventDefault();
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             navigate('/main/soccer')
+            DataService.addUser(newUser)
             console.log(userCredential);
         })
         .catch((error) => {
