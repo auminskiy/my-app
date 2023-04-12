@@ -33,7 +33,19 @@ const colBal = collection(db, 'transactions')
 */
 const currentBalance = (set, get) => ({
     transactions: [],
-getBalance: async () => {
+    snapBalance: onSnapshot(colBal, (snapshot) => {
+        let transactions = []
+        snapshot.docs.forEach((doc) => {
+            transactions.push({...doc.data(), id:doc.id})
+        })
+        console.log(transactions)
+      }),
+    async getBalance() {
+        const snapshot = await getDocs(colBal);
+        const transactions = snapshot.docs.map((doc) => ({...doc.data(), id: doc.id}));
+        set({transactions});
+      }
+/*getBalance: async () => {
   await getDocs(colBal)
  .then((snapshot) => {
    let transactions = []
@@ -41,20 +53,20 @@ getBalance: async () => {
     transactions.push({...doc.data(), id:doc.id})
      set({transactions: transactions})
    })
-   
    console.log(transactions)
  })
  .catch(err => {
      console.log(err.message)
  })
-},
-snapBalance: onSnapshot(colBal, (snapshot) => {
+},*/
+
+/*snapBalance: onSnapshot(colBal, (snapshot) => {
     let transactions = []
     snapshot.docs.forEach((doc) => {
         transactions.push({...doc.data(), id:doc.id})
     })
     console.log(transactions)
-  })
+  })*/
 })
 
 

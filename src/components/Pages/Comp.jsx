@@ -24,7 +24,7 @@ function Comp(props) {
            <MainOdds1/> 
            <MainOdds />
            */} 
-            <MainOdds1 />
+            <MainOdds />
              </Grid>
              <Grid xs={2.5} >
              

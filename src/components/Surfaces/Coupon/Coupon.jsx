@@ -1,6 +1,6 @@
 import { Alert, Button, Typography, Paper, Box, Divider, TextField, IconButton } from '@mui/material';
 import {  Form, Formik } from 'formik';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import DataService from '../../../Firebase/firestore';
 import { collection, getDocs, getFirestore,
     addDoc, onSnapshot, orderBy, serverTimestamp } from "firebase/firestore";
@@ -61,18 +61,19 @@ React.useEffect(() => {
     console.log(authUser)
     
 
-    
+   
     const auth = getAuth();
  const user = auth.currentUser;
     const getBalance = useStore((state) => state.getBalance)
-    const transactions = useStore((state) => state.transactions)
- 
-    useEffect(() => {
-        getBalance();
-    }, [getBalance])
-   console.log(transactions)
+   const transactions = useStore((state) => state.transactions)
+    
 
-   let userBets =  transactions.filter(function(userBet) {
+   useEffect(() => {
+     getBalance()
+      
+   }, [getBalance])
+     
+    const userBets =  transactions.filter(function(userBet) {
     return userBet.email == `${user.email}`;
 });
 console.log(userBets)
@@ -85,13 +86,12 @@ console.log(userBets)
 
 
   
-  const sortByDate = betsWithDate.sort(function(a, b) {
+  const sortByDate = betsWithDate == null ? null : betsWithDate.sort(function(a, b) {
     return b.createdAt - a.createdAt;
   });
   console.log(sortByDate);
-  
 
- 
+
 
 
 
@@ -104,7 +104,7 @@ console.log(userBets)
     const [price, setPrice] = useState('');
     const [message, setMessage] = useState({error: false})
 
-    const newUser = {createdAt: serverTimestamp(), email: sortByDate[0].email, balance: sortByDate[0].balance-stake}
+    
     
    const handleSubmit = async (e) => {
    
@@ -131,13 +131,21 @@ console.log(userBets)
         return;
     }
 
+    if (sortByDate[0].balance-stake < 0) {
+        setMessage({error: true, msg: 'Check the balance. Bet over the balance'})
+        setTimeout(() => {
+            setMessage('');
+          }, 6000);
+        
+        return;
+    }
    const newBet = {price, stake, market, createdAt: serverTimestamp(), user: authUser.email}
    console.log(newBet)
-
+   const newUser = {createdAt: serverTimestamp(), email: authUser.email, balance: sortByDate[0].balance-stake}
    try {
     await DataService.addBets(newBet);
     reset()
-    DataService.addUser(newUser)
+   DataService.addUser(newUser)
     setMessage({error: false, msg: "Bet accepted succesfully!"});
     setTimeout(() => {
         setMessage('');
@@ -154,11 +162,7 @@ console.log(userBets)
    setPrice('');
    }
 
-   /*
-const addBet = (newBet) => {
-    return addDoc(colRef, newBet)
-}
-*/
+
 
 
 

@@ -15,13 +15,56 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import { getAuth } from "firebase/auth";
 import useStore from '../../store/useStore';
-
-
-
-
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import CachedIcon from '@mui/icons-material/Cached';
 
 
 const Header = () => {
+
+ 
+  const auth = getAuth();
+  const user = auth.currentUser;
+   const snapBalance = useStore((state) => state.snapBalance)
+  const transactions = useStore((state) => state.transactions)
+  
+  const refreshBalance = (e) => {
+      snapBalance(e)
+}
+   
+
+
+   useEffect(() => {
+    
+    snapBalance()
+  
+   }, [snapBalance])
+     console.log(transactions)
+   
+     let balancet =  transactions.filter(function(userBet) {
+      return userBet.email == `${ user.email}`;})
+  console.log(balancet)
+  
+   const balanceDate = balancet.map((el) => ({
+     ...el,
+     createdAt: el.createdAt.toDate()
+   }));
+   console.log(balanceDate);
+  
+
+   const sortByDate =  balanceDate.sort(function(a, b) {
+     return b.createdAt - a.createdAt;
+   });
+   console.log(sortByDate);
+  
+  
+
+  const [visibleBalance, setvisibleBalance] = useState(true);
+
+  const handleChange = () => {
+    setvisibleBalance(!visibleBalance);
+  }
+
   const [authUser, setAuthUser] = useState(null);
   const navigate = useNavigate();
   
@@ -70,53 +113,32 @@ const handleClose = () => {
 };
 
 
- 
-const auth = getAuth();
-const user = auth.currentUser;
-   const getBalance = useStore((state) => state.snapBalance)
-   const transactions = useStore((state) => state.transactions)
-
-   useEffect(() => {
-       getBalance();
-   }, [getBalance])
-  console.log(transactions)
-
-  let userBets =  transactions.filter(function(userBet) {
-   return userBet.email == `${user.email}`;
-});
-console.log(userBets)
-
- const betsWithDate = userBets.map((el) => ({
-   ...el,
-   createdAt: el.createdAt.toDate()
- }));
- console.log(betsWithDate);
-
-
- 
- const sortByDate = betsWithDate.sort(function(a, b) {
-   return b.createdAt - a.createdAt;
- });
- console.log(sortByDate);
-
 
   return (
        
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', }}>
+{sortByDate.map((key) => (
+  <AppBar  sx={{  backgroundColor: '#027b5b',}} position='static' >
+<Toolbar>
+<img style={{ display: 'flex', justifyContent: 'start'}} width='300em' height= '60em' src={logasterTop}></img>
+<Typography sx={{ flexGrow: 1,}}></Typography>
 
-  <AppBar  sx={{  backgroundColor: '#027b5b' }} position='static' >
-<Toolbar >
-<img  /*width='400em' height= '110em'*/ src={logasterTop}></img>
- 
- 
-   { authUser ? 
-   <div style={{display: 'flex',
-   alignItems: 'center', flexDirection: 'row', flexGrow: 1 }}>
-   
- <Typography>Balance: {sortByDate[0].balance}</Typography>
-  <Button  onClick={userSignOut} sx={{ flexGrow: 1, margin: '1rem', color: '#027b5b'}}  >
+{/*<Button  onClick={userSignOut} sx={{ flexGrow: 1, margin: '1rem', color: '#027b5b'}}  >
 <LogoutIcon  sx={{  color: 'salat'}}  ></LogoutIcon>
- log out</Button> 
+ log out</Button>
+  */}
+   { authUser ? 
+  
+    <div style={{display:'flex', justifyContent: 'center', alignItems: 'center' }}>
+     
+ { visibleBalance ? <div style={{display:'flex', justifyContent: 'center', alignItems: 'center' }}><Typography key={key.balance} sx={{marginRight:'2em', color: 'yellow.backgroundColor',}}>Balance: {sortByDate[0].balance}</Typography>
+ <IconButton onClick={(e) => refreshBalance()}>
+ <CachedIcon/>
+ </IconButton>
+ </div> : null}
+ <div  onClick={() => handleChange()}>
+   { visibleBalance ? <VisibilityOffIcon sx={{marginRight:'2em'}}/> : <VisibilityIcon sx={{marginRight:'2em'}}/>}
+   </div>
  <div >
               <IconButton
                 size="large"
@@ -160,11 +182,13 @@ console.log(userBets)
                 
               </Menu>
             </div>
-
-  </div>
+            </div>
+  
   : null}
+  
 </Toolbar>
 </AppBar>
+) )}
 </Box>
 
 )

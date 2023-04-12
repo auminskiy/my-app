@@ -58,6 +58,18 @@ addUser = (newUser) => {
 
 
 
+dataTransactions = onSnapshot(colUser, (snapshot) => {
+  let transactions = []
+  snapshot.docs.forEach((doc) => {
+    transactions.push({...doc.data(), id:doc.id})
+  })
+  console.log(transactions)
+})
+
+
+//
+
+
 dataBets = onSnapshot(colRef, (snapshot) => {
   let bookmaker = []
   snapshot.docs.forEach((doc) => {
