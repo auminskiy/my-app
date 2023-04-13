@@ -78,15 +78,15 @@ React.useEffect(() => {
 });
 console.log(userBets)
  
-  const betsWithDate = userBets.map((el) => ({
+ /* const betsWithDate = userBets.map((el) => ({
     ...el,
-    createdAt: el.createdAt.toDate()
+    createdAt: userBets[0].createdAt == null ? null : el.createdAt.toDate()
   }));
   console.log(betsWithDate);
-
+*/
 
   
-  const sortByDate = betsWithDate == null ? null : betsWithDate.sort(function(a, b) {
+  const sortByDate = userBets.sort(function(a, b) {
     return b.createdAt - a.createdAt;
   });
   console.log(sortByDate);
@@ -146,6 +146,10 @@ console.log(userBets)
     await DataService.addBets(newBet);
     reset()
    DataService.addUser(newUser)
+   setTimeout(() => {
+    getBalance();
+  }, 3000);
+   
     setMessage({error: false, msg: "Bet accepted succesfully!"});
     setTimeout(() => {
         setMessage('');

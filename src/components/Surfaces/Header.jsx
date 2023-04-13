@@ -18,46 +18,34 @@ import useStore from '../../store/useStore';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CachedIcon from '@mui/icons-material/Cached';
-
+import { shallow } from 'zustand/shallow'
 
 const Header = () => {
 
  
   const auth = getAuth();
   const user = auth.currentUser;
-   const snapBalance = useStore((state) => state.snapBalance)
-  const transactions = useStore((state) => state.transactions)
-  
-  const refreshBalance = (e) => {
-      snapBalance(e)
-}
-   
+console.log(auth.currentUser)
 
+   const getBalance = useStore((state) => state.getBalance)
+  const transactions = useStore((state) => state.transactions)
+  const snapBalance = useStore((state) => (state.snapBalance), shallow);
+ 
+
+const onClickBalance = () => {
+  getBalance();
+  
+}
 
    useEffect(() => {
     
-    snapBalance()
+    getBalance()
   
-   }, [snapBalance])
+   }, [getBalance])
      console.log(transactions)
-   
-     let balancet =  transactions.filter(function(userBet) {
-      return userBet.email == `${ user.email}`;})
-  console.log(balancet)
-  
-   const balanceDate = balancet.map((el) => ({
-     ...el,
-     createdAt: el.createdAt.toDate()
-   }));
-   console.log(balanceDate);
-  
 
-   const sortByDate =  balanceDate.sort(function(a, b) {
-     return b.createdAt - a.createdAt;
-   });
-   console.log(sortByDate);
-  
-  
+
+   
 
   const [visibleBalance, setvisibleBalance] = useState(true);
 
@@ -113,11 +101,28 @@ const handleClose = () => {
 };
 
 
+let balancet = authUser == false ? null : transactions.filter(function(userBet) {
+  return userBet.email == `${user == null ? null : user.email}`;})
+console.log(balancet)
+
+/*const balanceDate = balancet.map((el) => ({
+ ...el,
+ createdAt: balancet[0].createdAt==null ? () => getBalance() : el.createdAt.toDate()
+}));
+console.log(balanceDate);*/
+
+
+const sortByDate =  balancet.sort(function(a, b) {
+ return b.createdAt - a.createdAt;
+});
+console.log(sortByDate);
+const sliceBalance = sortByDate.slice(0,1)
+console.log(sliceBalance)
 
   return (
        
     <Box sx={{ display: 'flex', }}>
-{sortByDate.map((key) => (
+
   <AppBar  sx={{  backgroundColor: '#027b5b',}} position='static' >
 <Toolbar>
 <img style={{ display: 'flex', justifyContent: 'start'}} width='300em' height= '60em' src={logasterTop}></img>
@@ -130,15 +135,19 @@ const handleClose = () => {
    { authUser ? 
   
     <div style={{display:'flex', justifyContent: 'center', alignItems: 'center' }}>
-     
- { visibleBalance ? <div style={{display:'flex', justifyContent: 'center', alignItems: 'center' }}><Typography key={key.balance} sx={{marginRight:'2em', color: 'yellow.backgroundColor',}}>Balance: {sortByDate[0].balance}</Typography>
- <IconButton onClick={(e) => refreshBalance()}>
+    
+  <div style={{display:'flex', justifyContent: 'center', alignItems: 'center' }}>
+  {sliceBalance.map((key) => { return (
+    <Typography key={key.balance}  sx={{ color: 'yellow.backgroundColor',}}>Balance: {key.balance}</Typography>
+   )})}
+ <IconButton onClick={() => onClickBalance()}>
  <CachedIcon/>
  </IconButton>
- </div> : null}
- <div  onClick={() => handleChange()}>
+ </div> 
+
+{/* <div  onClick={() => handleChange()}>
    { visibleBalance ? <VisibilityOffIcon sx={{marginRight:'2em'}}/> : <VisibilityIcon sx={{marginRight:'2em'}}/>}
-   </div>
+   </div>*/} 
  <div >
               <IconButton
                 size="large"
@@ -188,7 +197,7 @@ const handleClose = () => {
   
 </Toolbar>
 </AppBar>
-) )}
+
 </Box>
 
 )
