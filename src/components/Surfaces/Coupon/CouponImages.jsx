@@ -5,7 +5,7 @@ import React from 'react';
 
 const CouponImages = () => {
   return (
-    <Paper sx={{display: 'flex',
+    <Paper sx={{display: {xs: 'none', md: 'flex'},
                         flexDirection: 'column',
                         height: '100%'}}>
                 <Divider sx={{ backgroundColor: 'greenPrimaryDark.backgroundColor', height: '0.5em' }} variant='fullWidth'/>
@@ -17,7 +17,7 @@ const CouponImages = () => {
               
                <div style={{display: 'flex',
                 flexWrap: 'wrap', alignItems: 'center'}}>
-                    <Typography sx={{ margin: '0.8rem',
+                    <Typography sx={{ margin: '0.8rem', fontSize: '1em'
                     }}>Play with your favorite atheletes.</Typography>
                     <img style={{
                 height: '20vh', width: '100%', display: 'flex',
@@ -30,7 +30,7 @@ const CouponImages = () => {
                 height: '25vh', display: 'block', fontSize: '0.9rem',
                 
                }}> 
-               <Typography sx={{marginLeft: '0.4rem'}}>American football</Typography>
+               <Typography sx={{marginLeft: '0.4rem', fontSize: '1em'}}>American football</Typography>
                <div style={{display: 'flex',
                 flexWrap: 'wrap', alignItems: 'center'}}>
                     <Typography sx={{fontSize: '0.8rem', marginLeft: '0.2rem', marginBottom: '0.7rem'
@@ -46,7 +46,7 @@ const CouponImages = () => {
                 height: '25vh', display: 'block', fontSize: '0.9rem',
                 
                }}> 
-               <Typography sx={{marginLeft: '0.4rem'}}>Baseball</Typography>
+               <Typography sx={{marginLeft: '0.4rem', fontSize: '1em'}}>Baseball</Typography>
                <div style={{display: 'flex',
                 flexWrap: 'wrap', alignItems: 'center'}}>
                     <Typography sx={{fontSize: '0.8rem', marginLeft: '0.2rem', marginBottom: '0.7rem'
@@ -62,7 +62,7 @@ const CouponImages = () => {
                 height: '25vh', display: 'block', fontSize: '0.9rem',
                 
                }}> 
-               <Typography sx={{marginLeft: '0.4rem'}}>Basketball</Typography>
+               <Typography sx={{marginLeft: '0.4rem', fontSize: '1em'}}>Basketball</Typography>
                <div style={{display: 'flex',
                 flexWrap: 'wrap', alignItems: 'center'}}>
                     <Typography sx={{fontSize: '0.8rem', marginLeft: '0.2rem', marginBottom: '0.7rem'

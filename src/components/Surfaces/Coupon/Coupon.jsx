@@ -1,4 +1,5 @@
-import { Alert, Button, Typography, Paper, Box, Divider, TextField, IconButton } from '@mui/material';
+import { Alert, Button, Typography, Paper, Box, Divider, TextField, IconButton, CssBaseline, } from '@mui/material';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import {  Form, Formik } from 'formik';
 import React, { useState, useEffect, useRef } from 'react';
 import DataService from '../../../Firebase/firestore';
@@ -12,6 +13,9 @@ import couponFormShema from '../couponFormShema';
 import CouponImages from './CouponImages';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { getAuth } from "firebase/auth";
+import Popover from '@mui/material/Popover';
+import { Global } from '@emotion/react';
+import { styled } from '@mui/material/styles';
 
  const firebaseConfig = {
    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -33,6 +37,19 @@ import { getAuth } from "firebase/auth";
 
 const Coupon = (props) => {
 
+  // popover match
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+//
    
     const [authUser, setAuthUser] = useState(null);
    
@@ -190,17 +207,87 @@ useEffect(() => {
     setAlert('');
   }, 6000);
 }, [message]);     
+
+//swipe
+
+ 
+  const [couponOpen, setCouponOpen] = React.useState(false);
+
+  const toggleDrawer = (newOpen) => () => {
+    setCouponOpen(newOpen);
+  };
+  const drawerBleeding = 60;
+
+  const Root = styled('div')(({ theme }) => ({
+    height: '20vh',
+    backgroundColor:'greenPrimaryDark.backgroundColor',
+  }));
+
+//
  
     return (
-        <Box sx={{display: 'flex',
-        flexWrap: 'wrap', width: '100%', minHeight: '100vh', justifyContent: 'center', alignItems: 'center',
-     }} >
-            <Paper sx={{backgroundColor:'greenPrimaryDark.backgroundColor',
-             color:'greenPrimaryDark.color', borderRadius: 0,
-             height: '5vh', width: '100%', display: 'flex',
-             flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}>Coupon</Paper>
+    
+      <Root >
+      <CssBaseline />
+      <Global
+        styles={{
+          '.MuiDrawer-root > .MuiPaper-root': {
+            height: '20vh',
+            overflow: 'visible',
             
-            <div >{ 
+          },
+        }}
+      />
+      
+      <SwipeableDrawer
+       
+        anchor="bottom"
+        open={couponOpen}
+        onClose={toggleDrawer(false)}
+        onOpen={toggleDrawer(true)}
+        swipeAreaWidth={drawerBleeding}
+        disableSwipeToOpen={false}
+        ModalProps={{
+          keepMounted: true,
+        }}
+        
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            top: -drawerBleeding,
+            borderTopLeftRadius: 8,
+            borderTopRightRadius: 8,
+            visibility: 'visible',
+            right: 0,
+            left: 0,
+            display: {md: 'none', xs: 'block', }
+          }}
+        >
+          
+          <Box sx={{  width: 50,
+  height: 6,
+  backgroundColor: 'yellow.backgroundColor',
+  borderRadius: 3,
+  position: 'relative',
+  top: 12,
+  left: 'calc(50% - 25px)',}}></Box>
+          <Paper sx={{backgroundColor:'greenPrimaryDark.backgroundColor',
+             color:'greenPrimaryDark.color', borderRadius: 0, borderTopLeftRadius: 15,
+             borderTopRightRadius: 15,
+             height: '8vh', width: '100%', display: 'flex',
+             flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}>Coupon {result.length} choices</Paper>
+        </Box>
+        <Box
+          sx={{
+           
+            height: '20vh',
+            overflow: 'auto',
+            display: 'flex',
+        flexWrap: 'wrap', width: '100%', minHeight: { md:'100vh',},   justifyContent: 'center', alignItems: 'center',
+          }}
+        >
+          <div >{ 
                     message?.msg && (
                        
                     <Alert  sx={{ backgroundColor:'blackSecondaryDark.backgroundColor', color:'blackSecondaryDark.color'}} 
@@ -216,11 +303,11 @@ useEffect(() => {
               marketInfoList == 0 
                 ?   <Paper sx={{backgroundColor:'blackSL.backgroundColor',
                 color:'blackSL.color', borderRadius: 0,
-                height: '10vh', display: 'flex',
+                height: '20vh', display: 'flex',
                 flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}> 
                     <Typography sx={{ display: 'flex',
                 flexWrap: 'wrap', justifyContent: 'center',
-                 alignItems: 'center', fontSize: '0.8rem'}}>Click a market for a bet</Typography>
+                 alignItems: 'center', fontSize: '0.8rem'}}>Click on market for a bet</Typography>
                     </Paper>
                 : <Paper  sx={{backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0}}
                 initialValues={{stake: '', market: ''}}
@@ -232,7 +319,7 @@ useEffect(() => {
                 <div >{marketInfoList.map((market) => (
                 <div  key={market.name}>
                     <div style={{display: 'flex',
-                flexWrap: 'wrap', flexDirection: 'row',
+                 flexDirection: 'row',
                 height: '3rem',}}>
 
                     <IconButton size="small" sx={{justifyContent:'center', color: 'yellow.backgroundColor', height: '2rem', width: '2rem',}} variant="text" onClick={() => removeToMarketInfoList(market.name)}><HighlightOffIcon/></IconButton>
@@ -240,13 +327,18 @@ useEffect(() => {
                  alignItems: 'center', flexDirection: 'row', backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', }}>
                     <div style={{display: 'flex',
                  alignItems: 'center', justifyContent:'space-between', flexWrap: 'wrap', backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0, }}>
-                    <Typography sx={{ flexDirection: 'row', justifyContent: 'flex-start', fontWeight: 'bold',backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0,}}  id='market' name='market' value={market.name}>{market.name}&nbsp;{market.point}
+                    <Typography sx={{ flexDirection: 'row', justifyContent: 'flex-start', fontWeight: 'bold',backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0, fontSize: '1em'}}  id='market' name='market' value={market.name}>{market.name}&nbsp;{market.point}
                     </Typography>
-                    <Typography sx={{ flexDirection: 'row', justifyContent: 'flex-end', fontWeight: 'bold', marginRight: '0' }}>{market.price}</Typography>
+                    <Typography sx={{ flexDirection: 'row', justifyContent: 'flex-end', fontWeight: 'bold', marginRight: '0', fontSize: '1em' }}>{market.price}</Typography>
                     </div>
                     
-                    <Typography sx={{ dataTooltip:"" ,display: 'flex', alignItems: 'center', flexDirection: 'column', justifyContent: 'flex-start', fontSize:'0.7em',
-                whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}  id='match' name='match' value={market.match}>{market.match.slice( 0, 57).length < market.match.length ? market.match.slice( 0, 57)+'...' : market.match}</Typography>
+                    <Typography   aria-owns={open ? 'mouse-over-popover' : undefined} aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}
+                    sx={{ dataTooltip:"" ,display: 'block', alignItems: 'center', flexDirection: 'column', justifyContent: 'flex-start', fontSize:'0.7em',
+                whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', width: '14em'}}  id='match' name='match' value={market.match}>{market.match.slice( 0, 57).length < market.match.length ? market.match.slice( 0, 57)+'...' : market.match}</Typography>
+                   <Popover id="mouse-over-popover" sx={{pointerEvents: 'none',}} open={open} anchorEl={anchorEl}anchorOrigin={{vertical: 'bottom', horizontal: 'left', }} transformOrigin={{ vertical: 'top', horizontal: 'left',}}
+        onClose={handlePopoverClose} disableRestoreFocus>
+        <Typography sx={{ p: .5 }}>{market.match}</Typography>
+      </Popover>
                     </div>
                     </div>
                     <Divider/>
@@ -261,8 +353,8 @@ useEffect(() => {
   flexFlow: 'nowrap', alignItems: 'center',
   height: '100%', justifyContent: 'space-around',  backgroundColor:'greyPrimary.backgroundColor',
   color:'greyPrimary.color', borderRadius: 0}}>
-    <Typography  >{result.length} Folds</Typography>
-           <Typography  name='price' value={overallPrice} id='price'>Price:  {overallPrice.toFixed(2)}</Typography>
+    <Typography  sx={{fontSize: '.8em'}}>Folds: {result.length}</Typography>
+           <Typography sx={{fontSize: '.8em'}} name='price' value={overallPrice} id='price'>Price:  {overallPrice.toFixed(2)}</Typography>
           
            <Formik 
            initialValues={{stake: '', market: '', overalPrice: '',}}
@@ -273,7 +365,7 @@ useEffect(() => {
             <Form>
            
                 <TextField size="small" sx={{fontSize:'0.6em',
-                 width: '20ch', margin: '0.5em', 
+                 width: '10em',  margin: '0.5em', 
                   input: {color: 'greenPrimary.backgroundColor', fontWeight: 'bold', backgroundColor: '#c9c9c9', textAlign:'end' } }}
                  placeholder='Amount' variant="outlined"  id='stake'  min="1"   value={stake}  
                 type='tel' name='stake' 
@@ -290,7 +382,7 @@ useEffect(() => {
     backgroundColor: "greenPrimary.backgroundColor"
   },
   height: '100%'}}  onClick={handleSubmit} variant="primary"  type='submit'>
-    <Typography sx={{fontWeight: 'bold', textTransform: 'capitalize'}}>Place bet</Typography> 
+    <Typography sx={{fontWeight: 'bold', textTransform: 'capitalize', fontSize: '1em'}}>Place bet</Typography> 
     <Typography sx={{fontSize: '0.6em', textTransform: 'capitalize'}}>to return {(overallPrice*stake).toFixed(2)}</Typography>
     </Button>
              </Paper>
@@ -304,10 +396,12 @@ useEffect(() => {
                 
                
                 }
-               <CouponImages/>
+               <CouponImages />
             </div>
-           
         </Box>
+      </SwipeableDrawer>
+    </Root>
+        
     );
 }
 

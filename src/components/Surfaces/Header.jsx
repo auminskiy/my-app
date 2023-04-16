@@ -19,6 +19,10 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import CachedIcon from '@mui/icons-material/Cached';
 import { shallow } from 'zustand/shallow'
+import ScoreboardIcon from '@mui/icons-material/Scoreboard';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import SportsMenu from './SportsMenu';
+import CssBaseline from '@mui/material/CssBaseline';
 
 const Header = () => {
 
@@ -29,13 +33,13 @@ console.log(auth.currentUser)
 
    const getBalance = useStore((state) => state.getBalance)
   const transactions = useStore((state) => state.transactions)
-  const snapBalance = useStore((state) => (state.snapBalance), shallow);
- 
-
-const onClickBalance = () => {
-  getBalance();
+ // const snapBalance = useStore((state) => (state.snapBalance), shallow);
   
-}
+  const toggleOpen = useStore((state) => state.toggleOpen)
+  const open = useStore((state) => state.open)
+  
+console.log(open)
+
 
    useEffect(() => {
     
@@ -119,12 +123,44 @@ console.log(sortByDate);
 const sliceBalance = sortByDate.slice(0,1)
 console.log(sliceBalance)
 
+const [anchorElMenu, setAnchorElMenu] = React.useState(null);
+const openMenu = Boolean(anchorElMenu);
+const handleClickMenu = (event) => {
+  setAnchorElMenu(event.currentTarget);
+};
+const handleCloseMenu = () => {
+  setAnchorElMenu(null);
+};
+
+
   return (
        
-    <Box sx={{ display: 'flex', }}>
-
-  <AppBar  sx={{  backgroundColor: '#027b5b',}} position='static' >
+    <React.Fragment >
+<CssBaseline />
+  <AppBar  sx={{  backgroundColor: '#027b5b',}}  >
 <Toolbar>
+
+  <IconButton  id="demo-customized-button"
+        aria-controls={openMenu ? 'demo-customized-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={openMenu ? 'true' : undefined}
+        variant="contained"
+        disableElevation
+        onClick={handleClickMenu}  sx={{display: {xs: 'flex', md: 'none'}, color: 'yellow.backgroundColor', backgroundColor:'greenPrimaryDark.backgroundColor', marginRight: '1em'}}>
+   { openMenu 
+   ? <HighlightOffIcon  sx={{size: 'large'}}/>
+   : <ScoreboardIcon  sx={{size: 'large'}}/>}
+    </IconButton>
+<Menu id="demo-customized-menu"
+        MenuListProps={{
+          'aria-labelledby': 'demo-customized-button',
+        }}
+        anchorEl={anchorElMenu}
+        open={openMenu}
+        onClose={handleCloseMenu}
+        sx={{marginLeft: '-1.5em', marginTop: '0.8em'}}>
+<SportsMenu />
+</Menu>
 <img style={{ display: 'flex', justifyContent: 'start'}} width='300em' height= '60em' src={logasterTop}></img>
 <Typography sx={{ flexGrow: 1,}}></Typography>
 
@@ -140,9 +176,9 @@ console.log(sliceBalance)
   {sliceBalance.map((key) => { return (
     <Typography key={key.balance}  sx={{ color: 'yellow.backgroundColor',}}>Balance: {key.balance}</Typography>
    )})}
- <IconButton onClick={() => onClickBalance()}>
+ {/*<IconButton onClick={() => onClickBalance()}>
  <CachedIcon/>
- </IconButton>
+ </IconButton>*/}
  </div> 
 
 {/* <div  onClick={() => handleChange()}>
@@ -198,7 +234,7 @@ console.log(sliceBalance)
 </Toolbar>
 </AppBar>
 
-</Box>
+</React.Fragment>
 
 )
 }
