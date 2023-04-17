@@ -139,7 +139,8 @@ const handleCloseMenu = () => {
 <CssBaseline />
   <AppBar  sx={{  backgroundColor: '#027b5b',}}  >
 <Toolbar>
-
+{ authUser ? 
+<Box>
   <IconButton  id="demo-customized-button"
         aria-controls={openMenu ? 'demo-customized-menu' : undefined}
         aria-haspopup="true"
@@ -167,6 +168,8 @@ const handleCloseMenu = () => {
 <SportsMenu sx={{paddingTop: 0}}/>
 
 </Menu>
+</Box>
+: null }
 <Box sx={{display: 'flex', justifyContent: 'start', width: {xs: '10em', md:'15em'}, height: {xs: '2em', md:'3em'}}}>
 <img style={{  width:'100%', height: '100%'}}  src={logasterTop}></img>
 </Box>
