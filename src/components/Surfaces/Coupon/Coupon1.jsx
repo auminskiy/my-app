@@ -232,7 +232,7 @@ const [couponOpen, setCouponOpen] = React.useState(false);
            
             <Paper sx={{backgroundColor:'greenPrimaryDark.backgroundColor',
              color:'greenPrimaryDark.color', borderRadius: 0,
-             height: '5vh', width: '100%', display: 'flex',
+             height: '6vh', width: '100%', display: 'flex',
              flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}>Coupon</Paper>
             
             <div >{ 
@@ -251,11 +251,11 @@ const [couponOpen, setCouponOpen] = React.useState(false);
               marketInfoList == 0 
                 ?   <Paper sx={{backgroundColor:'blackSL.backgroundColor',
                 color:'blackSL.color', borderRadius: 0,
-                height: '10vh', display: 'flex',
+                height: '11vh', display: 'flex',
                 flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}> 
                     <Typography sx={{ display: 'flex',
                 flexWrap: 'wrap', justifyContent: 'center',
-                 alignItems: 'center', fontSize: '0.8rem'}}>Click a market for a bet</Typography>
+                 alignItems: 'center', fontSize: '0.8rem',}}>Click a market for a bet</Typography>
                     </Paper>
                 : <Paper  sx={{backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0}}
                 initialValues={{stake: '', market: ''}}
@@ -280,12 +280,13 @@ const [couponOpen, setCouponOpen] = React.useState(false);
                     <Typography sx={{ flexDirection: 'row', justifyContent: 'flex-end', fontWeight: 'bold', marginRight: '0', fontSize: '1em' }}>{market.price}</Typography>
                     </div>
                     
-                    <Typography   aria-owns={open ? 'mouse-over-popover' : undefined} aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}
-                    sx={{ dataTooltip:"" ,display: 'block', alignItems: 'center', flexDirection: 'column', justifyContent: 'flex-start', fontSize:'0.7em',
-                whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', width: '14em'}}  id='match' name='match' value={market.match}>{market.match.slice( 0, 57).length < market.match.length ? market.match.slice( 0, 57)+'...' : market.match}</Typography>
-                   <Popover id="mouse-over-popover" sx={{pointerEvents: 'none',}} open={open} anchorEl={anchorEl}anchorOrigin={{vertical: 'bottom', horizontal: 'left', }} transformOrigin={{ vertical: 'top', horizontal: 'left',}}
-        onClose={handlePopoverClose} disableRestoreFocus>
-        <Typography sx={{ p: .5 }}>{market.match}</Typography>
+                    <Typography   aria-owns={open ? market.match : undefined} aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}
+                    sx={{ display: 'block', alignItems: 'center', flexDirection: 'column', justifyContent: 'flex-start', fontSize:'0.7em',
+                whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', }}  id='match' name='match' value={market.match}>{market.match.slice( 0, 60).length < market.match.length ? market.match.slice( 0, 60)+'...' : market.match}</Typography>
+                   <Popover key={market.match} id={market.match} sx={{pointerEvents: 'none',}} open={open} anchorEl={anchorEl} anchorOrigin={{vertical: 'bottom', horizontal: 'left', }} transformOrigin={{ vertical: 'top', horizontal: 'left',}}
+        onClose={handlePopoverClose} disableRestoreFocus >
+          
+        <Typography  sx={{ p: .5 }}>{market.match}</Typography>
       </Popover>
                     </div>
                     </div>

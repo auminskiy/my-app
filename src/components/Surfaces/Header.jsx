@@ -154,14 +154,22 @@ const handleCloseMenu = () => {
 <Menu id="demo-customized-menu"
         MenuListProps={{
           'aria-labelledby': 'demo-customized-button',
+          disablePadding: true
         }}
         anchorEl={anchorElMenu}
         open={openMenu}
         onClose={handleCloseMenu}
-        sx={{marginLeft: '-1.5em', marginTop: '0.8em'}}>
-<SportsMenu />
+        dense={false} disableGutters={true}
+        sx={{marginLeft: '-1.5em', marginTop: '0.8em',}}
+        
+        >
+        
+<SportsMenu sx={{paddingTop: 0}}/>
+
 </Menu>
-<img style={{ display: 'flex', justifyContent: 'start'}} width='300em' height= '60em' src={logasterTop}></img>
+<Box sx={{display: 'flex', justifyContent: 'start', width: {xs: '10em', md:'15em'}, height: {xs: '2em', md:'3em'}}}>
+<img style={{  width:'100%', height: '100%'}}  src={logasterTop}></img>
+</Box>
 <Typography sx={{ flexGrow: 1,}}></Typography>
 
 {/*<Button  onClick={userSignOut} sx={{ flexGrow: 1, margin: '1rem', color: '#027b5b'}}  >
@@ -174,7 +182,7 @@ const handleCloseMenu = () => {
     
   <div style={{display:'flex', justifyContent: 'center', alignItems: 'center' }}>
   {sliceBalance.map((key) => { return (
-    <Typography key={key.balance}  sx={{ color: 'yellow.backgroundColor',}}>Balance: {key.balance}</Typography>
+    <Typography key={key.balance}  sx={{ color: 'yellow.backgroundColor', fontSize: '.8em'}}>Balance: {key.balance}</Typography>
    )})}
  {/*<IconButton onClick={() => onClickBalance()}>
  <CachedIcon/>
@@ -221,9 +229,9 @@ const handleCloseMenu = () => {
                 }}
               >
                 
-                <MenuItem sx={{ color: 'yellow.backgroundColor', backgroundColor: 'greenPrimaryDark.backgroundColor'}} onClick={()=>{navigateToLc();handleClose()}}><AccountCircleIcon/>  My profile: {authUser.email.split('@')[0]}</MenuItem>
-                <MenuItem sx={{ color: 'yellow.backgroundColor', backgroundColor: 'greenPrimaryDark.backgroundColor'}} onClick={()=>{navigateToMain();handleClose()}}><PlayCircleIcon/> Back to the game</MenuItem>
-                <MenuItem sx={{ color: 'yellow.backgroundColor', backgroundColor: 'greenPrimaryDark.backgroundColor'}} onClick={userSignOut}><LogoutIcon  sx={{  color: 'salat'}}  ></LogoutIcon>  Log Out</MenuItem>
+                <MenuItem sx={{ color: 'yellow.backgroundColor', backgroundColor: 'greenPrimaryDark.backgroundColor', fontSize: {xs:'0.7em', md:'1em'}}} onClick={()=>{navigateToLc();handleClose()}}><AccountCircleIcon/>  My profile: {authUser.email.split('@')[0]}</MenuItem>
+                <MenuItem sx={{ color: 'yellow.backgroundColor', backgroundColor: 'greenPrimaryDark.backgroundColor', fontSize: {xs:'0.7em', md:'1em'}}} onClick={()=>{navigateToMain();handleClose()}}><PlayCircleIcon/> Back to the game</MenuItem>
+                <MenuItem sx={{ color: 'yellow.backgroundColor', backgroundColor: 'greenPrimaryDark.backgroundColor', fontSize: {xs:'0.7em', md:'1em'}}} onClick={userSignOut}><LogoutIcon  sx={{  color: 'salat'}}  ></LogoutIcon>  Log Out</MenuItem>
                 
               </Menu>
             </div>

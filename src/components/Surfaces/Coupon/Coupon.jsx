@@ -216,10 +216,10 @@ useEffect(() => {
   const toggleDrawer = (newOpen) => () => {
     setCouponOpen(newOpen);
   };
-  const drawerBleeding = 60;
+  const drawerBleeding = marketInfoList.length > 1 ? 80 : 60
 
   const Root = styled('div')(({ theme }) => ({
-    height: '20vh',
+   height: '100%',
     backgroundColor:'greenPrimaryDark.backgroundColor',
   }));
 
@@ -232,9 +232,10 @@ useEffect(() => {
       <Global
         styles={{
           '.MuiDrawer-root > .MuiPaper-root': {
-            height: '20vh',
+            height: `calc(50% - ${drawerBleeding}px)`,
             overflow: 'visible',
-            
+           
+
           },
         }}
       />
@@ -261,7 +262,8 @@ useEffect(() => {
             visibility: 'visible',
             right: 0,
             left: 0,
-            display: {md: 'none', xs: 'block', }
+            display: {md: 'none', xs: 'block', },
+            height: 200,
           }}
         >
           
@@ -276,15 +278,22 @@ useEffect(() => {
              color:'greenPrimaryDark.color', borderRadius: 0, borderTopLeftRadius: 15,
              borderTopRightRadius: 15,
              height: '8vh', width: '100%', display: 'flex',
-             flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}>Coupon {result.length} choices</Paper>
+             flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center'}}>
+             {result.length == 0 || null 
+             ? <Box sx={{padding: 3, }}></Box>  
+             : <Box sx={{padding: 3, }}>{result.length} choices </Box>}
+              <Box sx={{ position: 'fixed', left: 'calc(50% - 28px)' }}>Coupon</Box>
+              <Box></Box> 
+             </Paper>
+
         </Box>
         <Box
           sx={{
            
-            height: '20vh',
+            height: '40vh',
             overflow: 'auto',
-            display: 'flex',
-        flexWrap: 'wrap', width: '100%', minHeight: { md:'100vh',},   justifyContent: 'center', alignItems: 'center',
+            display: 'block',
+        flexWrap: 'wrap', width: '100%',   justifyContent: 'center', alignItems: 'center',
           }}
         >
           <div >{ 
@@ -299,24 +308,24 @@ useEffect(() => {
                 )
                     }</div>
                    
-            <div style={{width: '100%'}}> {
+            <div style={{width: '100%', }}> {
               marketInfoList == 0 
                 ?   <Paper sx={{backgroundColor:'blackSL.backgroundColor',
                 color:'blackSL.color', borderRadius: 0,
-                height: '20vh', display: 'flex',
+                height: '40vh', display: 'flex',
                 flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}> 
                     <Typography sx={{ display: 'flex',
                 flexWrap: 'wrap', justifyContent: 'center',
                  alignItems: 'center', fontSize: '0.8rem'}}>Click on market for a bet</Typography>
                     </Paper>
-                : <Paper  sx={{backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0}}
+                : <Paper  sx={{backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0, }}
                 initialValues={{stake: '', market: ''}}
                 onSubmit={handleSubmit}
                 >
         
 <div >
 
-                <div >{marketInfoList.map((market) => (
+                <div style={{height: '40vh'}}>{marketInfoList.map((market) => (
                 <div  key={market.name}>
                     <div style={{display: 'flex',
                  flexDirection: 'row',
@@ -332,13 +341,10 @@ useEffect(() => {
                     <Typography sx={{ flexDirection: 'row', justifyContent: 'flex-end', fontWeight: 'bold', marginRight: '0', fontSize: '1em' }}>{market.price}</Typography>
                     </div>
                     
-                    <Typography   aria-owns={open ? 'mouse-over-popover' : undefined} aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}
+                    <Typography  
                     sx={{ dataTooltip:"" ,display: 'block', alignItems: 'center', flexDirection: 'column', justifyContent: 'flex-start', fontSize:'0.7em',
-                whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', width: '14em'}}  id='match' name='match' value={market.match}>{market.match.slice( 0, 57).length < market.match.length ? market.match.slice( 0, 57)+'...' : market.match}</Typography>
-                   <Popover id="mouse-over-popover" sx={{pointerEvents: 'none',}} open={open} anchorEl={anchorEl}anchorOrigin={{vertical: 'bottom', horizontal: 'left', }} transformOrigin={{ vertical: 'top', horizontal: 'left',}}
-        onClose={handlePopoverClose} disableRestoreFocus>
-        <Typography sx={{ p: .5 }}>{market.match}</Typography>
-      </Popover>
+                whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', }}  id='match' name='match' value={market.match}>{market.match.slice( 0, 57).length < market.match.length ? market.match.slice( 0, 57)+'...' : market.match}</Typography>
+              
                     </div>
                     </div>
                     <Divider/>
@@ -348,7 +354,7 @@ useEffect(() => {
            {overallPrice == 1 
            ? <Typography >Overall price: {''}</Typography>
            : <Paper  sx={{backgroundColor:'greyPrimary.backgroundColor',
-           color:'greyPrimary.color', borderRadius: 0}}>
+           color:'greyPrimary.color', borderRadius: 0, }}>
             <Paper sx={{ display: 'flex',
   flexFlow: 'nowrap', alignItems: 'center',
   height: '100%', justifyContent: 'space-around',  backgroundColor:'greyPrimary.backgroundColor',
@@ -378,9 +384,10 @@ useEffect(() => {
             <Paper>
              <Button sx={{backgroundColor:'greenPrimary.backgroundColor',
   color:'greenPrimary.color', width:'100%', display: 'flex',
+  position: 'relative', top: '100%',
   flexDirection: 'column', "&:hover": {
     backgroundColor: "greenPrimary.backgroundColor"
-  },
+  }, 
   height: '100%'}}  onClick={handleSubmit} variant="primary"  type='submit'>
     <Typography sx={{fontWeight: 'bold', textTransform: 'capitalize', fontSize: '1em'}}>Place bet</Typography> 
     <Typography sx={{fontSize: '0.6em', textTransform: 'capitalize'}}>to return {(overallPrice*stake).toFixed(2)}</Typography>

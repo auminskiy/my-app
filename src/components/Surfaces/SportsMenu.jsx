@@ -68,7 +68,7 @@ const SportsMenu = (props) => {
  
   return (
     
-    <Paper > 
+    <Paper sx={{backgroundColor:'blackSecondary.backgroundColor',}}> 
   <CssBaseline/>  {sports.map(key => {
     return <Accordion sx={{backgroundColor:'blackSecondaryDark.backgroundColor', color:'blackSecondaryDark.color',  }} disableGutters  >  
    

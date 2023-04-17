@@ -42,9 +42,10 @@ const ListMenu = () => {
     setSelectedIndex(index);
   };
   return (
-    <Box sx={{ width: '100%', maxWidth: 200, }}>
+    <Box sx={{ width:{xs: '12vw', md: '100%'}, maxWidth: 200,  }}>
     
       <List component="nav" >
+        
         <ListItem  onClick={()=>{navigateToProfileInfo()}} sx={{color: selectedIndex===0 ? 'yellow.backgroundColor': 'white' }} disablePadding
           >
           <ListItemButton selected={selectedIndex === 0}
@@ -53,16 +54,16 @@ const ListMenu = () => {
             <ListItemIcon>
               <AccountCircleIcon sx={{color: selectedIndex===0 ? 'yellow.backgroundColor': 'white' }}/>
             </ListItemIcon>
-            <ListItemText  primary="Profile" sx={{color: selectedIndex===0 ? 'yellow.backgroundColor': 'white' }}/>
+            <ListItemText  primary="Profile" sx={{color: selectedIndex===0 ? 'yellow.backgroundColor': 'white' , overflow: 'hidden'}}/>
           </ListItemButton>
         </ListItem>
         <ListItem  onClick={()=>{navigateToBets()}} sx={{color: selectedIndex===1 ? 'yellow.backgroundColor': 'white' }} disablePadding>
           <ListItemButton  selected={selectedIndex === 1}
           onClick={(event) => handleListItemClick(event, 1)} >
-            <ListItemIcon>
+            <ListItemIcon >
               <CurrencyExchangeIcon sx={{color: selectedIndex===1 ? 'yellow.backgroundColor': 'white' }}/>
             </ListItemIcon>
-            <ListItemText primary="Bets" sx={{color: selectedIndex===1 ? 'yellow.backgroundColor': 'white' }}/>
+            <ListItemText primary="Bets" sx={{color: selectedIndex===1 ? 'yellow.backgroundColor': 'white' , overflow: 'hidden'}}/>
           </ListItemButton>
         </ListItem>
       </List>
@@ -75,7 +76,7 @@ const ListMenu = () => {
           <ListItemIcon>
           <MeetingRoomIcon sx={{color:'white'}}/>
           </ListItemIcon>
-            <ListItemText primary="Log Out" sx={{color: selectedIndex===2 ? 'yellow.backgroundColor': 'white' }}/>
+            <ListItemText primary="Log Out" sx={{color: selectedIndex===2 ? 'yellow.backgroundColor': 'white', overflow: 'hidden' }}/>
           </ListItemButton>
         </ListItem>
     </List>

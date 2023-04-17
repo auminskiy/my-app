@@ -5,7 +5,7 @@ import ProfileRoutes from './ProfileVisual';
 
 const Profile = () => {
   return (<Box sx={{ display: 'flex', backgroundColor:'blackSL.backgroundColor',
-  color:'yellow.backgroundColor', minHeight: '100vh'}}>
+  color:'yellow.backgroundColor', minHeight: '100vh', marginTop: {xs: 7, md: 8}}}>
     <ListMenu/>
     <ProfileRoutes />
     </Box>

@@ -9,7 +9,7 @@ const CarouselItem = (props) =>
    
 
     return (
-        <Carousel duration= '1000' interval='7000' stopAutoPlayOnHover={false} swipe={true}>
+        <Carousel sx={{height: {xs: '20vh', md: '35vh'}}} duration= '1000' interval='7000' stopAutoPlayOnHover={false} swipe={true}>
             {
                 slider.map( (item) => <Items key={item.id} item={item} /> )
             }

@@ -19,11 +19,11 @@ function Comp(props) {
 
     return (
       
-        <Paper sx={{minHeight: '100vh', width: '100vw', marginTop: '5vh'}}>
+        <Paper sx={{minHeight: '100vh', width: '100vw', marginTop: {xs: 7, md: 8}}}>
            
              <Box sx={{backgroundColor:'blackSecondary.backgroundColor', color:'blackSecondary.color', }}>
                 <Grid container spacing={0}>
-             <Grid sx={{display: {md: 'flex', xs: 'none'}}} md={2.5} >
+             <Grid sx={{display: {md: 'flex', xs: 'none'}}} md={2} >
              <SportsMenu />
             
              </Grid>
@@ -34,7 +34,7 @@ function Comp(props) {
            */} 
             <MainOdds />
              </Grid>
-             <Grid sx={{display: {md: 'flex', xs: 'none'}}} md={2.5}  >
+             <Grid sx={{display: {md: 'flex', xs: 'none'}}} md={3}  >
              <Coupon1 />
              
              </Grid>

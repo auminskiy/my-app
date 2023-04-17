@@ -21,19 +21,28 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
+    fontSize: '1.1em',
+   
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+    
+    maxWidth: '25vw',
+    overflow: 'hidden', 
+    textOverflow: 'ellipsis',
+    paddingRight: 5,
+    paddingLeft: 5
   },
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
+   
   },
   // hide last border
   '&:last-child td, &:last-child th': {
     border: 0,
+   
   },
 }));
 
@@ -98,7 +107,7 @@ console.log(userBets)
 
   return (
     <Box sx={{width:'100%', backgroundColor:'blackSL.color',
-    color:'blackSL.backgroundColor', minHeight: '100vh'}}>
+    color:'blackSL.backgroundColor', minHeight: '100vh', fontSize: '.7em'}}>
         <Typography sx={{display: 'flex',
     flexWrap: 'wrap', marginBottom: 3, marginLeft: 3, marginTop: 3, }}><CurrencyExchange />&nbsp;Bets</Typography>
         <Divider sx={{marginBottom: 3, width:'100%'}}/>
@@ -107,11 +116,11 @@ console.log(userBets)
       <TableHead>
         <TableRow >
           <StyledTableCell>ID</StyledTableCell>
-          <StyledTableCell align="right">Date</StyledTableCell>
-          <StyledTableCell align="right">Type</StyledTableCell>
-          <StyledTableCell align="right">Price</StyledTableCell>
-          <StyledTableCell align="right">Stake</StyledTableCell>
-          <StyledTableCell align="right"></StyledTableCell>
+          <StyledTableCell sx={{width:{xs: 2, md: '10vw'}, fontSize:{xs:'.9em', md:'1em'} }} align="right">Date</StyledTableCell>
+          <StyledTableCell sx={{width:{xs: 2, md: '10vw'}, fontSize:{xs:'.9em', md:'1em'} }} align="right">Type</StyledTableCell>
+          <StyledTableCell sx={{width:{xs: 2, md: '10vw'}, fontSize:{xs:'.9em', md:'1em'} }} align="right">Price</StyledTableCell>
+          <StyledTableCell sx={{width:{xs: 2, md: '10vw'}, fontSize:{xs:'.9em', md:'1em'} }} align="right">Stake</StyledTableCell>
+          <StyledTableCell sx={{width:{xs: 1, md: '10vw'}, fontSize:{xs:'.9em', md:'1em'} }} align="right"></StyledTableCell>
         </TableRow>
         
       </TableHead>
@@ -122,19 +131,19 @@ console.log(userBets)
         .map((row) => (
           <React.Fragment>
           <StyledTableRow sx={{ '& > *': { borderBottom: 'unset' } }} >
-            <StyledTableCell component="th" scope="row">
+            <StyledTableCell sx={{fontSize:{xs:'.8em', md:'1.1em'}}} component="th" scope="row">
               {row.id}
             </StyledTableCell>
-            <StyledTableCell align="right">{row.createdAt.toString().split('G')[0]}</StyledTableCell>
-            <StyledTableCell align="right">
+            <StyledTableCell sx={{fontSize:{xs:'.8em', md:'1.1em'}}} align="right">{row.createdAt.toString().split('G')[0]}</StyledTableCell>
+            <StyledTableCell sx={{fontSize:{xs:'.8em', md:'1.1em'}}} align="right">
               {row.market.length === 1
               ? <p>Ordinar</p>
             : <p>Express</p>
               }
               </StyledTableCell>
               
-            <StyledTableCell align="right">{parseFloat(row.price).toFixed(2)}</StyledTableCell>
-            <StyledTableCell align="right">{parseFloat(row.stake).toFixed(2)}</StyledTableCell>
+            <StyledTableCell sx={{fontSize:{xs:'.8em', md:'1.1em'}}} align="right">{parseFloat(row.price).toFixed(2)}</StyledTableCell>
+            <StyledTableCell sx={{fontSize:{xs:'.8em', md:'1.1em'}}} align="right">{parseFloat(row.stake).toFixed(2)}</StyledTableCell>
             <StyledTableCell >
           <IconButton
             aria-label="expand row"
@@ -151,23 +160,23 @@ console.log(userBets)
            <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
              <Collapse  in={open[row.id]} timeout="auto" unmountOnExit>
                <Box sx={{ margin: 1 }}>
-                 <Typography variant="h6" gutterBottom component="div">
+                 <Typography sx={{fontSize:{xs:15, md:20}}} gutterBottom component="div">
                    bet info
                  </Typography>
                  <Divider/>
                  <Table size="small" aria-label="purchases">
                    <TableHead>
                      <TableRow>
-                       <TableCell>Date</TableCell>
-                       <TableCell>Bet information: Match, Market, Price</TableCell>
+                       <TableCell sx={{fontSize:{xs:'.7em', md:'1em'}}}>Date</TableCell>
+                       <TableCell sx={{fontSize:{xs:'.7em', md:'1em'}}}>Bet information: Match, Market, Price</TableCell>
                        
-                       <TableCell  align="right">Stake</TableCell>
+                       <TableCell sx={{fontSize:{xs:'.7em', md:'1em'}}} align="right">Stake</TableCell>
                      </TableRow>
                    </TableHead>
                    <TableBody>
                      
                        <TableRow  key={row.market.name}>
-                         <TableCell sx={{ border: 'none'}} component="th" scope="row">
+                         <TableCell sx={{ border: 'none', fontSize:{xs:'.7em', md:'1em'}}} component="th" scope="row">
                          {row.createdAt.toString().split('G')[0]}
                          </TableCell>
                          
@@ -176,16 +185,16 @@ console.log(userBets)
                          
                               return(
                                 <Box sx={{ border: 'none'}} key={index}>
-                                  <TableCell sx={{ border: 'none'}} >{type.match}</TableCell>
-                         <TableCell sx={{ border: 'none'}}>{type.name}</TableCell>
-                         <TableCell sx={{ border: 'none'}}>{type.point}</TableCell>
-                         <TableCell sx={{ border: 'none'}} align="right">{type.price}</TableCell>
+                                  <TableCell sx={{ border: 'none', fontSize:{xs:'.7em', md:'1em'}}} >{type.match}</TableCell>
+                         <TableCell sx={{ border: 'none', fontSize:{xs:'.7em', md:'1em'}}}>{type.name}</TableCell>
+                         <TableCell sx={{ border: 'none', fontSize:{xs:'.7em', md:'1em'}}}>{type.point}</TableCell>
+                         <TableCell sx={{ border: 'none', fontSize:{xs:'.7em', md:'1em'}}} align="right">{type.price}</TableCell>
                               </Box>
                               )})}
                            
                         
                         
-                        <TableCell sx={{ border: 'none'}}  align="right">
+                        <TableCell sx={{ border: 'none', fontSize:{xs:'.7em', md:'1em'}}}  align="right">
                            {parseFloat(row.stake).toFixed(2)}
                          </TableCell>
                        </TableRow>

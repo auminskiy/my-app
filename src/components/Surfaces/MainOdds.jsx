@@ -101,7 +101,7 @@ const [open, setOpen] = React.useState(false);
 
 
   return ( 
-    <div variant="inherit">
+    
     <Box sx={{ width: '100%', minHeight: '100vh' }}>
    
 <CarouselItem  sx={{
@@ -148,7 +148,7 @@ const [open, setOpen] = React.useState(false);
  >
 {key.bookmakers[0].markets[0] == undefined ? null : key.bookmakers[0].markets[0].outcomes.map((k, index) => {
    return <Item  sx={{ cursor: 'pointer', backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={k.name} value={k.price} point={k.point} key={index} >
-    <Typography sx={{ cursor: 'pointer', fontSize:'0.9em', textOverflow: 'ellipsis' }}match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={k.name} value={k.price} point={k.point} >{k.name}</Typography>
+    <Typography sx={{ cursor: 'pointer', fontSize:'0.9em', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', }}match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={k.name} value={k.price} point={k.point} >{k.name.slice( 0, 50)}</Typography>
     <Typography sx={{ cursor: 'pointer', color:'yellow.backgroundColor'}}match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={k.name} value={k.price} point={k.point} >&nbsp;{k.price}</Typography>
     <Typography sx={{ cursor: 'pointer', color:'yellow.backgroundColor'}}match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={k.name} value={k.price} point={k.point} >&nbsp;{k.point}</Typography>
     </Item>
@@ -170,7 +170,7 @@ const [open, setOpen] = React.useState(false);
 >
      {key.bookmakers[0].markets[1] == undefined ? null : key.bookmakers[0].markets[1].outcomes.map((q, index) => {
    return <Item  sx={{ cursor: 'pointer', backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={q.name} value={q.price} point={q.point} key={index} >
-    <Typography sx={{ cursor: 'pointer', fontSize:'0.9em', textOverflow: 'ellipsis' }} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={q.name} value={q.price} point={q.point} >{q.name}</Typography>
+    <Typography sx={{ cursor: 'pointer', fontSize:'0.9em', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', }} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={q.name} value={q.price} point={q.point} >{q.name}</Typography>
     <Typography sx={{ cursor: 'pointer', fontSize:'0.9em' }} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={q.name} value={q.price} point={q.point} >&nbsp;{q.point}</Typography>
     <Typography sx={{ cursor: 'pointer', color:'yellow.backgroundColor'}} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={q.name} value={q.price} point={q.point} >&nbsp;{q.price}</Typography>
     </Item>
@@ -211,7 +211,7 @@ const [open, setOpen] = React.useState(false);
   </div>
 }
   </Box>
-    </div>
+    
 
   
     
