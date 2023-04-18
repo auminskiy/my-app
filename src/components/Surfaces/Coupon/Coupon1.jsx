@@ -264,11 +264,11 @@ const [couponOpen, setCouponOpen] = React.useState(false);
         
 <div >
 
-                <div >{marketInfoList.map((market) => (
+                <div style={{display: 'block'}}>{marketInfoList.map((market) => (
                 <div  key={market.name}>
                     <div style={{display: 'flex',
                  flexDirection: 'row',
-                height: '3rem',}}>
+                height: '3rem', }}>
 
                     <IconButton size="small" sx={{justifyContent:'center', color: 'yellow.backgroundColor', height: '2rem', width: '2rem',}} variant="text" onClick={() => removeToMarketInfoList(market.name)}><HighlightOffIcon/></IconButton>
                    <div style={{
@@ -282,7 +282,7 @@ const [couponOpen, setCouponOpen] = React.useState(false);
                     
                     <Typography   aria-owns={open ? market.match : undefined} aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}
                     sx={{ display: 'block', alignItems: 'center', flexDirection: 'column', justifyContent: 'flex-start', fontSize:'0.7em',
-                whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', }}  id='match' name='match' value={market.match}>{market.match.slice( 0, 60).length < market.match.length ? market.match.slice( 0, 60)+'...' : market.match}</Typography>
+                whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', }}  id='match' name='match' value={market.match}>{market.match.slice( 0, 54).length < market.match.length ? market.match.slice( 0, 54)+'...' : market.match}</Typography>
                    <Popover key={market.match} id={market.match} sx={{pointerEvents: 'none',}} open={open} anchorEl={anchorEl} anchorOrigin={{vertical: 'bottom', horizontal: 'left', }} transformOrigin={{ vertical: 'top', horizontal: 'left',}}
         onClose={handlePopoverClose} disableRestoreFocus >
           

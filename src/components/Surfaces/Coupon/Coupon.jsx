@@ -337,11 +337,11 @@ const stakeHandler = (e) => {
         
 <div >
 
-                <div style={{height: '40vh', marginTop: 5,}}>{marketInfoList.map((market) => (
-                <div  key={market.name}>
+                <div style={{ marginTop: 5, maxHeight: '27vh', overflow: 'auto', whiteSpace: 'nowrap', display:'flex', flexDirection: 'column'}}>{marketInfoList.map((market) => (
+                <div  key={market.name} >
                     <div style={{display: 'flex',
                  flexDirection: 'row',
-                height: '3rem',}}>
+                height: '3rem', }}>
 
                     <IconButton size="small" sx={{justifyContent:'center', color: 'yellow.backgroundColor', height: '2rem', width: '2rem',}} variant="text" onClick={() => removeToMarketInfoList(market.name)}><HighlightOffIcon/></IconButton>
                    <div style={{
@@ -359,14 +359,14 @@ const stakeHandler = (e) => {
               
                     </div>
                     </div>
-                    <Divider/>
+                   
 
                 </div>
                ))}
            {overallPrice == 1 
            ? <Typography >Overall price: {''}</Typography>
            : <Paper  sx={{backgroundColor:'greyPrimary.backgroundColor',
-           color:'greyPrimary.color', borderRadius: 0, }}>
+           color:'greyPrimary.color', borderRadius: 0, alignItems: 'end', position: 'fixed', width: '100%', bottom: 0}}>
             <Paper sx={{ display: 'flex',
   flexFlow: 'nowrap', alignItems: 'center',
   height: '100%', justifyContent: 'space-around',  backgroundColor:'greyPrimary.backgroundColor',
@@ -387,7 +387,9 @@ const stakeHandler = (e) => {
                  width: '10em',  margin: '0.5em', 
                   input: {color: 'greenPrimary.backgroundColor', fontWeight: 'bold', backgroundColor: '#c9c9c9', textAlign:'end' } }}
                  placeholder='Amount' variant="outlined"  id='stake'  min="1"   value={stake}  
-                type='number' name='stake' 
+                type='number' name='stake' inputProps={{
+                  pattern: "[0-9]*",
+              }}
             onChange={(e) => {stakeHandler(e)}}
            ></TextField>
                

@@ -91,7 +91,7 @@ const SportsMenu = (props) => {
          
           <Button id={id} selected={selectedIndex === id.title} onClick={(event) => {handleListItemClick(event, id.title); clickSport()} }
           sx={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', fontSize: '0.7em', display:'flex', justifyContent:'start', color: selectedIndex===id.title ? 'yellow.backgroundColor': 'blackSL.color',
-          width: '15vw', height: '2vh'
+          width: '20', height: '2vh'
       
       }}   >
         {id.title.slice(0, 23)}
