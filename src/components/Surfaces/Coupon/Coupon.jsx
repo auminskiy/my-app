@@ -1,7 +1,7 @@
 import { Alert, Button, Typography, Paper, Box, Divider, TextField, IconButton, CssBaseline, } from '@mui/material';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import {  Form, Formik } from 'formik';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import DataService from '../../../Firebase/firestore';
 import { collection, getDocs, getFirestore,
     addDoc, onSnapshot, orderBy, serverTimestamp } from "firebase/firestore";
@@ -16,6 +16,7 @@ import { getAuth } from "firebase/auth";
 import Popover from '@mui/material/Popover';
 import { Global } from '@emotion/react';
 import { styled } from '@mui/material/styles';
+
 
  const firebaseConfig = {
    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -139,7 +140,7 @@ console.log(userBets)
 
     setMessage('');
     console.log(price, stake, market,);
-    if (stake === '' || market === '' || price === '') {
+    if (stake === ''  || market === '' || price === '') {
         setMessage({error: true, msg: 'Please, enter the stake.'})
         setTimeout(() => {
             setMessage('');
@@ -185,6 +186,11 @@ console.log(userBets)
 
 
 
+const onStakeChange = event => {
+     
+  setStake( event.target.value );
+ 
+};
 
 
 const marketInfoList = useStore((state) => state.marketInfoList)
@@ -216,7 +222,7 @@ useEffect(() => {
   const toggleDrawer = (newOpen) => () => {
     setCouponOpen(newOpen);
   };
-  const drawerBleeding = marketInfoList.length > 1 ? 80 : 60
+  const drawerBleeding = marketInfoList.length > 0 ? 70 : 60
 
   const Root = styled('div')(({ theme }) => ({
    height: '100%',
@@ -224,10 +230,14 @@ useEffect(() => {
   }));
 
 //
- 
+
+const stakeHandler = (e) => {
+  setStake(e.currentTarget.value)
+}
+
     return (
     
-      <Root >
+      <Box >
       <CssBaseline />
       <Global
         styles={{
@@ -289,7 +299,7 @@ useEffect(() => {
         </Box>
         <Box
           sx={{
-           
+            backgroundColor:'greyPrimary.backgroundColor',
             height: '40vh',
             overflow: 'auto',
             display: 'block',
@@ -313,10 +323,12 @@ useEffect(() => {
                 ?   <Paper sx={{backgroundColor:'blackSL.backgroundColor',
                 color:'blackSL.color', borderRadius: 0,
                 height: '40vh', display: 'flex',
-                flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center'}}> 
+                flexWrap: 'wrap', justifyContent: 'center', flexDirection: 'column'}}> 
                     <Typography sx={{ display: 'flex',
                 flexWrap: 'wrap', justifyContent: 'center',
-                 alignItems: 'center', fontSize: '0.8rem'}}>Click on market for a bet</Typography>
+                 alignItems: 'center', fontSize: '0.8rem', position: 'fixed', left: 'calc(50% - 70px)'}}>Click on market for a bet</Typography>
+                 <Button sx={{justifyContent: 'center',
+                 alignItems: 'end', marginTop: '30vh'}}>прилипни к низу</Button>
                     </Paper>
                 : <Paper  sx={{backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0, }}
                 initialValues={{stake: '', market: ''}}
@@ -325,7 +337,7 @@ useEffect(() => {
         
 <div >
 
-                <div style={{height: '40vh'}}>{marketInfoList.map((market) => (
+                <div style={{height: '40vh', marginTop: 5,}}>{marketInfoList.map((market) => (
                 <div  key={market.name}>
                     <div style={{display: 'flex',
                  flexDirection: 'row',
@@ -343,7 +355,7 @@ useEffect(() => {
                     
                     <Typography  
                     sx={{ dataTooltip:"" ,display: 'block', alignItems: 'center', flexDirection: 'column', justifyContent: 'flex-start', fontSize:'0.7em',
-                whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', }}  id='match' name='match' value={market.match}>{market.match.slice( 0, 57).length < market.match.length ? market.match.slice( 0, 57)+'...' : market.match}</Typography>
+                whiteSpace: {md:'nowrap', xs: 'none'}, overflow: {md:'hidden', xs:'none'}, textOverflow: {md:'ellipsis', xs:'none'}, }}  id='match' name='match' value={market.match}>{market.match.slice( 0, 57).length < market.match.length ? market.match.slice( 0, 57)+'...' : market.match}</Typography>
               
                     </div>
                     </div>
@@ -361,26 +373,28 @@ useEffect(() => {
   color:'greyPrimary.color', borderRadius: 0}}>
     <Typography  sx={{fontSize: '.8em'}}>Folds: {result.length}</Typography>
            <Typography sx={{fontSize: '.8em'}} name='price' value={overallPrice} id='price'>Price:  {overallPrice.toFixed(2)}</Typography>
-          
-           <Formik 
+         
+           <Formik
            initialValues={{stake: '', market: '', overalPrice: '',}}
            onSubmit={handleSubmit}
            validationSchema={couponFormShema}
-           
+          
            > 
             <Form>
            
-                <TextField size="small" sx={{fontSize:'0.6em',
+                <TextField 
+                size="small" sx={{fontSize:'0.6em',
                  width: '10em',  margin: '0.5em', 
                   input: {color: 'greenPrimary.backgroundColor', fontWeight: 'bold', backgroundColor: '#c9c9c9', textAlign:'end' } }}
                  placeholder='Amount' variant="outlined"  id='stake'  min="1"   value={stake}  
-                type='tel' name='stake' 
-            onChange={e => {setStake(e.target.value)}}
+                type='number' name='stake' 
+            onChange={(e) => {stakeHandler(e)}}
            ></TextField>
                
             </Form> 
            </Formik>
             </Paper>
+            
             <Paper>
              <Button sx={{backgroundColor:'greenPrimary.backgroundColor',
   color:'greenPrimary.color', width:'100%', display: 'flex',
@@ -407,7 +421,7 @@ useEffect(() => {
             </div>
         </Box>
       </SwipeableDrawer>
-    </Root>
+    </Box>
         
     );
 }

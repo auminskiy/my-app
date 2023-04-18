@@ -68,7 +68,7 @@ const SportsMenu = (props) => {
  
   return (
     
-    <Paper sx={{backgroundColor:'blackSecondary.backgroundColor',}}> 
+    <Paper sx={{backgroundColor:'blackSecondary.backgroundColor', width: '100%'}}> 
   <CssBaseline/>  {sports.map(key => {
     return <Accordion sx={{backgroundColor:'blackSecondaryDark.backgroundColor', color:'blackSecondaryDark.color',  }} disableGutters  >  
    
@@ -91,7 +91,7 @@ const SportsMenu = (props) => {
          
           <Button id={id} selected={selectedIndex === id.title} onClick={(event) => {handleListItemClick(event, id.title); clickSport()} }
           sx={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', fontSize: '0.7em', display:'flex', justifyContent:'start', color: selectedIndex===id.title ? 'yellow.backgroundColor': 'blackSL.color',
-          
+          width: '15vw', height: '2vh'
       
       }}   >
         {id.title.slice(0, 23)}
