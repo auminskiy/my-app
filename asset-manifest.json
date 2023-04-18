@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/my-app/static/js/main.ed9db64e.js",
+    "main.js": "/my-app/static/js/main.898cd160.js",
     "static/media/logasterTop.svg": "/my-app/static/media/logasterTop.316b6820f8e65e5d1e64148d3bbe19fa.svg",
     "index.html": "/my-app/index.html",
-    "main.ed9db64e.js.map": "/my-app/static/js/main.ed9db64e.js.map"
+    "main.898cd160.js.map": "/my-app/static/js/main.898cd160.js.map"
   },
   "entrypoints": [
-    "static/js/main.ed9db64e.js"
+    "static/js/main.898cd160.js"
   ]
 }
