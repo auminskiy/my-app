@@ -40,7 +40,7 @@ const SignIn = () => {
             <TextField style={{ marginRight: 20,}} label="email" variant="filled" type='email' placeholder='enter email' value={email} onChange={(e) => setEmail(e.target.value)}></TextField>
             <TextField label="password" variant="filled" type='password' placeholder='enter pass' value={password} onChange={(e) => setPassword(e.target.value)}></TextField>
            <Typography sx={{color: 'orange', fontWeight: 'bold', }}>{errorCodes}</Typography>
-            <Button   sx={{marginTop:'2rem', backgroundColor: '#004e32', }} variant="contained" size="small" type='submit'>
+            <Button   sx={{marginTop:'2rem', backgroundColor: '#004e32', height: '3rem', width: '10rem', fontSize: '.7em'}} variant="contained" size="small" type='submit'>
             <IconButton aria-label="fingerprint" color="salat">
               <Fingerprint />
             </IconButton>

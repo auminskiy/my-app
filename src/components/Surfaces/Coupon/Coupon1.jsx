@@ -13,6 +13,7 @@ import CouponImages from './CouponImages';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { getAuth } from "firebase/auth";
 import Popover from '@mui/material/Popover';
+import s from './Coupon.module.css';
 
  const firebaseConfig = {
    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -313,11 +314,18 @@ const [couponOpen, setCouponOpen] = React.useState(false);
            > 
             <Form>
            
-                <TextField size="small" sx={{fontSize:'0.6em',
+                <TextField className={s.input} size="small" sx={{fontSize:'0.6em',
                  width: '10em',  margin: '0.5em', 
-                  input: {color: 'greenPrimary.backgroundColor', fontWeight: 'bold', backgroundColor: '#c9c9c9', textAlign:'end' } }}
-                 placeholder='Amount' variant="outlined"  id='stake'  min="1"   value={stake}  
-                type='tel' name='stake' 
+                  input: {color: 'greenPrimary.backgroundColor', fontWeight: 'bold', backgroundColor: '#c9c9c9', textAlign:'end',  } }}
+                 placeholder='Amount' variant="outlined"  id='stake'   value={stake}  
+                type='number' name='stake' InputProps={{
+                  inputProps: { min: 0 }
+                }}
+                onKeyPress={(event) => {
+                  if (event?.key === '-' || event?.key === '+') {
+                    event.preventDefault();
+                  }
+                }}
             onChange={e => {setStake(e.target.value)}}
            ></TextField>
                

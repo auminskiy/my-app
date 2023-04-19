@@ -6,6 +6,7 @@ import { createTheme, ThemeProvider } from '@mui/material';
 
 
 const theme = createTheme({
+  
   palette: {
       primary: { 
         main: '#165788',
@@ -52,24 +53,8 @@ const theme = createTheme({
         backgroundColor: '#EBD402',
         color: '#fff',
       },
-      components: {
-        MuiListItemButton: {
-          defaultProps: {
-            selected: true
-          },
-          styleOverrides: {
-            root: {
-              "&$selected": {
-                backgroundColor: "red",
-                "&:hover": {
-                  backgroundColor: "orange",
-                },
-              },
-            },
-           
-          }
-        }
-      }
+      
+    
      
   },
 });

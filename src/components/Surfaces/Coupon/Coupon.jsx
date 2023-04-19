@@ -16,7 +16,7 @@ import { getAuth } from "firebase/auth";
 import Popover from '@mui/material/Popover';
 import { Global } from '@emotion/react';
 import { styled } from '@mui/material/styles';
-
+import s from './Coupon.module.css';
 
  const firebaseConfig = {
    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -327,8 +327,7 @@ const stakeHandler = (e) => {
                     <Typography sx={{ display: 'flex',
                 flexWrap: 'wrap', justifyContent: 'center',
                  alignItems: 'center', fontSize: '0.8rem', position: 'fixed', left: 'calc(50% - 70px)'}}>Click on market for a bet</Typography>
-                 <Button sx={{justifyContent: 'center',
-                 alignItems: 'end', marginTop: '30vh'}}>прилипни к низу</Button>
+                 
                     </Paper>
                 : <Paper  sx={{backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0, }}
                 initialValues={{stake: '', market: ''}}
@@ -382,14 +381,19 @@ const stakeHandler = (e) => {
            > 
             <Form>
            
-                <TextField 
+                <TextField  className={s.input}
                 size="small" sx={{fontSize:'0.6em',
                  width: '10em',  margin: '0.5em', 
                   input: {color: 'greenPrimary.backgroundColor', fontWeight: 'bold', backgroundColor: '#c9c9c9', textAlign:'end' } }}
-                 placeholder='Amount' variant="outlined"  id='stake'  min="1"   value={stake}  
-                type='number' name='stake' inputProps={{
-                  pattern: "[0-9]*",
-              }}
+                 placeholder='Amount' variant="outlined"  id='stake'   value={stake}  
+                type='number' name='stake' InputProps={{
+                  inputProps: { min: 0 }
+                }}
+                onKeyPress={(event) => {
+                  if (event?.key === '-' || event?.key === '+') {
+                    event.preventDefault();
+                  }
+                }}
             onChange={(e) => {stakeHandler(e)}}
            ></TextField>
                

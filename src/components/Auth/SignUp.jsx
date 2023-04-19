@@ -7,6 +7,7 @@ import CreateIcon from '@mui/icons-material/Create';
 import { serverTimestamp } from '@firebase/firestore';
 import DataService from '../../Firebase/firestore';
 
+
 const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -39,7 +40,7 @@ const SignUp = () => {
             <TextField sx={{ marginRight: 5, }} label="email" variant="filled" type='email' placeholder='enter email' value={email} onChange={(e) => setEmail(e.target.value)}></TextField>
             <TextField label="password" variant="filled" type='password' placeholder='enter pass' value={password} onChange={(e) => setPassword(e.target.value)}></TextField>
             <Typography sx={{color:'orange', fontWeight: 'bold'}}>{errorCodes}</Typography>
-            <Button sx={{marginTop:'2rem', backgroundColor: '#004e32'}} variant="contained" size="small" type='submit'> <CreateIcon/> Create account</Button>
+            <Button sx={{marginTop:'2rem', backgroundColor: '#004e32', height: '3rem', width: '10rem', fontSize: '.7em'}} variant="contained" size="small" type='submit'> <CreateIcon/>&nbsp;Create account</Button>
             <Typography sx={{marginTop:'2rem',  fontSize: "1em", fontWeight: 'bold', color: 'yellow.backgroundColor',}}>Already have account?   <Link to="/login">sign in</Link></Typography>
         </form>
     </div>

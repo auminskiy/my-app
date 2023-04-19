@@ -16,3 +16,11 @@ text-shadow: coral;
     background-color:rgb(241, 199, 220);
     color: darkslategrey;
 }
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+
+}
