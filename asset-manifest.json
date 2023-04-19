@@ -1,11 +1,14 @@
 {
   "files": {
-    "main.js": "/my-app/static/js/main.898cd160.js",
+    "main.css": "/my-app/static/css/main.f0e153f4.css",
+    "main.js": "/my-app/static/js/main.2218cdd8.js",
     "static/media/logasterTop.svg": "/my-app/static/media/logasterTop.316b6820f8e65e5d1e64148d3bbe19fa.svg",
     "index.html": "/my-app/index.html",
-    "main.898cd160.js.map": "/my-app/static/js/main.898cd160.js.map"
+    "main.f0e153f4.css.map": "/my-app/static/css/main.f0e153f4.css.map",
+    "main.2218cdd8.js.map": "/my-app/static/js/main.2218cdd8.js.map"
   },
   "entrypoints": [
-    "static/js/main.898cd160.js"
+    "static/css/main.f0e153f4.css",
+    "static/js/main.2218cdd8.js"
   ]
 }
