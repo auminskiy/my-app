@@ -265,7 +265,7 @@ const [couponOpen, setCouponOpen] = React.useState(false);
         
 <div >
 
-                <div style={{display: 'block'}}>{marketInfoList.map((market) => (
+                <div style={{display: 'block', }}>{marketInfoList.map((market) => (
                 <div  key={market.name}>
                     <div style={{display: 'flex',
                  flexDirection: 'row',
@@ -273,7 +273,7 @@ const [couponOpen, setCouponOpen] = React.useState(false);
 
                     <IconButton size="small" sx={{justifyContent:'center', color: 'yellow.backgroundColor', height: '2rem', width: '2rem',}} variant="text" onClick={() => removeToMarketInfoList(market.name)}><HighlightOffIcon/></IconButton>
                    <div style={{
-                 alignItems: 'center', flexDirection: 'row', backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', }}>
+                 alignItems: 'center', display:'block', backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', }}>
                     <div style={{display: 'flex',
                  alignItems: 'center', justifyContent:'space-between', flexWrap: 'wrap', backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0, }}>
                     <Typography sx={{ flexDirection: 'row', justifyContent: 'flex-start', fontWeight: 'bold',backgroundColor:'greyPrimary.backgroundColor', color:'greyPrimary.color', borderRadius: 0, fontSize: '1em'}}  id='market' name='market' value={market.name}>{market.name}&nbsp;{market.point}

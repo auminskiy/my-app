@@ -57,9 +57,9 @@ const SportsMenu = (props) => {
     console.log(competitions)
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div style={{backgroundColor:'blackSecondary.backgroundColor', color: 'yellow.backgroundColor',}}>Error: {error.message}</div>;
   } else if (!isLoaded) {
-    return <div><CircularProgress sx={{color: 'yellow', display: 'flex', justifyContent: 'center', alignItems:'center'}}/></div>;
+    return <div style={{backgroundColor:'blackSecondary.backgroundColor', color: 'yellow.backgroundColor',}}><CircularProgress sx={{backgroundColor:'blackSecondary.backgroundColor', color: 'yellow.backgroundColor', display: 'flex', justifyContent: 'center', alignItems:'center'}}/></div>;
   } else {
 
 
