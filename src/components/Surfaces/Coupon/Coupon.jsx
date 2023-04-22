@@ -222,12 +222,9 @@ useEffect(() => {
   const toggleDrawer = (newOpen) => () => {
     setCouponOpen(newOpen);
   };
-  const drawerBleeding = marketInfoList.length > 0 ? 70 : 60
+  const drawerBleeding = 45
 
-  const Root = styled('div')(({ theme }) => ({
-   height: '100%',
-    backgroundColor:'greenPrimaryDark.backgroundColor',
-  }));
+
 
 //
 
@@ -242,7 +239,7 @@ const stakeHandler = (e) => {
       <Global
         styles={{
           '.MuiDrawer-root > .MuiPaper-root': {
-            height: `calc(50% - ${drawerBleeding}px)`,
+            height: `calc(40% - ${drawerBleeding}px)`,
             overflow: 'visible',
            
 
@@ -265,15 +262,15 @@ const stakeHandler = (e) => {
       >
         <Box
           sx={{
-            position: 'absolute',
-            top: -drawerBleeding,
+            position: 'relative',
+            marginTop: `${-drawerBleeding}px`,
             borderTopLeftRadius: 8,
             borderTopRightRadius: 8,
             visibility: 'visible',
             right: 0,
             left: 0,
             display: {md: 'none', xs: 'block', },
-            height: 200,
+            height: 'auto',
           }}
         >
           
@@ -303,7 +300,7 @@ const stakeHandler = (e) => {
             height: '40vh',
             overflow: 'auto',
             display: 'block',
-        flexWrap: 'wrap', width: '100%',   justifyContent: 'center', alignItems: 'center',
+        flexWrap: 'wrap', width: '100%',   justifyContent: 'center', alignItems: 'center', 
           }}
         >
           <div >{ 
@@ -318,12 +315,12 @@ const stakeHandler = (e) => {
                 )
                     }</div>
                    
-            <div style={{width: '100%', }}> {
+            <Box sx={{width: '100%', }}> {
               marketInfoList == 0 
                 ?   <Paper sx={{backgroundColor:'blackSL.backgroundColor',
                 color:'blackSL.color', borderRadius: 0,
                 height: '40vh', display: 'flex',
-                flexWrap: 'wrap', justifyContent: 'center', flexDirection: 'column'}}> 
+                flexWrap: 'wrap', justifyContent: 'center', flexDirection: 'column',}}> 
                     <Typography sx={{ display: 'flex',
                 flexWrap: 'wrap', justifyContent: 'center',
                  alignItems: 'center', fontSize: '0.8rem', position: 'fixed', left: 'calc(50% - 70px)'}}>Click on market for a bet</Typography>
@@ -334,9 +331,9 @@ const stakeHandler = (e) => {
                 onSubmit={handleSubmit}
                 >
         
-<div >
 
-                <div style={{ marginTop: 5, maxHeight: '27vh', overflow: 'auto', whiteSpace: 'nowrap', display:'flex', flexDirection: 'column'}}>{marketInfoList.map((market) => (
+
+                <Box sx={{ height: '100%', marginTop: 1, paddingBottom: 2, maxHeight: 180, overflow: 'auto', display:'flex', flexDirection: 'column'}}>{marketInfoList.map((market) => (
                 <div  key={market.name} >
                     <div style={{display: 'flex',
                  flexDirection: 'row',
@@ -415,8 +412,8 @@ const stakeHandler = (e) => {
              </Paper>
              </Paper>
            }
-</div>  
-            </div>
+</Box>  
+            
   
      
 </Paper>
@@ -424,7 +421,7 @@ const stakeHandler = (e) => {
                
                 }
                <CouponImages />
-            </div>
+            </Box>
         </Box>
       </SwipeableDrawer>
     </Box>

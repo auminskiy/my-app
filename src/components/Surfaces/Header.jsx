@@ -23,6 +23,7 @@ import ScoreboardIcon from '@mui/icons-material/Scoreboard';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import SportsMenu from './SportsMenu';
 import CssBaseline from '@mui/material/CssBaseline';
+import SportsMenuMobile from './SportsMenuMobile';
 
 const Header = () => {
 
@@ -123,11 +124,16 @@ console.log(sortByDate);
 const sliceBalance = sortByDate.slice(0,1)
 console.log(sliceBalance)
 
-const [anchorElMenu, setAnchorElMenu] = React.useState(null);
+//const [anchorElMenu, setAnchorElMenu] = React.useState(null);
+ 
+const anchorElMenu = useStore((state) => state.anchorElMenu);
+const setAnchorElMenu = useStore((state) => state.setAnchorElMenu);
+
 const openMenu = Boolean(anchorElMenu);
 const handleClickMenu = (event) => {
   setAnchorElMenu(event.currentTarget);
 };
+
 const handleCloseMenu = () => {
   setAnchorElMenu(null);
 };
@@ -158,14 +164,16 @@ const handleCloseMenu = () => {
           disablePadding: true
         }}
         anchorEl={anchorElMenu}
-        open={openMenu}
+        open={anchorElMenu}
         onClose={handleCloseMenu}
         dense={false} disableGutters={true}
-        sx={{marginLeft: '-1.5em', marginTop: '0.8em',}}
-        
+        sx={{marginLeft: '-1em', color: 'yellow.backgroundColor',}}
+        getContentAnchorEl={null}
+    anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+    transformOrigin={{ vertical: 'top', horizontal: 'left' }}
         >
         
-<SportsMenu sx={{paddingTop: 0}}/>
+<SportsMenuMobile sx={{paddingTop: 0}}/>
 
 </Menu>
 </Box>
