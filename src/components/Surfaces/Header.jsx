@@ -193,7 +193,7 @@ const handleCloseMenu = () => {
     
   <div style={{display:'flex', justifyContent: 'center', alignItems: 'center' }}>
   {sliceBalance.map((key) => { return (
-    <Typography key={key.balance}  sx={{ color: 'yellow.backgroundColor', fontSize: '.8em'}}>Balance: {key.balance}</Typography>
+    <Typography key={key.balance}  sx={{ color: 'yellow.backgroundColor', fontSize: {xs:'.7em', md:'.8em'}, marginLeft:2, marginRight: 2}}>Balance: {key.balance}</Typography>
    )})}
  {/*<IconButton onClick={() => onClickBalance()}>
  <CachedIcon/>

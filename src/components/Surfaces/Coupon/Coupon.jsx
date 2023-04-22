@@ -239,7 +239,7 @@ const stakeHandler = (e) => {
       <Global
         styles={{
           '.MuiDrawer-root > .MuiPaper-root': {
-            height: `calc(40% - ${drawerBleeding}px)`,
+            height: `calc(50% - ${drawerBleeding}px)`,
             overflow: 'visible',
            
 
@@ -267,6 +267,7 @@ const stakeHandler = (e) => {
             borderTopLeftRadius: 8,
             borderTopRightRadius: 8,
             visibility: 'visible',
+            
             right: 0,
             left: 0,
             display: {md: 'none', xs: 'block', },
@@ -279,13 +280,13 @@ const stakeHandler = (e) => {
   backgroundColor: 'yellow.backgroundColor',
   borderRadius: 3,
   position: 'relative',
-  top: 12,
+  top: 8,
   left: 'calc(50% - 25px)',}}></Box>
           <Paper sx={{backgroundColor:'greenPrimaryDark.backgroundColor',
              color:'greenPrimaryDark.color', borderRadius: 0, borderTopLeftRadius: 15,
              borderTopRightRadius: 15,
              height: '8vh', width: '100%', display: 'flex',
-             flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center'}}>
+             flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', marginTop: -1}}>
              {result.length == 0 || null 
              ? <Box sx={{padding: 3, }}></Box>  
              : <Box sx={{padding: 3, }}>{result.length} choices </Box>}
@@ -333,7 +334,7 @@ const stakeHandler = (e) => {
         
 
 
-                <Box sx={{ height: '100%', marginTop: 1, paddingBottom: 2, maxHeight: 180, overflow: 'auto', display:'flex', flexDirection: 'column'}}>{marketInfoList.map((market) => (
+                <Box sx={{ height: '100%', marginTop: 1, paddingBottom: 2, maxHeight: 230, overflow: 'auto', display:'flex', flexDirection: 'column'}}>{marketInfoList.map((market) => (
                 <div  key={market.name} >
                     <div style={{display: 'flex',
                  flexDirection: 'row',
