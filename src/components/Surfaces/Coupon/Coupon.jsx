@@ -239,7 +239,7 @@ const stakeHandler = (e) => {
       <Global
         styles={{
           '.MuiDrawer-root > .MuiPaper-root': {
-            height: `calc(50% - ${drawerBleeding}px)`,
+            height: `calc(45% - ${drawerBleeding}px)`,
             overflow: 'visible',
            
 

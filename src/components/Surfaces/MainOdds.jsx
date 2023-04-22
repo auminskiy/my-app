@@ -127,14 +127,14 @@ const [open, setOpen] = React.useState(false);
    alignItems="center"
    sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, }}>
    
-   <Typography sx={{color:'yellow.backgroundColor', fontSize:'0.8em', width: '12em', marginLeft: '1em' }}>{moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')}</Typography>
+   <Typography sx={{color:'yellow.backgroundColor', fontSize:'0.8em', width: '12em', marginLeft: 1, marginRight: 1 }}>{moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')}</Typography>
   
-  <Typography  sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', width: '100%',
+  <Typography  sx={{fontSize:{xs: '.9em', md: '1em'}, backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', width: '100%',
   alignItems:"center", display:'flex', justifyContent:'flex-start', borderRadius: 0}}>{key.home_team}{'  ' }vs{ '  '}{key.away_team}
   
   </Typography>
-  {open[key.id] ? null  : <Typography>&nbsp;{key.bookmakers[0].markets.length -1=== 0 ? null : (key.bookmakers[0].markets.length -1)}</Typography>}
-  <ListItemButton sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, }} onClick={() => setOpen((prev) => ({...prev, [key.id]: !prev[key.id]}))}>
+  {open[key.id] ? null  : <Typography sx={{fontSize:{xs: '.9em', md: '1em'},}}>&nbsp;{key.bookmakers[0].markets.length -1=== 0 ? null : (key.bookmakers[0].markets.length -1)}</Typography>}
+  <ListItemButton sx={{backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, padding:0, paddingRight:1}} onClick={() => setOpen((prev) => ({...prev, [key.id]: !prev[key.id]}))}>
         {open[key.id]  ? <ExpandLess /> : (key.bookmakers[0].markets.length -1=== 0 ? null : <ExpandMore />)}
       </ListItemButton>
       
@@ -147,7 +147,7 @@ const [open, setOpen] = React.useState(false);
    
  >
 {key.bookmakers[0].markets[0] == undefined ? null : key.bookmakers[0].markets[0].outcomes.map((k, index) => {
-   return <Item  sx={{ cursor: 'pointer', backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={k.name} value={k.price} point={k.point} key={index} >
+   return <Item  sx={{  cursor: 'pointer', backgroundColor:'blackSL.backgroundColor', color:'blackSL.color', borderRadius: 0, alignItems:"center", width: '100%', display:'flex', justifyContent: 'flex-start'}} onClick={handleAddTeam} match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={k.name} value={k.price} point={k.point} key={index} >
     <Typography sx={{ cursor: 'pointer', fontSize:'0.9em', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', }}match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={k.name} value={k.price} point={k.point} >{k.name.slice( 0, 50)}</Typography>
     <Typography sx={{ cursor: 'pointer', color:'yellow.backgroundColor'}}match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={k.name} value={k.price} point={k.point} >&nbsp;{k.price}</Typography>
     <Typography sx={{ cursor: 'pointer', color:'yellow.backgroundColor'}}match={moment(key.commence_time).format('MMMM Do YYYY, h:mm:ss a')+' '+key.home_team+' '+'vs'+' '+key.away_team} data={k.name} value={k.price} point={k.point} >&nbsp;{k.point}</Typography>
