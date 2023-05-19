@@ -4,7 +4,7 @@ import { Routes, useNavigate } from 'react-router';
 import LoginForm from './LoginForm';
 import auth from '../../Firebase/firebase';
 import {Route,} from "react-router-dom";
-import Comp from '../Pages/Comp';
+import MainComponents from '../Pages/MainComponents';
 import Profile from '../Profile/Profile';
 
 
@@ -35,7 +35,7 @@ const AuthDetails = (props) => {
         <div>
             {authUser ? 
            <Routes>
-            <Route  path="/main/*" element={<Comp/>}/>
+            <Route  path="/main/*" element={<MainComponents/>}/>
       <Route  path="/lc/*" element={<Profile/>}/>
             </Routes>
              : 

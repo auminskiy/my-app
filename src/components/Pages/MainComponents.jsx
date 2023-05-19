@@ -3,19 +3,13 @@ import SportsMenu from '../Surfaces/SportsMenu';
 import { Box, Grid, Menu, Paper, SwipeableDrawer} from '@mui/material';
 import Coupon from '../Surfaces/Coupon/Coupon';
 import MainOdds from '../Surfaces/MainOdds';
-import SportsMenuCopy from '../Surfaces/SportsMenuMobile';
-import MainOdds1 from '../Surfaces/MainOdds1';
-import useStore from '../../store/useStore';
 import Coupon1 from '../Surfaces/Coupon/Coupon1';
 
 
-function Comp(props) {
+function MainComponents(props) {
 
-  const toggleOpen = useStore((state) => state.toggleOpen)
-  const open = useStore((state) => state.open)
-
-  
-
+ // const toggleOpen = useStore((state) => state.toggleOpen)
+ // const open = useStore((state) => state.open)
 
     return (
       
@@ -28,10 +22,7 @@ function Comp(props) {
             
              </Grid>
              <Grid md={7} xs={12}>
-             {/* 
-           <MainOdds1/> 
-           <MainOdds />
-           */} 
+            
             <MainOdds />
              </Grid>
              <Grid sx={{display: {md: 'flex', xs: 'none'}}} md={3}  >
@@ -54,4 +45,4 @@ function Comp(props) {
     );
 }
 
-export default Comp;
+export default MainComponents;

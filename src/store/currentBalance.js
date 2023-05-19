@@ -24,13 +24,7 @@ import { collection, getDocs, getFirestore,
 const colBal = collection(db, 'transactions')
  //const q = query(colRef, orderBy('createdAt'), where('user', "==", `${user.email}`))
 
-/*
- const querySnapshot = await getDocs(filterByUser);
- querySnapshot.forEach((doc) => {
-   // doc.data() is never undefined for query doc snapshots
-   console.log(doc.id, " => ", doc.data());
- });
-*/
+
 const currentBalance = (set, get) => ({
     transactions: [],
     snapBalance: onSnapshot(colBal, (snapshot) => {
